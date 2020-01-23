@@ -1,3 +1,6 @@
 [submodule "GB/libraries/gbdk-n"]
 	path = GB/libraries/gbdk-n
 	url = https://github.com/andreasjhkarlsson/gbdk-n.git
+[submodule "GB/libraries/gbt-player"]
+	path = GB/libraries/gbt-player
+	url = https://github.com/AntonioND/gbt-player.git
