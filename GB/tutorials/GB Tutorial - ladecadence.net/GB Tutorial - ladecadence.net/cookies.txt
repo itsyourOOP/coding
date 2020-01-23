@@ -1,0 +1,5 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+wiki.ladecadence.net	TRUE	/	FALSE	1999999999	DokuWiki	188huvm8cjjfq308kp1vborbs3
+wiki.ladecadence.net	TRUE	/	FALSE	1999999999	DW68700bfd16c2027de7de74a5a8202a6f	deleted
+

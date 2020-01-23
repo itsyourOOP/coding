@@ -1,0 +1,440 @@
+section "Header", rom0[$0100]
+                di
+                jp    Main
+                ds    75
+
+
+
+section "Data", romx,bank[1]
+Map:
+incbin          "transparency/pallet.tilemap"
+MAP             set   1024
+
+MapAttributes:  rept  MAP
+                db    $03
+                endr
+
+
+WINDOW_ATTRIBUTES set 0
+WindowAttributes:
+                rept  $400
+                db    %0001001
+WINDOW_ATTRIBUTES set WINDOW_ATTRIBUTES+1
+                endr
+
+WindowMap:
+incbin          "transparency/text.tilemap"
+WINDOW_MAP      set   128
+
+TextTiles:
+incbin          "transparency/text.2bpp"
+TEXT_TILES      set   784/16
+
+MapTiles:
+incbin          "transparency/pallet.2bpp"
+MAP_TILES       set   1488/16
+
+Sprites:
+incbin          "transparency/lyra.2bpp"
+SPRITES         set   $10
+
+section "Sprite Attributes", rom0[$0400]
+SpriteMap:      db    $80, $08, $80, %00000000
+                db    $80, $10, $81, %00000000
+                db    $80, $18, $82, %00000000
+                db    $80, $20, $83, %00000000
+                db    $88, $08, $90, %00000000
+                db    $88, $10, $91, %00000000
+                db    $88, $18, $92, %00000000
+                db    $88, $20, $93, %00000000
+                db    $90, $08, $a0, %00000000
+                db    $90, $10, $a1, %00000000
+                db    $90, $18, $a2, %00000000
+                db    $90, $20, $a3, %00000000
+                db    $98, $08, $b0, %00000000
+                db    $98, $10, $b1, %00000000
+                db    $98, $18, $b2, %00000000
+                db    $98, $20, $b3, %00000000
+
+
+
+section "V-Blank interrupt vector", rom0[$0040]
+                call  SwapBuffer
+                reti
+
+
+
+section "LCD Status interrupt vector", rom0[$0048]
+                call  Darken
+                reti
+
+
+
+section "Main", rom0[$0150]
+Main:           call Setup
+.update:        halt
+                nop
+                jr    .update
+
+
+
+section "Code", rom0;      ┌──┬LCD Control
+SwapBuffer:     ld    hl, $ff40;┌Window Display enabled?
+                ld    a,     %00100000
+                xor   [hl]
+                ld    [hl], a
+;                          ┌──┬Scroll Y
+                ld    hl, $ff42
+                ld    [hl], $40
+;                          ┌──┬Scroll X
+                ld    hl, $ff43
+                ld    [hl], $20
+;                          ┌──┬Window Y Position
+                ld    hl, $ff4a
+                ld    [hl], $90-$20
+;                          ┌──┬Window X Position minus 7
+                ld    hl, $ff4b
+                ld    [hl], $27
+
+                ld    hl, $ff68
+                ld    [hl], %10011000
+                inc   l
+                ld    [hl],%01100011 ; #181818
+                ld    [hl],%00001100
+                ld    [hl],%00110111 ; #b888f8
+                ld    [hl],%01111110
+                ld    [hl],%11101011 ; #58b8f8
+                ld    [hl],%01111110
+                ld    [hl],%11111111 ; #f8f8f8
+                ld    [hl],%01111111
+
+                ;call  TransferOAM
+                ret
+
+
+
+Darken:         ld    a, %10011000
+                ld    de, %1110011100011100
+                ld    hl, $ff68
+                ld    [hl], a
+                ld    l, $41
+.noVRAM:        bit   1, [hl]
+                jr    NZ, .noVRAM
+                ld    l, $68
+INDEX           set   %10011000
+                ld    [hl], INDEX
+                rept  $04
+                inc   l
+                ld    b, [hl]
+                ld    [hl], b
+                ld    c, [hl]
+                srl   c
+                rr    b
+                srl   c
+                rr    b
+                ld    a, b
+                and   d
+                dec   l
+                ld    [hl], INDEX
+                inc   l
+                ld    [hl], a
+                ld    a, c
+                and   e
+                ld    [hl], a
+                dec   l
+INDEX           set   INDEX + %00000010
+                endr
+                ret
+
+
+
+section "OAM DMA Transfer", hram
+TransferOAM:    ds $0b
+
+
+
+section "Setup", rom0
+Setup:;                    ┌──┬LY
+.disableLCD:    ld    hl, $ff44;┌┬Line 144, V-Blank starts
+                ld    a,       $90
+.ltLY144:       cp    [hl]
+                jr    C, @+2
+                jr    NZ, .ltLY144
+;                          ┌──┬LCD Control
+                ld    hl, $ff40;┌LCD Display enabled?
+                res             7, [hl]
+;                          ┌──┬Prepare Speed Switch, CGB Mode Only
+.switchSpeed:   ld    hl, $ff4d;┌Prepare Speed Switch?
+                set             0, [hl]
+                stop
+;                          ┌──┬Background Palette Index
+.mapPalettes:   ld    hl, $ff68;┌Auto Increment?
+                ld    [hl],    %10000000
+;                          ┌──┬Background Palette Data
+                inc   l;  $ff69
+                ;Palette 0
+                ld    [hl], %10001000
+                ld    [hl], %01000000
+                ld    [hl], %00000000
+                ld    [hl], %00000000
+                ld    [hl], %00000000
+                ld    [hl], %00000000
+                ld    [hl], %00000000
+                ld    [hl], %00000000
+                ;Palette 1
+                ld    [hl], %11111111
+                ld    [hl], %01111111
+                ld    [hl], %00000000
+                ld    [hl], %00000000
+                ld    [hl], %11111111
+                ld    [hl], %01111111
+                ld    [hl], %11111111
+                ld    [hl], %01111111
+                ;Palette 2
+                ld    [hl], %10101111 ; #f8d0b8
+                ld    [hl], %00101101
+                ld    [hl], %11001111 ; #f86860
+                ld    [hl], %00011000
+                ld    [hl], %11101001 ; #987040
+                ld    [hl], %00010000
+                ld    [hl], %11111111 ; #f8f8f8
+                ld    [hl], %01111111
+                ;Palette 3
+                ld    [hl],%01100011 ; #181818
+                ld    [hl],%00001100
+                ld    [hl],%00110111 ; #b888f8
+                ld    [hl],%01111110
+                ld    [hl],%11101011 ; #58b8f8
+                ld    [hl],%01111110
+                ld    [hl],%11111111 ; #f8f8f8
+                ld    [hl],%01111111
+
+.writeMapTiles: ld    hl, $ff51
+                ld    [hl], MapTiles/$100
+                inc   l
+                ld    [hl], MapTiles%$100
+                inc   l
+                ld    [hl], $80
+                inc   l
+                ld    [hl], $00
+                inc   l
+                ld    [hl], MAP_TILES-1
+.writeSprites:  ld    hl, $ff51
+                ld    [hl], (Sprites+$00)/$100
+                inc   l
+                ld    [hl], (Sprites+$00)%$100
+                inc   l
+                ld    [hl], $88
+                inc   l
+                ld    [hl], $00
+                inc   l
+                ld    [hl], SPRITES/4-1
+                ld    hl, $ff51
+                ld    [hl], (Sprites+$40)/$100
+                inc   l
+                ld    [hl], (Sprites+$40)%$100
+                inc   l
+                ld    [hl], $89
+                inc   l
+                ld    [hl], $00
+                inc   l
+                ld    [hl], SPRITES/4-1
+                ld    hl, $ff51
+                ld    [hl], (Sprites+$80)/$100
+                inc   l
+                ld    [hl], (Sprites+$80)%$100
+                inc   l
+                ld    [hl], $8a
+                inc   l
+                ld    [hl], $00
+                inc   l
+                ld    [hl], SPRITES/4-1
+                ld    hl, $ff51
+                ld    [hl], (Sprites+$c0)/$100
+                inc   l
+                ld    [hl], (Sprites+$c0)%$100
+                inc   l
+                ld    [hl], $8b
+                inc   l
+                ld    [hl], $00
+                inc   l
+                ld    [hl], SPRITES/4-1
+.writeMap:      ld    hl, $ff51
+                ld    [hl], Map/$100
+                inc   l
+                ld    [hl], Map%$100
+                inc   l
+                ld    [hl], $98
+                inc   l
+                ld    [hl], $00
+                inc   l
+                ld    [hl], (MAP/$10-1)
+.writePortrait: ld    hl, $9ac4
+                ld    [hl], $80
+                inc   hl
+                ld    [hl], $81
+                inc   hl
+                ld    [hl], $82
+                inc   hl
+                ld    [hl], $83
+                rept  $20-$03
+                inc   hl
+                endr
+                ld    [hl], $90
+                inc   hl
+                ld    [hl], $91
+                inc   hl
+                ld    [hl], $92
+                inc   hl
+                ld    [hl], $93
+                rept  $20-$03
+                inc   hl
+                endr
+                ld    [hl], $a0
+                inc   hl
+                ld    [hl], $a1
+                inc   hl
+                ld    [hl], $a2
+                inc   hl
+                ld    [hl], $a3
+                rept  $20-$03
+                inc   hl
+                endr
+                ld    [hl], $b0
+                inc   hl
+                ld    [hl], $b1
+                inc   hl
+                ld    [hl], $b2
+                inc   hl
+                ld    [hl], $b3
+                rept  $20-$03
+                inc   hl
+                endr
+;                          ┌──┬LCD VRAM Bank
+.writeTextTiles:ld    hl, $ff4f;┌VRAM Bank = 1
+                set             0, [hl]
+                ld    hl, $ff51
+                ld    [hl], TextTiles/$100
+                inc   l
+                ld    [hl], TextTiles%$100
+                inc   l
+                ld    [hl], $80
+                inc   l
+                ld    [hl], $00
+                inc   l
+                ld    [hl], (TEXT_TILES-1)
+.writeMapAttributes:
+                ld    hl, $ff51
+                ld    [hl], MapAttributes/$100
+                inc   l
+                ld    [hl], MapAttributes%$100
+                inc   l
+                ld    [hl], $98
+                inc   l
+                ld    [hl], $00
+                inc   l
+                ld    [hl], (MAP/$10-1)
+.writePortraitAttributes:
+                ld    hl, $9ac4
+                ld    [hl], $02
+                inc   hl
+                ld    [hl], $02
+                inc   hl
+                ld    [hl], $02
+                inc   hl
+                ld    [hl], $02
+                rept  $20-$03
+                inc   hl
+                endr
+                ld    [hl], $02
+                inc   hl
+                ld    [hl], $02
+                inc   hl
+                ld    [hl], $02
+                inc   hl
+                ld    [hl], $02
+                rept  $20-$03
+                inc   hl
+                endr
+                ld    [hl], $02
+                inc   hl
+                ld    [hl], $02
+                inc   hl
+                ld    [hl], $02
+                inc   hl
+                ld    [hl], $02
+                rept  $20-$03
+                inc   hl
+                endr
+                ld    [hl], $02
+                inc   hl
+                ld    [hl], $02
+                inc   hl
+                ld    [hl], $02
+                inc   hl
+                ld    [hl], $02
+                rept  $20-$03
+                inc   hl
+                endr
+.writeWindowAttributes:
+                ld    hl, $ff51
+                ld    [hl], WindowAttributes/$100
+                inc   l
+                ld    [hl], WindowAttributes%$100
+                inc   l
+                ld    [hl], $9c
+                inc   l
+                ld    [hl], $00
+                inc   l
+                ld    [hl], (WINDOW_ATTRIBUTES/$10-1)
+;                          ┌──┬LCD VRAM Bank
+                ld    hl, $ff4f;┌VRAM Bank = 0
+                res             0, [hl]
+.writeWindowMap:ld    hl, $ff51
+                ld    [hl], WindowMap/$100
+                inc   l
+                ld    [hl], WindowMap%$100
+                inc   l
+                ld    [hl], $9c
+                inc   l
+                ld    [hl], $00
+                inc   l
+                ld    [hl], (WINDOW_MAP/$10-1)
+.writeOAMTransfer:
+                ld    hl, RAMTransferOAM
+                ld    de, TransferOAM
+                rept $0b
+                ld    a, [hl+]
+                ld    [de], a
+                inc   de
+                endr
+;                          ┌──┬LCD Control
+.selectWindow:  ld    hl, $ff40;┌Window Tile Map Display Select = $9c00-$9fff
+                set             6, [hl]
+.enableSprites:;                ┌BG and Window Master Priority
+                set             1, [hl]
+;                     ┌LCD Display enabled?
+.enableLCD:     set   7, [hl]
+.enableInterrupts:;        ┌──┬Interrupt Enable
+                ld    hl, $ffff;┌V-Blank interrupt enabled?
+                set             0, [hl]
+                set             1, [hl];LCD Status
+;                          ┌──┬LCD Status
+                ld    hl, $ff41;┌LYC=LY Coincidence Interrupt Enabled?
+                set             6, [hl]
+                ld    hl, $ff45
+                ld    [hl], $6f
+                reti
+
+
+
+RAMTransferOAM: ld    hl, $ff46
+                ld    [hl], $04
+                ld    a, $28
+.wait:          dec   a
+                jr    NZ, .wait
+                ret
+
+
+
+; vim:filetype=rgbds expandtab softtabstop=2

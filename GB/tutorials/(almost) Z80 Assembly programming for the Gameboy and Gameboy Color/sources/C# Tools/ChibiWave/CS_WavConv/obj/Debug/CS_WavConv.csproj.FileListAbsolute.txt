@@ -1,0 +1,16 @@
+X:\CS_WavConv\CS_WavConv\bin\Debug\CS_WavConv.exe
+X:\CS_WavConv\CS_WavConv\bin\Debug\CS_WavConv.pdb
+X:\CS_WavConv\CS_WavConv\obj\Debug\ResolveAssemblyReference.cache
+X:\CS_WavConv\CS_WavConv\obj\Debug\WindowsFormsApplication1.Form1.resources
+X:\CS_WavConv\CS_WavConv\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+X:\CS_WavConv\CS_WavConv\obj\Debug\CS_WavConv.csproj.GenerateResource.Cache
+X:\CS_WavConv\CS_WavConv\obj\Debug\CS_WavConv.exe
+X:\CS_WavConv\CS_WavConv\obj\Debug\CS_WavConv.pdb
+F:\Progs\CS_WavConv\CS_WavConv\obj\Debug\CS_WavConv.exe
+F:\Progs\CS_WavConv\CS_WavConv\obj\Debug\CS_WavConv.pdb
+F:\Progs\CS_WavConv\CS_WavConv\obj\Debug\ResolveAssemblyReference.cache
+F:\Progs\CS_WavConv\CS_WavConv\obj\Debug\WindowsFormsApplication1.Form1.resources
+F:\Progs\CS_WavConv\CS_WavConv\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+F:\Progs\CS_WavConv\CS_WavConv\obj\Debug\CS_WavConv.csproj.GenerateResource.Cache
+F:\Progs\CS_WavConv\CS_WavConv\bin\Debug\CS_WavConv.exe
+F:\Progs\CS_WavConv\CS_WavConv\bin\Debug\CS_WavConv.pdb

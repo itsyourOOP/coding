@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>exezin</title>
+    <description></description>
+    <link>https://exez.in</link>
+    <atom:link href="https://exez.in/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 14 Jun 2019 20:34:31 +0100</pubDate>
+    <lastBuildDate>Fri, 14 Jun 2019 20:34:31 +0100</lastBuildDate>
+    <generator>Jekyll v3.1.6</generator>
+    
+      <item>
+        <title>/posts/gameboy-dma</title>
+        <description>
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tasm&quot; data-lang=&quot;tasm&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;; A brief introduction&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The purpose of this article is to explain DMA transfers on the Gameboy, specifically how to use them.  We will be going over some
+assembly code examples, as well as a bit of disassembled code from one of my favorite Gameboy games, Megaman.  By the end of this article
+you should have a strong understanding of not only what a DMA transfer is, but how to use them in your own homebrew games.&lt;/p&gt;
+
+&lt;p&gt;This article does not cover the basics of Gameboy homebrew, and it assumes you have at least a little understanding of assembly and/or the Gameboy, etc.  Many topics are
+only glanced at because teaching them is out of the scope of this article, other such articles exist and I recommend doing your research beforehand.  Should anyone feel
+stuck or confused about anything, feel free to contact me on IRC or twitter and I will help to the best of my ability.&lt;/p&gt;
+
+&lt;p&gt;The code in this article is written specifically for &lt;a href=&quot;https://github.com/bentley/rgbds&quot;&gt;RGBASM&lt;/a&gt;. The tools used are &lt;a href=&quot;https://github.com/exezin/gb-convert&quot;&gt;gb-convert&lt;/a&gt;, my own tool
+to convert images to data supported by the Gameboy.  And various reverse-engineering tools such as &lt;a href=&quot;https://github.com/radare/radare2&quot;&gt;Radare2&lt;/a&gt;, to disassemble the Megaman rom.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://bgb.bircd.org/pandocs.htm&quot;&gt;Using the all-mighty Gameboy pandoc as a reference, I recommend you do the same.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;If you require a working example of the code covered in this article, feel free to check out my most recent homebrew 
+game &lt;a href=&quot;https://github.com/exezin/exeman&quot;&gt;Exeman&lt;/a&gt; on github, which I wrote for Ludumdare 38.&lt;/p&gt;
+
+&lt;p&gt;So without further ado, lets get started..&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tasm&quot; data-lang=&quot;tasm&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;; OAM and its relation to sprites&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If you have toyed with game development in the past, chances are you know what a “sprite” is.  For those unfamiliar with the term, a sprite
+is essentially just a 2D image of arbitrary size, in the context of games it is generally used to refer to entities, moving objects, etc.&lt;/p&gt;
+
+&lt;p&gt;The same is true for the Gameboy, with one exception being the size of the image.  On the Gameboy sprites are limited to two possible sizes,
+one being 8x8, the other being 8x16.  Pretty small right?  Due to these limitations you have to form larger sprites by stitching numerous small sprites together.&lt;/p&gt;
+
+&lt;p&gt;The sprites actually get their image from a larger image split up into either 8x8 or 8x16 “tiles”, we will refer to this as a “tile map”.  Every sprite has a number
+associated with it which corresponds to one of the tiles in our tile map.&lt;/p&gt;
+
+&lt;p&gt;To render sprites we need to utilize what is referred to as the “OAM”, or “Object Attribute Memory”.  All this really is, is a memory location that is used to store the information
+of each sprite.  On the Gameboy the OAM is a 160-byte long chunk of memory, and each sprite takes up 4 bytes which leaves just enough room for exactly 40 sprites.&lt;/p&gt;
+
+&lt;p&gt;So what are these 4 bytes for?  Well, those 4 bytes are used to store some information about each sprite. The information being the following:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;1: Y location
+2: X location
+3: Tile number
+4: Flags&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The first two bytes store the position of our sprite in the game world.  The third byte stores the tile number which corresponds to a tile in our tile map.  And the fourth byte
+stores numerous attributes in its bits.  Those attributes are as follows:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;7: Render priority
+6: Y flip
+5: X flip
+4: Palette number       (GB Color only)
+3: VRAM bank            (GB Color only)
+2: Palette number bit 3 (GB Color only)
+1: Palette number bit 2 (GB Color only)
+0: Palette number bit 1 (GB Color only)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Knowing this, lets take a look at Megaman.  On the left we have Megaman as seen in the game world.  At the top right we have our tile map, and at the bottom right we have the OAM
+sprites.  Megaman consists of 12 sprites in total.  This number could be reduced to 6 if it were to use 8x16 tiles.  Also note that Megaman is facing the opposite direction of the
+tiles.  This is done by setting the 5th bit in the flags attribute to 1, which enables mirroring on the X axis.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/Z99zL9R.png&quot; alt=&quot;Megaman&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So we know we need 4 bytes per sprite, but how would that look in code?  Well here’s a quick example.  I use a separate file for my OAM variables to keep things organized.  We’ll define
+these bytes somewhere in work RAM because they are going to get changed a lot while the game is running.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tasm&quot; data-lang=&quot;tasm&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;SECTION&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;OAM Vars&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;WRAM0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;C100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;megaman_sprites:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;DS&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;megaman_bullets:&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;DS&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;As you can see, we are defining these in WRAM0, which is work RAM, at address $C100 onwards.  Because Megaman consists of 12 sprites, and each sprite requires 4 bytes, we reserve 48 bytes.
+We also reserve enough space for 4 projectiles.  Setting these bytes to a specific value is nice and easy, lets set the position of the first bullet to X 32 and Y 24.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tasm&quot; data-lang=&quot;tasm&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;; byte 1 is the Y position&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;megaman_bullets&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;; byte 2 is the X position&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;megaman_bullets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Pretty straightforward huh? So far we have stored the bytes for the sprites in work RAM not OAM, and until we get those bytes to the OAM nothing will happen.  So why don’t we just define
+these bytes in OAM?  Well the thing with OAM is that much like VRAM, we can not access it while the display is updating (Which is a lot of the time!).  This is where the so-called “DMA” comes into play.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tasm&quot; data-lang=&quot;tasm&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;; DMA transfers, and how to use them&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So we know what the OAM is, we know we need 4 bytes per sprite, and that larger sprites are comprised of numerous smaller ones.  We’ve got the OAM sprite data stored in RAM, but now we
+need to get them to OAM.  Manually accessing the OAM is impossible while the display is updating, and as this is most of the time accessing it manually just isn’t an option.&lt;/p&gt;
+
+&lt;p&gt;This is where DMA, or “Direct Memory Access” steps in.  DMA transfers copy data from ROM or RAM to the OAM in a timely manner.  Getting these to function takes a little bit of work and
+understanding.  There are a few quirks we need to learn and work around.  Most notably, the CPU can only access HRAM (which is memory between locations $FF80 - $FFFE) while a DMA transfer
+is taking place.  On top of that DMA transfers take roughly 160 microseconds so we’re going to need to do something interesting to make this work.&lt;/p&gt;
+
+&lt;p&gt;First off, lets go over the code required to make a DMA happen.  To do so we need to write some data to a location in memory, this location is actually a register and it resides at $FF46.
+As soon as anything is written to this location, a DMA transfer will begin.  We also need to specify a location for the DMA transfer to copy data from, and the location we want is $C100,
+which is where we have stored our OAM bytes.  The way to specify this is by loading the upper half of the address into the DMA register.  Because the register is a single byte we can not
+give it our entire address $C100, which is two bytes.  So we give it the upper half $C1, and the second half defaults to $00 leaving it with the address $C100.&lt;/p&gt;
+
+&lt;p&gt;Lets see what a DMA transfer would look like in assembly.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tasm&quot; data-lang=&quot;tasm&quot;&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;; first we load $C1 into the DMA register at $FF46&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;      &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;C1&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;      &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;FF46&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; DMA transfer begins, we need to wait 160 microseconds while it transfers&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;; the following loop takes exactly that long&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;      &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;.loop:&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;dec&lt;/span&gt;     &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;jr&lt;/span&gt;      &lt;span class=&quot;nv&quot;&gt;nz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;.loop&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;ret&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So, we load $C1 into the DMA register which is at $FF46, the DMA transfer begins immediately and we wait 160 microseconds for it to finish.  Pretty simple huh?  If only life was that easy..&lt;/p&gt;
+
+&lt;p&gt;As I mentioned before, while the DMA transfer is in progress the CPU can only access HRAM, as the above subroutine would reside in ROM this would simply not work.  So we need a workaround
+for this, and as it turns out one exists thats not overly difficult to implement.  What we need to do is copy the above subroutine from ROM where it resides, into HRAM.  Along with this
+DMA subroutine, we are also going to need one to copy it into HRAM.&lt;/p&gt;
+
+&lt;p&gt;To make life a little less difficult for ourselves, we are going to assemble the DMA subroutine above and store it as a bunch of hex numbers in our ROM.  I’m going to save you some time and
+hassle and do that part for you.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tasm&quot; data-lang=&quot;tasm&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;DMA_COPY:&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;; load de with the HRAM destination address&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;de&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;FF80&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; whats this? read on..&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;rst&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; the amount of data we want to copy into HRAM, $000D which is 13 bytes&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;DB&lt;/span&gt;  &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;00&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;D&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; this is the above DMA subroutine hand assembled, which is 13 bytes long&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;DB&lt;/span&gt;  &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;F5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;E&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;C1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;EA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;46&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;FF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;E&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;D&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;FD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;F1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;D9&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;ret&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Looks a little confusing, doesn’t it?  At first glance this subroutine is pretty unintuitive so I’ll break it down for you.&lt;/p&gt;
+
+&lt;p&gt;First, we load de with the destination address for our copy subroutine, which is HRAM, $FF80.  Next is this weird “rst” opcode, for those unfamiliar the Gameboy has a limited number of
+special subroutines that reside at the beginning of the ROM.  These subroutines are known as a restart/interrupt vector table.  Some of them are called when certain things meet a set
+condition.  For example one such subroutine is called when a so called “V-Blank” occurs, which is right after the display has finished updating for that frame.  What resides in these
+subroutines is down to you.  We are going to take advantage of these and put our copy subroutine into one.  The reason for this is that a “call” opcode takes 3 bytes, while a “rst” opcode
+takes 1, essentially it is a little bit faster.&lt;/p&gt;
+
+&lt;p&gt;After that we have two bytes, $00 and $0D.  We use these to tell our copy subroutine how much data we want to copy, which in this context is 13 bytes, or $000D.&lt;/p&gt;
+
+&lt;p&gt;Following those two bytes, we have 13 bytes.  Those bytes are the DMA subroutine we covered earlier hand assembled into their hexadecimal opcode numbers.  This just makes copying them a
+little easier.&lt;/p&gt;
+
+&lt;p&gt;For those of you wanting to confirm that those 13 bytes are actually the above DMA subroutine, you can do so using the &lt;a href=&quot;https://github.com/radare/radare2&quot;&gt;Radare2&lt;/a&gt; tool “rasm2”.  Here’s how:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;$ rasm2 -a gb -d &amp;quot;F5 3E C1 EA 46 FF 3E 28 3D 20 FD F1 D9&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So now that we have that out of the way, we need to write our copy subroutine that will reside in the reset vector table at $28.  I have the following code defined in the file that also
+defines my header contents.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tasm&quot; data-lang=&quot;tasm&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;; copy x-bytes to [de]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SECTION&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Copy Data&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ROM0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;COPY_DATA:&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;; pop return address off stack into hl&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;pop&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hl&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;bc&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; here we get the number of bytes to copy&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;; hl contains the address of the bytes following the &amp;quot;rst $28&amp;quot; call&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; put first byte into b ($00 in this context)&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;hli&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; put second byte into c ($0D in this context)&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;hli&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; bc now contains $000D&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;; hl now points to the first byte of our assembled subroutine (which is $F5)&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;; begin copying data&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;.copy_data_loop&lt;/span&gt;
+  
+  &lt;span class=&quot;c1&quot;&gt;; load a byte of data into a&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;hli&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; store the byte in de, our destination ($FF80 in this context)&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;de&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;
+  
+  &lt;span class=&quot;c1&quot;&gt;; go to the next destination byte, decrease counter&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;inc&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;de&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;dec&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;bc&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; check if counter is zero, if not repeat loop&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;ld&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;b&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;or&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;c&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;jr&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;nz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;.copy_data_loop&lt;/span&gt;
+  
+  &lt;span class=&quot;c1&quot;&gt;; all done, return home&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;pop&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;bc&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;jp&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;hl&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;reti&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So to go over it again, this is a subroutine that resides at the top of the ROM in one of the reset vectors, specifically $28.  First we pop the top of the stack into hl, the reason for
+this is that the top of the stack is currently the return address, which is the byte right after “rst $28”.  hl now contains that address and we use this to first get the number of bytes
+we want to copy. We load the first byte into b which is $00, at the same time the “hli” opcode increase hl to the following byte, and we store that byte in c, which is $0D.  Now bc
+contains the number of bytes we want to copy.&lt;/p&gt;
+
+&lt;p&gt;Now the copy loop begins, first we load a byte of the data into a and increase hl to the next byte.  We then load a into de, our destination, and increase de to the next destination byte
+and decrease bc, our counter.  We then check to see if our counter bc is at zero, if it is not we loop again copying the next byte, if it is we are all done and return to the caller.&lt;/p&gt;
+
+&lt;p&gt;Now we have those subroutines out of the way, we can implement them into our game loop. The first thing we want to do is call our “DMA_COPY” subroutine, we only want to call this once
+as the assembled DMA subroutine will reside in HRAM for the remainder of the game.  After this the game loop begins, now we need to call the subroutine from HRAM.  We want to do this
+every frame so as to keep the OAM updated with the latest information about or sprites.  Here’s what that code might look like:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tasm&quot; data-lang=&quot;tasm&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;SECTION&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Program Start&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ROM0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;150&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;START:&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;; *enable everything here*&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; move DMA subroutine to HRAM&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;DMA_COPY&lt;/span&gt;
+
+&lt;span class=&quot;nl&quot;&gt;.game_loop:&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; wait for the display to finish updating&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;WAIT_VBLANK&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; update megaman and the OAM bytes&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;MEGAMAN_UPDATE&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;; call the DMA subroutine we copied to HRAM&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;; which then copies the bytes to the OAM and sprites begin to draw&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;call&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;FF80&lt;/span&gt;
+  &lt;span class=&quot;nf&quot;&gt;jp&lt;/span&gt;  &lt;span class=&quot;nv&quot;&gt;.game_loop&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And, hey presto, its done!  Suddenly its less daunting once you take it apart bit by bit huh?&lt;/p&gt;
+
+&lt;p&gt;For the sake of cementing the concept I want to briefly go over the use of DMA transfers in commercial games and take a peek at the code behind it.  While the code will be very much
+the same as ours I think its interesting to take apart a commercial game made by professionals and see just how similar our is to theirs.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tasm&quot; data-lang=&quot;tasm&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;; Cracking open Megaman.gb&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So we have the Megaman ROM open in our favorite disassembler, the first thing we will need to do is locate either the DMA subroutine, or a subroutine that copies it to HRAM.  First
+I’m going to do a search for DMA register and see what we can find.  Doing so brings up this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tasm&quot; data-lang=&quot;tasm&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;E0&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;ld&lt;/span&gt;      &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;C0&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;E2&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;ld&lt;/span&gt;      &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;FF46&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;E4&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;ld&lt;/span&gt;      &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;E6&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;loc_15E6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;E6&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;dec&lt;/span&gt;     &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;E7&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;jr&lt;/span&gt;      &lt;span class=&quot;nv&quot;&gt;nz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;loc_15E6&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;E9&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;ret&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Huh, that appears to be a DMA transfer subroutine just like ours.  They are
+using the location $C000 for OAM data.  Lets see if we can find
+the subroutine that copies this to HRAM.&lt;/p&gt;
+
+&lt;p&gt;Getting the address of the first byte for the above assembly code and searching for it brings up the following:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tasm&quot; data-lang=&quot;tasm&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;D2&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; ========== S U B R O U T I N E ==========&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;D2&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;sub_15D2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;D2&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;ld&lt;/span&gt;      &lt;span class=&quot;nv&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;D4&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;ld&lt;/span&gt;      &lt;span class=&quot;nv&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;A&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;D6&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;ld&lt;/span&gt;      &lt;span class=&quot;nv&quot;&gt;hl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;E0&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;D9&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;loc_15D9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;D9&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;ldi&lt;/span&gt;     &lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;hl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DA&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;ld&lt;/span&gt;      &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;a&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;DB&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;inc&lt;/span&gt;     &lt;span class=&quot;nv&quot;&gt;c&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DC&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;dec&lt;/span&gt;     &lt;span class=&quot;nv&quot;&gt;b&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;DD&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;jr&lt;/span&gt;      &lt;span class=&quot;nv&quot;&gt;nz&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;loc_15D9&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DF&lt;/span&gt;    &lt;span class=&quot;nv&quot;&gt;ret&lt;/span&gt;
+&lt;span class=&quot;nl&quot;&gt;ROM:&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;DF&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;; End of function sub_15D2&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;At a glance, that does indeed look like a subroutine that copies something.  Whats odd is that it appears to be copying to the address in C, which starts at $80?&lt;/p&gt;
+
+&lt;p&gt;Obviously its not copying to the address $80, that wouldn’t make any sense.  It looks like its actually a slightly different opcode and my disassembler just isn’t making note of it.
+Checking out the hex dump for the address that contains “ld [c],a” gives us $E2.&lt;/p&gt;
+
+&lt;p&gt;Giving this hexadecimal number to rasm2 produces the expected output.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&lt;span&gt;&lt;/span&gt;$ rasm2 -a gb -d &amp;quot;E2&amp;quot;
+$ &amp;quot;ld [0xff00 + c], a&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So it appears this subroutine is copying the DMA subroutine at $15E0, to HRAM at $FF80.  This method is perhaps a little more eloquent than ours as it uses less registers and 
+generally less code overall.  Though it isn’t using a reset vector subroutine like we are.&lt;/p&gt;
+
+&lt;p&gt;Not much to look at, but its interesting making the comparison and seeing how it was done in the commercial world.  Disassembling commercial games is often a good opportunity to
+learn something new and get insight into different ways to approach a problem.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-tasm&quot; data-lang=&quot;tasm&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;; Final notes&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;I hope by this point you have a firm understanding of OAM, DMA, and how to implement it into your own projects.  The reason for this article is that while most other topics on Gameboy
+homebrew are pretty well covered, I couldn’t personally find a lot of information on DMA transfers and struggled for a little bit.  Hopefully this helps someone avoid the difficulties I had
+with DMA transfers.&lt;/p&gt;
+
+&lt;p&gt;If you find yourself stuck, confused, or notice something wrong in this article feel free to contact me via IRC or Twitter.  Contributions and fixes are more then welcome and I look
+forward to perhaps doing more articles like this in the future.&lt;/p&gt;
+
+&lt;p&gt;o7&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 05 Jun 2017 14:24:00 +0100</pubDate>
+        <link>https://exez.in/gameboy-dma</link>
+        <guid isPermaLink="true">https://exez.in/gameboy-dma</guid>
+        
+        
+        <category>asm</category>
+        
+      </item>
+    
+      <item>
+        <title>/posts/conf-parser</title>
+        <description>
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// A quick overview&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;When starting a new project in C I tend to focus on getting a config parser functional before I do any real work on the project.
+Originally, I would dig around online for some header-only library to do this for me, the downside being that these libraries tend to be
+bloated with features I’ll never make use of.  So I’ve devised my own simple key/value config parser.  This article is a tutorial on implementing said config parser.  You can find my more feature-complete version of this &lt;a href=&quot;https://github.com/exezin/exelib&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This implementation is intentionally hack-ish with the intention of being very simple and short.  Towards the end of this article I will go over the issues that this implementation suffers from and what you could do to improve and fix these issues.&lt;/p&gt;
+
+&lt;p&gt;First lets take a look at an example config file we’ll be parsing.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-properties&quot; data-lang=&quot;properties&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;number_val&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;123 &lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;string_val&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;hello_i_am_string&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;123312&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;some_file&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;As you can see, the key value pairs are split with only a space.  A key is always a string, but a value is either a string or an integer.  Parsing this will be pretty straight forward, and due to the pairs being separated with a space instead of a “=” symbol we can cut some corners when it comes down to checking syntax.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// Loading the file&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Before we even think about parsing the config file, we need to load it.  We’re taking the header-only approach here as the code required is minimal, hence the frequency of the “static” keyword.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;read_file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// load the file in (r)ead mode&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;FILE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;r&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;could not load file %s&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// get the file length&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;fseek&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SEEK_END&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;size_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ftell&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;rewind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// allocate enough space for file data&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buff&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;malloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// read file contents into buffer&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;fread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// null-terminate the buffer&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;buff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;\0&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// close the file&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;fclose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// dont forget to free buff once we are done with it&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This is a simple function so I wont go over it to much as the comments should be sufficient information.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// Parsing the file contents&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now it’s time to parse the config.  To do this we will be using the strtok function to “tokenize” the file contents.  strtok mangles the given string, so we’ll create a duplicate of buff and use that with strtok, keeping our buff intact for future use.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// the includes we&amp;#39;ll need&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;inttypes.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;stdlib.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;ctype.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include&lt;/span&gt; &lt;span class=&quot;cpf&quot;&gt;&amp;lt;string.h&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// duplicate buff&amp;#39;s contents&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strlen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;strcpy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We should probably do some basic error checking, as I said previously due to the key value pairs being separated by a space this is pretty simple to do.  The easiest (albeit hack-ish) method would be to obtain the number of tokens, and see if they are divisible by two, if they are not then there’s a key with a missing value somewhere.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// get token count&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t_count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strtok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;t_count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strtok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// should be divisible by two&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t_count&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Syntax error in config file %s&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Config key is missing a value&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;free&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;buff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now we can start parsing the tokens. But wait! We are going to need some data structure to store the key value pairs.  For this we’ll use a struct containing a string for the token, an indicator of the values type, and a union to store the actual value.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// our value-type enum&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;conf_type_undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;conf_type_int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;conf_type_string&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;conf_type_e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// the struct for each key value pair&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;conf_type_e&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;union&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;256&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;conf_var_t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now we have these, we can load and store our key value pairs.  Because we want the ability to have arbitrarily-sized config files, lets create an array of conf_var_t.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// allocate space for key value pairs&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t_count&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;conf_var_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vars&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;malloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf_var_t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now we’ve got all of that down, we can actually write the parser, for real this time.  Last time we used strtok it mangled our buff copy, so lets re-create that copy and find the first token.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// duplicate buff again&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;strcpy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// find the first token&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strtok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Essentially what strtok does, is split up the given string by the given delimiters.  In this case we pass the delimiters “ \t\n”, which is an empty space, tab-character, or newline.  “token” should now point to the first key in the file.  We want to automate this as much as possible so we’ll need a few temporary variables.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So, we start with the first token, which is the first key in the config file.  As every key should be followed by a value, we can interpret the first token as a key, the following as a value, the following as a key, and so on and so forth.  We’ll use the ‘t’ variable to indicate that we are at a key or value, 0 being key, 1 being value.  The following code resides in the while loop.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// we are at a key, so copy the key string into our array&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;strcpy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// we are a value&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;As you can see the keys where pretty easy to handle, due to them only ever being strings.  Next we need some code within the else statement to figure out if our value is a string or integer.  The easiest way is to devise a function that determines if our value is a number or not.  I wont go into this much as its function should be pretty obvious.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;inline&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;is_number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;\0&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isspace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;strtod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;\0&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So now we’ve got a way to determine the type of a value, lets go back to that else function and put it to use.  In the case of an number value, we convert the string to a integer, and set the type to conf_type_int.  In the case of a string, we copy the string into the value and set the type to conf_type_string.  After which we increase i, which is the array index.  And so ends the else-statement.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;vars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;atoi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;vars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;conf_type_int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;strcpy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;vars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;conf_type_string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The last bit of code for the while loop is small, but its also the most important.  We switch the t variable, so that the next loop iteration knows if its dealing with a key or value.  And we get the next token.  The strtok call takes the same delimiter as before, but this time we pass NULL, instead of a string.  The reason for this is that strtok keeps track of what its working with between strtok calls, so we pass NULL to let strtok know we want to continue tokenizing the same string.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;is_number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// switch between a key and a value&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// get the next token in str&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strtok&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\t\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And so ends the parser.  The only thing left to do now would be to write some small getter functions that take a key and return the value at said key in the array.  You’ll want one for both string and integer values.  I’ll write the integer one and let you figure out the rest on your own as the code is almost identical.  Also remember to free the vars array after you are done with it!&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;conf_get_int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf_var_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// iterate over vars and find a key that matches&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;conf_var_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strcmp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// if we find a key, return its value&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;conf_type_int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;// no key found&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+ &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// Final thoughts&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This is a pretty quick and easy implementation of a &lt;em&gt;very&lt;/em&gt; simple key value config parser. As I noted at the start there exist some issues with it, specifically the error checking. Currently we check to see if the amount of tokens is divisible by two, and in the case that its not, an error is thrown and it doesn’t parse the config. Ideally the parser should be able to discard any keys that have no value and continue parsing the rest of the config, but I’ll leave that for you to implement should you find it necessary.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 26 Mar 2017 14:24:00 +0100</pubDate>
+        <link>https://exez.in/conf-parser</link>
+        <guid isPermaLink="true">https://exez.in/conf-parser</guid>
+        
+        
+        <category>c</category>
+        
+      </item>
+    
+  </channel>
+</rss>

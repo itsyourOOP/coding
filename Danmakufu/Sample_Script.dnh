@@ -1,0 +1,79 @@
+	#TouhouDanmakufu[Single]
+	#ScriptVersion[3]
+	#Title["Star Sign「Midnight Reverie」"]
+	#Text["EX Rumia's First Spell Card : Star Sign「Midnight Reverie」"]
+	#Image["./img/ExRumia(星符「ミッドナイトレヴァリエ」).png"]
+	#Background["script/default_system/Default_Background_IceMountain.txt"]
+
+	#include"script/default_system/Default_ShotConst.txt"
+	#include"script/default_system/Default_Effect.txt"
+
+	let objEnemy;
+	let bConcentrationMotion = false;
+	@Initialize
+	{
+		objEnemy = ObjEnemy_Create(OBJ_ENEMY_BOSS);
+		ObjEnemy_Regist(objEnemy);
+		ObjEnemy_SetDamageRate(objEnemy, 10, 10);//Sets damage rate to 10%
+		TWork;
+		TRender;
+		TEnd;
+
+		DeleteShotAll(TYPE_ALL, TYPE_ITEM);//Removes all enemy bullets upon appearance	
+	}
+
+	@MainLoop
+	{
+		let ex = ObjMove_GetX(objEnemy);
+		let ey = ObjMove_GetY(objEnemy);
+		ObjEnemy_SetIntersectionCircleToShot(objEnemy, ex, ey, 32);//Sets the hitbox against player bullets
+		ObjEnemy_SetIntersectionCircleToPlayer(objEnemy, ex, ey, 24);//Sets the hitbox against the player
+
+		yield;
+	}
+
+	@Event
+	{
+		alternative(GetEventType())
+		case(EV_REQUEST_LIFE)
+		{
+			SetScriptResult(1500);//Sets the life to 1500
+		}
+		case(EV_REQUEST_TIMER)
+		{
+			SetScriptResult(60);//Sets the time limit to 60
+		}
+		case(EV_REQUEST_SPELL_SCORE)
+		{
+			SetScriptResult(30000);//Sets spellcard bonus to 30000 points
+		}
+	}
+
+
+	//And other enemy controllers
+
+	//----------------------------------------------------
+	//End Standby tasks
+	//----------------------------------------------------
+	task TEnd
+	{
+		while(ObjEnemy_GetInfo(objEnemy, INFO_LIFE) > 0)
+		{
+			yield;
+		}
+
+		let ex = ObjMove_GetX(objEnemy);
+		let ey = ObjMove_GetY(objEnemy);
+		TExplosionA(ex, ey, 10, 0.6);
+		DeleteShotAll(TYPE_ALL, TYPE_ITEM);//Removes all enemy bullets	
+
+		//When making plural scripts,
+		//Deleting the enemy allows the plural script to proceed on to the next script.
+		//Do not forget to delete the enemy.
+		Obj_Delete(objEnemy);
+
+		loop(30){yield;}
+
+		//Please close the script at the end
+		CloseScript(GetOwnScriptID());
+	}

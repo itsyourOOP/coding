@@ -1,0 +1,172 @@
+﻿ private void Do4Bit()
+        {
+            double[] left;
+            double[] right;
+            openWav(txtSrc.Text, out left, out right);
+            System.IO.BinaryWriter BW = new System.IO.BinaryWriter(System.IO.File.Open(DestFile, System.IO.FileMode.Create));
+            
+            for (int pos = 0; pos < left.Length; pos += step)
+            {
+
+                byte b = 0;
+                int thisd = 0;
+                for (int i = 0; i < step; i++)
+                {
+                    thisd += (int)(left[pos + i] * 32768);
+                }
+                thisd = thisd / step;
+
+                b = (byte)((thisd  / 256) + 128);
+                b = (byte)(b / 16);
+                // VbX.MsgBox(left[pos].ToString() + " " + b.ToString());
+                BW.Write(b);
+
+            }
+            BW.Close();
+        }
+     private void Do1BitPacked()
+        {
+            double[] left;
+            double[] right;
+            openWav(txtSrc.Text, out left, out right);
+            System.IO.BinaryWriter BW = new System.IO.BinaryWriter(System.IO.File.Open(DestFile, System.IO.FileMode.Create));
+            
+            byte b2 = 0;
+            int packed = 0;
+            for (int pos = 0; pos <= left.Length - step; pos += step)
+            {
+
+                byte b = 0;
+                int thisd = 0;
+                for (int i = 0; i < step; i++)
+                {
+                    thisd += (int)(left[pos + i] * 32768);
+                }
+                thisd = thisd / step;
+
+                b = (byte)((thisd  / 256) + 128);
+                b2 = (byte)(b2 + (b / 128));
+                ;
+                // VbX.MsgBox(left[pos].ToString() + " " + b.ToString());
+                packed++;
+                if (packed == 8)
+                {
+
+                    packed = 0;
+                    BW.Write(b2);
+                    b2 = 0;
+                }
+                else
+                {
+                    b2 = (byte)(b2 * 2);
+                }
+
+            }
+            BW.Close();
+        }
+        private void Do2BitPacked()
+        {
+            double[] left;
+            double[] right;
+            openWav(txtSrc.Text, out left, out right);
+            System.IO.BinaryWriter BW = new System.IO.BinaryWriter(System.IO.File.Open(DestFile, System.IO.FileMode.Create));
+            
+            byte b2 = 0;
+            int packed = 0;
+            for (int pos = 0; pos <= left.Length-step; pos += step)
+            {
+
+                byte b = 0;
+                int thisd = 0;
+                for (int i = 0; i < step; i++)
+                {
+                    thisd += (int)(left[pos + i] * 32768);
+                }
+                thisd = thisd / step;
+
+                b = (byte)((thisd  / 256) + 128);
+                b2 = (byte)(b2 + (b / 64));
+                ;
+                // VbX.MsgBox(left[pos].ToString() + " " + b.ToString());
+                packed++;
+                if (packed == 4)
+                {
+
+                    packed = 0;
+                    BW.Write(b2);
+                    b2 = 0;
+                }
+                else
+                {
+                    b2 = (byte)(b2 * 4);
+                }
+
+            }
+            BW.Close();
+        }
+        private void Do8Bit()
+        {
+            double[] left;
+            double[] right;
+            openWav(txtSrc.Text, out left, out right);
+            System.IO.BinaryWriter BW = new System.IO.BinaryWriter(System.IO.File.Open(DestFile, System.IO.FileMode.Create));
+
+            byte b2 = 0;
+            for (int pos = 0; pos <= left.Length - step; pos += step)
+            {
+                byte b = 0;
+                int thisd = 0;
+                for (int i = 0; i < step; i++)
+                {
+                    thisd += (int)(left[pos + i] * 32768);
+                }
+                thisd = thisd / step;
+                b = (byte)((thisd / 256) + 128);
+
+                BW.Write(b2);
+                b2 = 0;
+
+            }
+            BW.Close();
+        }
+        private void Do4BitPacked()
+        {
+            double[] left;
+            double[] right;
+            openWav(txtSrc.Text, out left, out right);
+            System.IO.BinaryWriter BW = new System.IO.BinaryWriter(System.IO.File.Open(DestFile, System.IO.FileMode.Create));
+            
+            byte b2 = 0;
+            int packed = 0;
+            for (int pos = 0; pos <= left.Length - step; pos += step)
+            {
+
+                byte b = 0;
+                int thisd = 0;
+                for (int i = 0; i < step; i++)
+                {
+                    thisd += (int)(left[pos + i] * 32768);
+                }
+                thisd = thisd / step;
+                
+
+
+                b = (byte)((thisd  / 256) + 128);
+                b2 = (byte)(b2 + (b / 16));
+                ;
+                // VbX.MsgBox(left[pos].ToString() + " " + b.ToString());
+                packed++;
+                if (packed == 2)
+                {
+                    
+                    packed = 0;
+                    BW.Write(b2);
+                    b2 = 0;
+                }
+                else {
+                    b2 = (byte)(b2 * 16);
+                }
+
+            }
+            BW.Close();
+        }

@@ -1,0 +1,220 @@
+
+          _________________
+         /  /__________/  /|
+        /________________/ |
+        | ############## |]|
+        | ## -------- ## | |	The
+        | ##|        |## |)|	Green
+        | ##|        |## | |	Screen
+        | ##|________|## | |	Scene
+        | #############  | |	'Zine
+        |                | |
+        |   ##        () | |
+        | ##**##    () A | |
+        |   ##       B   | |	
+        |     /> />  \\\\| /	Vol.1
+        |    </ </   \\\\|/ 	No. 2, Part 1
+        \________________/	September/October 1994
+
+
+============================================
+Written and published by Jack Skrip.
+Copyright 1994 by Jack Skrip.
+============================================
+
+
+OPTIONS
+
+	Part 1:
+	START:
+		Terms of Impairment, Part 1: RPGs
+
+	Part 2:
+	LEVEL ONE:
+		TGSSZ Walk-Through #1: Final Fantasy Legend
+
+	Part 3:
+	LEVEL TWO:
+		Legends in Our Own Time: A Final Fantasy Review Special
+	LEVEL THREE:
+		Game-Genie Codes: The Final Fantasy Series
+	LEVEL FOUR:
+		Adventures in GG Programming #1: Final Fantasy Legend
+	LEVEL FIVE:
+		The Neat Stuff Department
+	GAME OVER:
+		I Got Them
+		Steadily Depressin'
+		Low-Down Mind-Messin'
+		Desktop-Self-publishin' Blues
+
+
+**********
+
+
+START
+
+
+Terms of Impairment, Part 1: RPGs
+
+	Back in June, when I started writing for _Encrypt_ and planning the
+launch of this 'zine, I found myself thinking a lot about words.  Now, that's
+nothing new or different for me, since thinking about words is, basically, how
+I make a living.  But what I started thinking about, in particular, were the
+words we use to classify and categorize videogames--words like shooters,
+flight sims, vertically-scrolling, first-person perspective, 3D, strategy games,
+platform games, action games, and many others.
+	The operative word there is "many."  Take a breeze through the gaming
+mags out there and pay attention to their classification systems (if they have 
+them) and their categorical terms.  Now look at the various gaming lists . . .
+now look at videogame ads . . . and the box-copy on the games themselves.  Is it
+just my imagination, or does there seem to be a lot of inconsistency and over-
+lap?
+	For the average gamer, this might not be too big a deal.  But for those
+of us trying to write about games, I think it's getting harder and harder to
+conveniently slot games and describe them in a few words.  It seems to me that
+this is a result of the increased ability of game designers to produce more
+complex games with more varied types of play style, control, perspective, etc.,
+and shows that many of the terms we use to describe and categorize videogames
+come from those bygone days when the games were smaller and simpler.
+	Take the term "shooter," for example.  Think of a true classic example
+of this term.  Space Invaders comes to mind, for me; you basically move back
+and forth at the bottom of a screen and shoot at advancing waves of enemies.
+Galaxian added fancy colors and swooping enemies, but kept the basic idea.  Now
+how about something like Xevious?  Now you have a scrolling shooter; compared
+to Gradius, Xevious would be a vertically-scrolling shooter, whereas Gradius is
+a horizontally-scrolling shooter.  And then there's Lifeforce, which is a
+vertically- and horizontally-scrolling shooter.  And then there's CosmoTank,
+which could be described as an overhead- and 3D-perspective shooter with
+vertically-scrolling mid-stages.  But then again, maybe CosmoTank isn't a
+shooter at all, but an action game . . . or should I say "adventure" game . . .
+or maybe it's an action/adventure tank-sim shooter . . . ?
+	See what I mean?
+	Anyway, I'll be dealing  with shooters in a future issue.  There's
+another word--an acronym, actually--relevant to this month's issue: RGPs.
+	"Role-Playing Games."  We've all heard of them; many of us have played
+them.  But . . . what exactly IS a role-paying game?  In various gaming mags,
+I've seen the "RPG" applied to a number of games to which I would never have
+considered applying the term.  But there is a reason for my personal biases
+with respect to what is and isn't an RPG, and this comes from my past experience
+with the games from which the term was derived--games that don't involve a
+cartridges, consoles or a television.  I'm referring, of course, to dice-based
+role-playing games such as Dungeons and Dragons, Runequest, and tons of others.
+These are the games which gave RPG a permanent place in our vocabulary of pop
+culture, and these are the games to which videogame programmers looked in order
+to determine the basic characteristics of the RPG.
+	But before I get into those characteristics, I want to take you through
+the mental obstacle course which prompted me to write this.  As I mentioned
+earlier, planning this 'zine required me to make a determined effort to come
+up with some consistent classification system which I could use to talk about
+games.  Since I'm most involved with Nintendo systems and games, I figured the 
+best place to start would be at the source.  At first, that seemed like a
+pretty good idea.  Right.
+	By the time the GameBoy was firmly entrenched as a part of the videogame
+industry, Nintendo had put into place a simple 7-term classification system for
+its games:  1) Action
+	    2) Adventure
+	    3) Quiz/Productivity
+	    4) Puzzle
+	    5) RPG
+	    6) Sports
+	    7) Strategy
+The place where you can best see this system in action is in back-issues of
+_Nintendo Power_.
+	According to that system, the following first- and second-generation
+GB games are among those classified as RPGs (there are others):
+	Final Fantasy Legend
+	Final Fantasy Legend II
+	Sword of Hope
+	Ultima: Runes of Virtue.
+For the first two games on the list, the RPG designation fits perfectly,
+particularly when we look at the roots of the RGP classification.  Dice-based
+RPGs traditionally begin with the creation of a party of adventurers based on
+a combination of choice (race, gender, name, alignment, profession, etc.) and
+chance (rolls of the dice for character stats).  The element of choice has 
+definitely been provided in FFL and FFL2, and, although starting stats are
+somewhat fixed, both choice and chance combine in development/advancement of
+the party members.  In dice-based RPGs, the Dungeon Master, Game Master, or
+whatever monitors and, in some cases, guides the party's progress through a
+quest which, while it contains a number of goals which must be accomplished,
+can proceed along a multitude of variant paths depending on decisions made by
+the party members.  Such is the case with FFL and FFL2, though the Dungeon
+Master has been replaced by a computer program.  In both the FFL series and
+dice-based RPGs, the characters accumulate money (GP) and/or experience (EP)
+which allow them to purchase items to aid them in their quest and replenish/-
+increase their character's abilities.  They talk to and are somtimes accompanied
+by non-player characters (NPCs) and encounter a variety of nasty enemies to
+defeat, riddles/puzzles to solve, and obstacles to overcome.
+	Sword of Hope varies from this description of the RPG in a number of
+ways; however, it has retained far more of the characteristics of the classic.
+RPG.  Most noteably, there is only one adventurer, rather than a party of four
+or more; as well, everything about that adventurer is predetermined, removing
+most of the initial opportunity for choice.  However, this difference is far
+more useful in making a distinction between dice-based RPGS and RPG videogames
+than in drawing a line between RPGs and some other class of game.  As the Dragon
+Warrior series clearly shows, the one-player RPG is an established part of the
+Nintendo videogame library; in fact, aside from the FFL series, most other 
+widely-released GB RPGs are one-player adventures, such as Knight's Quest, 
+Great Greed, and Sword of Hope 2.  However, it's with one-player RPGs that the
+classification problems really begin.
+	Like Sword of Hope, Ultima: Runes of Virtue is a one-player adventure
+(well, the 1991 version was; the 1992 upgrade complicates things even further,
+or perhaps it just makes them more clear . . .).  But is it really an RPG?
+According to NoA, at least in 1991, it is; however, I think that labelling U:RV
+an RPG had much more to do with the Ultima name than with the actual game.  As
+with FFL and Sword of Hope, U:RV is derived from an NES game.  As with Sword of
+Hope, that NES game was derived from a computer game.  Both the computer and
+NES ancestors of U:RV are classic examples of the traditional RPG, and it is,
+perhaps, on that basis that NoA chose to label the GB adaptation an RPG, as
+well.  And I suppose that the NES Godzilla and GB Godzilla are the same game,
+too; just like the NES Bill & Ted's Excellent Adventure and Bill & Ted's
+Excellent GameBoy Adventure are also the same type of game.  It seems to me
+that U:RV has much more in common with Gauntlet II, Solomon's Club, and even
+Boxxle than with the NES Ultima series.  I would not include U:RV in the same
+category as FFL, FFL2, or SoH.  My preference would be to group it with games
+like Rolan's Curse, The Legend of Zelda: Link's Awakening, and Spud's Adventure
+(which features a two-player mode similar to the one added to U:RV in 1992).
+	Well . . . what did I just say?  LA is not an RPG?  That's right.  It's
+kind of hard to imagine that a game as large and complex as LA is not an RPG,
+but that's the way it is.  LA is no more an RPG than Metroid II: The Return of
+Samus, although it has much more depth.  But why not?  I've already said that
+one-player adventures could be RPGs.  I've already said that RPGs involved 
+vast quests with a lot of opportunity for non-linear exploration.  I've already
+said that RPGs involve talking and travelling with NPCs, buying items and
+stuff . . . .  So what's the big distinction?
+	In my opinion, it's a distinction that can be seen in an aspect of the
+play-style of U:RV.  However, it is not nearly as pronounced in U:RV as it is
+in LA, or RC, or GII.  In U:RV, your reflexes is almost as important as using
+your brain.  Although, as in any true RPG, U:RV requires a lot of careful
+thought and problem/puzzle-solving skills, your character is operating in 
+"real time," as is shown in the interaction with objects and enemies.  This has
+never really been a characteristic of the RPG, and you can go as far back as
+dice-based RPGs to see this borne out.  In games like AD&D and RuneQuest, using
+your mind is primary; using your hands is not.  You don't even have to roll
+your own dice if you don't want to; some games give this responsibility to the
+Game Master.  But you are still responsible for making your own decisions and
+thinking your way through situations.  We might say, then, that the distance
+between RPGs and what I'll call, for now, Action/Adventure games is a function
+of the amount of hands-on fighting vs. brain-on thinking that you have to do.
+	But having said that, I have to take you back to something I said much
+earlier:  How we categorize and classify games seems to have to shift and
+change over time as a result of the ever-increasing abilities of game-designers
+to produce more varied, complex types of games.  With that in mind, let me say
+three words: Final Fantasy Adventure.
+	Is it an RPG?  An Action/Adventure game?  Or something entirely new?
+How would you categorize this game, and why?  Let me know what you think, and
+I'll publish your reactions and opinions when I return to "Terms of Impairment"
+in a future issue.
+	But not next issue.
+	My brain hurts.
+
+Yours truly,
+Jack the skRipper
+
+
+**********
+
+
+[End Part 1]
+
+

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+
+  
+<!-- Mirrored from exez.in/gameboy-dma by HTTraQt Website Copier/1.x [Karbofos 2012-2017] Thu, 08 Aug 2019 05:48:42 GMT -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.png">
+
+  <!-- Meta information -->
+  <title>/posts/gameboy-dma</title>
+  <meta name="description"
+        content="; A brief introduction">
+  <link rel="canonical"
+        href="gameboy-dma.html" />
+
+  <!-- hack.css -->
+  <link rel="stylesheet" href="css/hack.css" />
+
+  <!-- Prism.js -->
+  <link rel="stylesheet" href="css/prism.css" />
+
+  <!-- Custom style -->
+  <link rel="stylesheet" href="css/main.css" />
+
+  <!-- Feed -->
+  <link rel="alternate" type="application/rss+xml" title="exezin"
+        href="feed.xml" />
+
+  <!-- Fonts -->
+ <link href="../fonts.googleapis.com/cssd43b.css?family=Anonymous+Pro" rel="stylesheet">
+</head>
+
+
+
+  
+  <body class="hack">
+  
+
+    <div class="container">
+      <div class="grid">
+        <aside class="cell -3of12" role="navigation">
+          <div class="t-hackcss-navigation">
+  <nav class="menu" role="menubar">
+    
+    <a href="../external.html?link=https://exez.in/pages">char *pages[2] = {</a>
+    
+      <a class="menu-item" role="menuitem" href="../external.html?link=https://exez.in/" title="">
+        &nbsp;&nbsp;"Home",
+      </a>
+    
+      <a class="menu-item" role="menuitem" href="../external.html?link=https://oods.net/" title="">
+        &nbsp;&nbsp;"OODNET",
+      </a>
+     
+    <a href="../external.html?link=https://exez.in/pages">};</a>
+    <p></p>   
+
+    <a href="../external.html?link=https://exez.in/posts">char *posts[2] = {</a>
+    
+      <a class="menu-item" role="menuitem" href="gameboy-dma.html" title="/posts/gameboy-dma">
+        &nbsp;&nbsp;"Gameboy DMA Transfers",
+      </a>
+    
+      <a class="menu-item" role="menuitem" href="../external.html?link=https://exez.in/conf-parser" title="/posts/conf-parser">
+        &nbsp;&nbsp;"C Config Parser",
+      </a>
+    
+    <a href="../external.html?link=https://exez.in/posts">};</a>
+    <p></p>
+
+    
+     
+
+    <a href="../external.html?link=https://exez.in/projects">char *projects[5] = {</a>
+    
+      
+    
+      
+    
+      
+        <a class="menu-item" role="menuitem" href="../external.html?link=https://exez.in/exelib" title="/exelib">
+        &nbsp;&nbsp;"exezins C lib",
+      </a>
+      
+    
+      
+        <a class="menu-item" role="menuitem" href="../external.html?link=https://exez.in/exeman" title="/exeman">
+        &nbsp;&nbsp;"Exeman, a GB Game",
+      </a>
+      
+    
+      
+        <a class="menu-item" role="menuitem" href="../external.html?link=https://exez.in/exengine" title="/exengine">
+        &nbsp;&nbsp;"exezins 3D engine",
+      </a>
+      
+    
+      
+    
+      
+        <a class="menu-item" role="menuitem" href="../external.html?link=https://exez.in/gbconvert" title="/gbconvert">
+        &nbsp;&nbsp;"Gameboy Convert",
+      </a>
+      
+    
+      
+    
+      
+    
+      
+        <a class="menu-item" role="menuitem" href="../external.html?link=https://exez.in/loveballs" title="/loveballs">
+        &nbsp;&nbsp;"LÖVE balls",
+      </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+     
+    <a href="../external.html?link=https://exez.in/projects">};</a>
+
+    <img src="media/dark2.gif">
+  </nav>
+
+</div>
+        </aside>
+
+        <main class="cell -9of12">
+          <article class="post" itemscope itemtype="../external.html?link=http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">/posts/gameboy-dma</h1>
+    <p class="post-meta">
+      <time datetime="2017-06-05T14:24:00+01:00"
+            itemprop="datePublished"
+            class="media-heading">
+        Jun 5, 2017
+      </time>
+
+      
+    </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    
+<figure class="highlight"><pre><code class="language-tasm" data-lang="tasm"><span></span><span class="c1">; A brief introduction</span></code></pre></figure>
+
+<p>The purpose of this article is to explain DMA transfers on the Gameboy, specifically how to use them.  We will be going over some
+assembly code examples, as well as a bit of disassembled code from one of my favorite Gameboy games, Megaman.  By the end of this article
+you should have a strong understanding of not only what a DMA transfer is, but how to use them in your own homebrew games.</p>
+
+<p>This article does not cover the basics of Gameboy homebrew, and it assumes you have at least a little understanding of assembly and/or the Gameboy, etc.  Many topics are
+only glanced at because teaching them is out of the scope of this article, other such articles exist and I recommend doing your research beforehand.  Should anyone feel
+stuck or confused about anything, feel free to contact me on IRC or twitter and I will help to the best of my ability.</p>
+
+<p>The code in this article is written specifically for <a href="../external.html?link=https://github.com/bentley/rgbds">RGBASM</a>. The tools used are <a href="../external.html?link=https://github.com/exezin/gb-convert">gb-convert</a>, my own tool
+to convert images to data supported by the Gameboy.  And various reverse-engineering tools such as <a href="../external.html?link=https://github.com/radare/radare2">Radare2</a>, to disassemble the Megaman rom.</p>
+
+<p><a href="../external.html?link=http://bgb.bircd.org/pandocs.htm">Using the all-mighty Gameboy pandoc as a reference, I recommend you do the same.</a></p>
+
+<p>If you require a working example of the code covered in this article, feel free to check out my most recent homebrew 
+game <a href="../external.html?link=https://github.com/exezin/exeman">Exeman</a> on github, which I wrote for Ludumdare 38.</p>
+
+<p>So without further ado, lets get started..</p>
+
+<figure class="highlight"><pre><code class="language-tasm" data-lang="tasm"><span></span><span class="c1">; OAM and its relation to sprites</span></code></pre></figure>
+
+<p>If you have toyed with game development in the past, chances are you know what a “sprite” is.  For those unfamiliar with the term, a sprite
+is essentially just a 2D image of arbitrary size, in the context of games it is generally used to refer to entities, moving objects, etc.</p>
+
+<p>The same is true for the Gameboy, with one exception being the size of the image.  On the Gameboy sprites are limited to two possible sizes,
+one being 8x8, the other being 8x16.  Pretty small right?  Due to these limitations you have to form larger sprites by stitching numerous small sprites together.</p>
+
+<p>The sprites actually get their image from a larger image split up into either 8x8 or 8x16 “tiles”, we will refer to this as a “tile map”.  Every sprite has a number
+associated with it which corresponds to one of the tiles in our tile map.</p>
+
+<p>To render sprites we need to utilize what is referred to as the “OAM”, or “Object Attribute Memory”.  All this really is, is a memory location that is used to store the information
+of each sprite.  On the Gameboy the OAM is a 160-byte long chunk of memory, and each sprite takes up 4 bytes which leaves just enough room for exactly 40 sprites.</p>
+
+<p>So what are these 4 bytes for?  Well, those 4 bytes are used to store some information about each sprite. The information being the following:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><span></span>1: Y location
+2: X location
+3: Tile number
+4: Flags</code></pre></figure>
+
+<p>The first two bytes store the position of our sprite in the game world.  The third byte stores the tile number which corresponds to a tile in our tile map.  And the fourth byte
+stores numerous attributes in its bits.  Those attributes are as follows:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><span></span>7: Render priority
+6: Y flip
+5: X flip
+4: Palette number       (GB Color only)
+3: VRAM bank            (GB Color only)
+2: Palette number bit 3 (GB Color only)
+1: Palette number bit 2 (GB Color only)
+0: Palette number bit 1 (GB Color only)</code></pre></figure>
+
+<p>Knowing this, lets take a look at Megaman.  On the left we have Megaman as seen in the game world.  At the top right we have our tile map, and at the bottom right we have the OAM
+sprites.  Megaman consists of 12 sprites in total.  This number could be reduced to 6 if it were to use 8x16 tiles.  Also note that Megaman is facing the opposite direction of the
+tiles.  This is done by setting the 5th bit in the flags attribute to 1, which enables mirroring on the X axis.</p>
+
+<p><img src="../i.imgur.com/Z99zL9R.png" alt="Megaman" /></p>
+
+<p>So we know we need 4 bytes per sprite, but how would that look in code?  Well here’s a quick example.  I use a separate file for my OAM variables to keep things organized.  We’ll define
+these bytes somewhere in work RAM because they are going to get changed a lot while the game is running.</p>
+
+<figure class="highlight"><pre><code class="language-tasm" data-lang="tasm"><span></span><span class="k">SECTION</span> <span class="s">&quot;OAM Vars&quot;</span><span class="p">,</span><span class="nv">WRAM0</span><span class="p">[</span><span class="kc">$</span><span class="nv">C100</span><span class="p">]</span>
+
+<span class="nl">megaman_sprites:</span> <span class="nf">DS</span> <span class="mi">4</span><span class="o">*</span><span class="mi">12</span>
+<span class="nl">megaman_bullets:</span> <span class="nf">DS</span> <span class="mi">4</span><span class="o">*</span><span class="mi">4</span></code></pre></figure>
+
+<p>As you can see, we are defining these in WRAM0, which is work RAM, at address $C100 onwards.  Because Megaman consists of 12 sprites, and each sprite requires 4 bytes, we reserve 48 bytes.
+We also reserve enough space for 4 projectiles.  Setting these bytes to a specific value is nice and easy, lets set the position of the first bullet to X 32 and Y 24.</p>
+
+<figure class="highlight"><pre><code class="language-tasm" data-lang="tasm"><span></span><span class="c1">; byte 1 is the Y position</span>
+<span class="nf">ld</span>  <span class="nv">a</span><span class="p">,</span><span class="mi">24</span>
+<span class="nf">ld</span>  <span class="p">[</span><span class="nv">megaman_bullets</span><span class="p">],</span><span class="nv">a</span>
+
+<span class="c1">; byte 2 is the X position</span>
+<span class="nf">ld</span>  <span class="nv">a</span><span class="p">,</span><span class="mi">32</span>
+<span class="nf">ld</span>  <span class="p">[</span><span class="nv">megaman_bullets</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="nv">a</span></code></pre></figure>
+
+<p>Pretty straightforward huh? So far we have stored the bytes for the sprites in work RAM not OAM, and until we get those bytes to the OAM nothing will happen.  So why don’t we just define
+these bytes in OAM?  Well the thing with OAM is that much like VRAM, we can not access it while the display is updating (Which is a lot of the time!).  This is where the so-called “DMA” comes into play.</p>
+
+<figure class="highlight"><pre><code class="language-tasm" data-lang="tasm"><span></span><span class="c1">; DMA transfers, and how to use them</span></code></pre></figure>
+
+<p>So we know what the OAM is, we know we need 4 bytes per sprite, and that larger sprites are comprised of numerous smaller ones.  We’ve got the OAM sprite data stored in RAM, but now we
+need to get them to OAM.  Manually accessing the OAM is impossible while the display is updating, and as this is most of the time accessing it manually just isn’t an option.</p>
+
+<p>This is where DMA, or “Direct Memory Access” steps in.  DMA transfers copy data from ROM or RAM to the OAM in a timely manner.  Getting these to function takes a little bit of work and
+understanding.  There are a few quirks we need to learn and work around.  Most notably, the CPU can only access HRAM (which is memory between locations $FF80 - $FFFE) while a DMA transfer
+is taking place.  On top of that DMA transfers take roughly 160 microseconds so we’re going to need to do something interesting to make this work.</p>
+
+<p>First off, lets go over the code required to make a DMA happen.  To do so we need to write some data to a location in memory, this location is actually a register and it resides at $FF46.
+As soon as anything is written to this location, a DMA transfer will begin.  We also need to specify a location for the DMA transfer to copy data from, and the location we want is $C100,
+which is where we have stored our OAM bytes.  The way to specify this is by loading the upper half of the address into the DMA register.  Because the register is a single byte we can not
+give it our entire address $C100, which is two bytes.  So we give it the upper half $C1, and the second half defaults to $00 leaving it with the address $C100.</p>
+
+<p>Lets see what a DMA transfer would look like in assembly.</p>
+
+<figure class="highlight"><pre><code class="language-tasm" data-lang="tasm"><span></span>  <span class="c1">; first we load $C1 into the DMA register at $FF46</span>
+  <span class="nf">ld</span>      <span class="nv">a</span><span class="p">,</span> <span class="kc">$</span><span class="nv">C1</span>
+  <span class="nf">ld</span>      <span class="p">[</span><span class="kc">$</span><span class="nv">FF46</span><span class="p">],</span> <span class="nv">a</span>
+
+  <span class="c1">; DMA transfer begins, we need to wait 160 microseconds while it transfers</span>
+  <span class="c1">; the following loop takes exactly that long</span>
+  <span class="nf">ld</span>      <span class="nv">a</span><span class="p">,</span> <span class="kc">$</span><span class="mi">28</span>
+<span class="nl">.loop:</span>
+  <span class="nf">dec</span>     <span class="nv">a</span>
+  <span class="nf">jr</span>      <span class="nv">nz</span><span class="p">,</span> <span class="nv">.loop</span>
+  <span class="nf">ret</span></code></pre></figure>
+
+<p>So, we load $C1 into the DMA register which is at $FF46, the DMA transfer begins immediately and we wait 160 microseconds for it to finish.  Pretty simple huh?  If only life was that easy..</p>
+
+<p>As I mentioned before, while the DMA transfer is in progress the CPU can only access HRAM, as the above subroutine would reside in ROM this would simply not work.  So we need a workaround
+for this, and as it turns out one exists thats not overly difficult to implement.  What we need to do is copy the above subroutine from ROM where it resides, into HRAM.  Along with this
+DMA subroutine, we are also going to need one to copy it into HRAM.</p>
+
+<p>To make life a little less difficult for ourselves, we are going to assemble the DMA subroutine above and store it as a bunch of hex numbers in our ROM.  I’m going to save you some time and
+hassle and do that part for you.</p>
+
+<figure class="highlight"><pre><code class="language-tasm" data-lang="tasm"><span></span><span class="nl">DMA_COPY:</span>
+  <span class="c1">; load de with the HRAM destination address</span>
+  <span class="nf">ld</span>  <span class="nv">de</span><span class="p">,</span><span class="kc">$</span><span class="nv">FF80</span>
+
+  <span class="c1">; whats this? read on..</span>
+  <span class="nf">rst</span> <span class="kc">$</span><span class="mi">28</span>
+
+  <span class="c1">; the amount of data we want to copy into HRAM, $000D which is 13 bytes</span>
+  <span class="kd">DB</span>  <span class="kc">$</span><span class="mi">00</span><span class="p">,</span><span class="kc">$</span><span class="mi">0</span><span class="nv">D</span>
+
+  <span class="c1">; this is the above DMA subroutine hand assembled, which is 13 bytes long</span>
+  <span class="kd">DB</span>  <span class="kc">$</span><span class="nv">F5</span><span class="p">,</span> <span class="kc">$</span><span class="mi">3</span><span class="nv">E</span><span class="p">,</span> <span class="kc">$</span><span class="nv">C1</span><span class="p">,</span> <span class="kc">$</span><span class="nv">EA</span><span class="p">,</span> <span class="kc">$</span><span class="mi">46</span><span class="p">,</span> <span class="kc">$</span><span class="nv">FF</span><span class="p">,</span> <span class="kc">$</span><span class="mi">3</span><span class="nv">E</span><span class="p">,</span> <span class="kc">$</span><span class="mi">28</span><span class="p">,</span> <span class="kc">$</span><span class="mi">3</span><span class="nv">D</span><span class="p">,</span> <span class="kc">$</span><span class="mi">20</span><span class="p">,</span> <span class="kc">$</span><span class="nv">FD</span><span class="p">,</span> <span class="kc">$</span><span class="nv">F1</span><span class="p">,</span> <span class="kc">$</span><span class="nv">D9</span>
+  <span class="nf">ret</span></code></pre></figure>
+
+<p>Looks a little confusing, doesn’t it?  At first glance this subroutine is pretty unintuitive so I’ll break it down for you.</p>
+
+<p>First, we load de with the destination address for our copy subroutine, which is HRAM, $FF80.  Next is this weird “rst” opcode, for those unfamiliar the Gameboy has a limited number of
+special subroutines that reside at the beginning of the ROM.  These subroutines are known as a restart/interrupt vector table.  Some of them are called when certain things meet a set
+condition.  For example one such subroutine is called when a so called “V-Blank” occurs, which is right after the display has finished updating for that frame.  What resides in these
+subroutines is down to you.  We are going to take advantage of these and put our copy subroutine into one.  The reason for this is that a “call” opcode takes 3 bytes, while a “rst” opcode
+takes 1, essentially it is a little bit faster.</p>
+
+<p>After that we have two bytes, $00 and $0D.  We use these to tell our copy subroutine how much data we want to copy, which in this context is 13 bytes, or $000D.</p>
+
+<p>Following those two bytes, we have 13 bytes.  Those bytes are the DMA subroutine we covered earlier hand assembled into their hexadecimal opcode numbers.  This just makes copying them a
+little easier.</p>
+
+<p>For those of you wanting to confirm that those 13 bytes are actually the above DMA subroutine, you can do so using the <a href="../external.html?link=https://github.com/radare/radare2">Radare2</a> tool “rasm2”.  Here’s how:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><span></span>$ rasm2 -a gb -d &quot;F5 3E C1 EA 46 FF 3E 28 3D 20 FD F1 D9&quot;</code></pre></figure>
+
+<p>So now that we have that out of the way, we need to write our copy subroutine that will reside in the reset vector table at $28.  I have the following code defined in the file that also
+defines my header contents.</p>
+
+<figure class="highlight"><pre><code class="language-tasm" data-lang="tasm"><span></span><span class="c1">; copy x-bytes to [de]</span>
+<span class="k">SECTION</span> <span class="s">&quot;Copy Data&quot;</span><span class="p">,</span><span class="nv">ROM0</span><span class="p">[</span><span class="kc">$</span><span class="mi">28</span><span class="p">]</span>
+<span class="nl">COPY_DATA:</span>
+  <span class="c1">; pop return address off stack into hl</span>
+  <span class="nf">pop</span> <span class="nv">hl</span>
+  <span class="nf">push</span> <span class="nv">bc</span>
+
+  <span class="c1">; here we get the number of bytes to copy</span>
+  <span class="c1">; hl contains the address of the bytes following the &quot;rst $28&quot; call</span>
+
+  <span class="c1">; put first byte into b ($00 in this context)</span>
+  <span class="nf">ld</span>  <span class="nv">a</span><span class="p">,[</span><span class="nv">hli</span><span class="p">]</span>
+  <span class="nf">ld</span>  <span class="nv">b</span><span class="p">,</span><span class="nv">a</span>
+
+  <span class="c1">; put second byte into c ($0D in this context)</span>
+  <span class="nf">ld</span>  <span class="nv">a</span><span class="p">,[</span><span class="nv">hli</span><span class="p">]</span>
+  <span class="nf">ld</span>  <span class="nv">c</span><span class="p">,</span><span class="nv">a</span>
+
+  <span class="c1">; bc now contains $000D</span>
+  <span class="c1">; hl now points to the first byte of our assembled subroutine (which is $F5)</span>
+  <span class="c1">; begin copying data</span>
+<span class="nf">.copy_data_loop</span>
+  
+  <span class="c1">; load a byte of data into a</span>
+  <span class="nf">ld</span>  <span class="nv">a</span><span class="p">,[</span><span class="nv">hli</span><span class="p">]</span>
+
+  <span class="c1">; store the byte in de, our destination ($FF80 in this context)</span>
+  <span class="nf">ld</span>  <span class="p">[</span><span class="nv">de</span><span class="p">],</span><span class="nv">a</span>
+  
+  <span class="c1">; go to the next destination byte, decrease counter</span>
+  <span class="nf">inc</span> <span class="nv">de</span>
+  <span class="nf">dec</span> <span class="nv">bc</span>
+
+  <span class="c1">; check if counter is zero, if not repeat loop</span>
+  <span class="nf">ld</span>  <span class="nv">a</span><span class="p">,</span><span class="nv">b</span>
+  <span class="nf">or</span>  <span class="nv">c</span>
+  <span class="nf">jr</span>  <span class="nv">nz</span><span class="p">,</span><span class="nv">.copy_data_loop</span>
+  
+  <span class="c1">; all done, return home</span>
+  <span class="nf">pop</span> <span class="nv">bc</span>
+  <span class="nf">jp</span>  <span class="nv">hl</span>
+  <span class="nf">reti</span></code></pre></figure>
+
+<p>So to go over it again, this is a subroutine that resides at the top of the ROM in one of the reset vectors, specifically $28.  First we pop the top of the stack into hl, the reason for
+this is that the top of the stack is currently the return address, which is the byte right after “rst $28”.  hl now contains that address and we use this to first get the number of bytes
+we want to copy. We load the first byte into b which is $00, at the same time the “hli” opcode increase hl to the following byte, and we store that byte in c, which is $0D.  Now bc
+contains the number of bytes we want to copy.</p>
+
+<p>Now the copy loop begins, first we load a byte of the data into a and increase hl to the next byte.  We then load a into de, our destination, and increase de to the next destination byte
+and decrease bc, our counter.  We then check to see if our counter bc is at zero, if it is not we loop again copying the next byte, if it is we are all done and return to the caller.</p>
+
+<p>Now we have those subroutines out of the way, we can implement them into our game loop. The first thing we want to do is call our “DMA_COPY” subroutine, we only want to call this once
+as the assembled DMA subroutine will reside in HRAM for the remainder of the game.  After this the game loop begins, now we need to call the subroutine from HRAM.  We want to do this
+every frame so as to keep the OAM updated with the latest information about or sprites.  Here’s what that code might look like:</p>
+
+<figure class="highlight"><pre><code class="language-tasm" data-lang="tasm"><span></span><span class="k">SECTION</span> <span class="s">&quot;Program Start&quot;</span><span class="p">,</span><span class="nv">ROM0</span><span class="p">[</span><span class="kc">$</span><span class="mi">150</span><span class="p">]</span>
+<span class="nl">START:</span>
+  <span class="c1">; *enable everything here*</span>
+
+  <span class="c1">; move DMA subroutine to HRAM</span>
+  <span class="nf">call</span> <span class="nv">DMA_COPY</span>
+
+<span class="nl">.game_loop:</span>
+
+  <span class="c1">; wait for the display to finish updating</span>
+  <span class="nf">call</span> <span class="nv">WAIT_VBLANK</span>
+
+  <span class="c1">; update megaman and the OAM bytes</span>
+  <span class="nf">call</span> <span class="nv">MEGAMAN_UPDATE</span>
+
+  <span class="c1">; call the DMA subroutine we copied to HRAM</span>
+  <span class="c1">; which then copies the bytes to the OAM and sprites begin to draw</span>
+  <span class="nf">call</span> <span class="kc">$</span><span class="nv">FF80</span>
+  <span class="nf">jp</span>  <span class="nv">.game_loop</span></code></pre></figure>
+
+<p>And, hey presto, its done!  Suddenly its less daunting once you take it apart bit by bit huh?</p>
+
+<p>For the sake of cementing the concept I want to briefly go over the use of DMA transfers in commercial games and take a peek at the code behind it.  While the code will be very much
+the same as ours I think its interesting to take apart a commercial game made by professionals and see just how similar our is to theirs.</p>
+
+<figure class="highlight"><pre><code class="language-tasm" data-lang="tasm"><span></span><span class="c1">; Cracking open Megaman.gb</span></code></pre></figure>
+
+<p>So we have the Megaman ROM open in our favorite disassembler, the first thing we will need to do is locate either the DMA subroutine, or a subroutine that copies it to HRAM.  First
+I’m going to do a search for DMA register and see what we can find.  Doing so brings up this:</p>
+
+<figure class="highlight"><pre><code class="language-tasm" data-lang="tasm"><span></span><span class="nl">ROM:</span><span class="err">15</span><span class="nf">E0</span>    <span class="nv">ld</span>      <span class="nv">a</span><span class="p">,</span> <span class="kc">$</span><span class="nv">C0</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">E2</span>    <span class="nv">ld</span>      <span class="p">[</span><span class="kc">$</span><span class="nv">FF46</span><span class="p">],</span> <span class="nv">a</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">E4</span>    <span class="nv">ld</span>      <span class="nv">a</span><span class="p">,</span> <span class="kc">$</span><span class="mi">28</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">E6</span> <span class="nv">loc_15E6</span><span class="p">:</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">E6</span>    <span class="nv">dec</span>     <span class="nv">a</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">E7</span>    <span class="nv">jr</span>      <span class="nv">nz</span><span class="p">,</span> <span class="nv">loc_15E6</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">E9</span>    <span class="nv">ret</span></code></pre></figure>
+
+<p>Huh, that appears to be a DMA transfer subroutine just like ours.  They are
+using the location $C000 for OAM data.  Lets see if we can find
+the subroutine that copies this to HRAM.</p>
+
+<p>Getting the address of the first byte for the above assembly code and searching for it brings up the following:</p>
+
+<figure class="highlight"><pre><code class="language-tasm" data-lang="tasm"><span></span><span class="nl">ROM:</span><span class="err">15</span><span class="nf">D2</span> <span class="c1">; ========== S U B R O U T I N E ==========</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">D2</span> <span class="nv">sub_15D2</span><span class="p">:</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">D2</span>    <span class="nv">ld</span>      <span class="nv">c</span><span class="p">,</span> <span class="kc">$</span><span class="mi">80</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">D4</span>    <span class="nv">ld</span>      <span class="nv">b</span><span class="p">,</span> <span class="kc">$</span><span class="nv">A</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">D6</span>    <span class="nv">ld</span>      <span class="nv">hl</span><span class="p">,</span> <span class="kc">$</span><span class="mi">15</span><span class="nv">E0</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">D9</span> <span class="nv">loc_15D9</span><span class="p">:</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">D9</span>    <span class="nv">ldi</span>     <span class="nv">a</span><span class="p">,</span> <span class="p">[</span><span class="nv">hl</span><span class="p">]</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">DA</span>    <span class="nv">ld</span>      <span class="p">[</span><span class="nv">c</span><span class="p">],</span><span class="nv">a</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="kd">DB</span>    <span class="nv">inc</span>     <span class="nv">c</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">DC</span>    <span class="nv">dec</span>     <span class="nv">b</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="kd">DD</span>    <span class="nv">jr</span>      <span class="nv">nz</span><span class="p">,</span> <span class="nv">loc_15D9</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">DF</span>    <span class="nv">ret</span>
+<span class="nl">ROM:</span><span class="err">15</span><span class="nf">DF</span> <span class="c1">; End of function sub_15D2</span></code></pre></figure>
+
+<p>At a glance, that does indeed look like a subroutine that copies something.  Whats odd is that it appears to be copying to the address in C, which starts at $80?</p>
+
+<p>Obviously its not copying to the address $80, that wouldn’t make any sense.  It looks like its actually a slightly different opcode and my disassembler just isn’t making note of it.
+Checking out the hex dump for the address that contains “ld [c],a” gives us $E2.</p>
+
+<p>Giving this hexadecimal number to rasm2 produces the expected output.</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text"><span></span>$ rasm2 -a gb -d &quot;E2&quot;
+$ &quot;ld [0xff00 + c], a&quot;</code></pre></figure>
+
+<p>So it appears this subroutine is copying the DMA subroutine at $15E0, to HRAM at $FF80.  This method is perhaps a little more eloquent than ours as it uses less registers and 
+generally less code overall.  Though it isn’t using a reset vector subroutine like we are.</p>
+
+<p>Not much to look at, but its interesting making the comparison and seeing how it was done in the commercial world.  Disassembling commercial games is often a good opportunity to
+learn something new and get insight into different ways to approach a problem.</p>
+
+<figure class="highlight"><pre><code class="language-tasm" data-lang="tasm"><span></span><span class="c1">; Final notes</span></code></pre></figure>
+
+<p>I hope by this point you have a firm understanding of OAM, DMA, and how to implement it into your own projects.  The reason for this article is that while most other topics on Gameboy
+homebrew are pretty well covered, I couldn’t personally find a lot of information on DMA transfers and struggled for a little bit.  Hopefully this helps someone avoid the difficulties I had
+with DMA transfers.</p>
+
+<p>If you find yourself stuck, confused, or notice something wrong in this article feel free to contact me via IRC or Twitter.  Contributions and fixes are more then welcome and I look
+forward to perhaps doing more articles like this in the future.</p>
+
+<p>o7</p>
+
+
+  </div>
+
+</article>
+        </main>
+      </div>
+
+    <footer class="t-hackcss-footer">
+  <hr />
+
+  <div class="grid t-hackcss-sm-reversed-grid">
+
+    <div class="cell -5of12">
+      <div class="contact-list">
+        <p>
+          printf("freenode %s", "##oodnet");
+        </p>
+
+        
+          
+          <span class="t-hackcss-social">
+            <i class="t-hackcss-icon"><svg viewBox="0 0 16 16"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"></path></svg>
+</i>
+            <a href="../external.html?link=https://github.com/exezin">exezin</a>
+          </span>
+        
+          
+          <span class="t-hackcss-social">
+            <i class="t-hackcss-icon"><svg viewBox="0 0 16 16"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</i>
+            <a href="../external.html?link=https://twitter.com/exezin">exezin</a>
+          </span>
+        
+          
+          <span class="t-hackcss-social">
+            <i class="t-hackcss-icon"><svg viewBox="0 0 1792 1792" xmlns="../external.html?link=http://www.w3.org/2000/svg"><path fill="#828282" d="M711 1128l484-250-484-253v503zm185-862q168 0 324.5 4.5t229.5 9.5l73 4q1 0 17 1.5t23 3 23.5 4.5 28.5 8 28 13 31 19.5 29 26.5q6 6 15.5 18.5t29 58.5 26.5 101q8 64 12.5 136.5t5.5 113.5v176q1 145-18 290-7 55-25 99.5t-32 61.5l-14 17q-14 15-29 26.5t-31 19-28 12.5-28.5 8-24 4.5-23 3-16.5 1.5q-251 19-627 19-207-2-359.5-6.5t-200.5-7.5l-49-4-36-4q-36-5-54.5-10t-51-21-56.5-41q-6-6-15.5-18.5t-29-58.5-26.5-101q-8-64-12.5-136.5t-5.5-113.5v-176q-1-145 18-290 7-55 25-99.5t32-61.5l14-17q14-15 29-26.5t31-19.5 28-13 28.5-8 23.5-4.5 23-3 17-1.5q251-18 627-18z"/></svg></i>
+            <a href="../external.html?link=https://www.youtube.com/channel/UCE5qfXZxTI4YGZtMFH8N_vw">exezin</a>
+          </span>
+        
+      </div>
+    </div>
+
+    <div id="footer-spacer" class="cell -1of12"></div>
+
+    <div class="cell -6of12">
+      <p></p>
+    </div>
+  </div>
+
+</footer>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+    </div>
+
+    <!-- Prism.js -->
+    <!-- <script src="https://npmcdn.com/prismjs@1.5.1/prism.js"></script> -->
+  </body>
+
+
+<!-- Mirrored from exez.in/gameboy-dma by HTTraQt Website Copier/1.x [Karbofos 2012-2017] Thu, 08 Aug 2019 05:48:51 GMT -->
+</html>

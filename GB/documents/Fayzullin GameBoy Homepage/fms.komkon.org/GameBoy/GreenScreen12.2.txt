@@ -1,0 +1,1419 @@
+
+	  _________________
+	 /  /__________/  /|
+	/________________/ |
+	| ############## |]|
+	| ## -------- ## | |	The
+	| ##|        |## |)|	Green
+	| ##|        |## | |	Screen
+	| ##|________|## | |	Scene
+	| #############  | |	'Zine
+	|                | |
+	|   ##        () | |
+	| ##**##    () A | |
+	|   ##       B   | |	
+	|     /> />  \\\\| /	Vol.1
+	|    </ </   \\\\|/ 	No. 2, Part 2
+	\________________/	September/October 1994
+
+
+============================================
+Written and published by Jack Skrip.
+Copyright 1994 by Jack Skrip.
+============================================
+
+
+LEVEL ONE
+
+
+TGSSZ Walk-Through #1: Final Fantasy Legend
+
+	There are few first-generation GameBoy games I can think of that can
+truly be said to have aged well.  Tetris comes to mind, and maybe Super Mario
+Land . . . Revenge of the 'Gator (much better than Pinball Dreams) and 
+Gargoyle's Quest (better than its NES sequel), perhaps.  And Final Fantasy
+Legend.
+	Even though it is almost as old as the GB itself, FFL is still one of
+the most popular RPGs for the system.  It is also one of the best, surpassed in
+depth of play and replay value only by the rest of the GB FF series.  In fact,
+FFL is, in some ways, superior to Final Fantasy, the NES game from which it was
+derived.  Although I don't have specs to bounce around, FFL plays as if it is
+at least as large as FF--or, rather, the FFL universe seems equally vast.  As
+well, there are more character-types to choose from (FFL's 8 vs. FF's 6) and
+more types of enemies to confront (FFL's 162 + 4 Arch-Fiends, Ashura, and the
+Creator vs. FF's 117 + the 4 Fiends and Chaos).
+	To be fair, I should point out that FFL certainly has a few flaws:  The
+inability to exert real control over the changes in Mutant abilities can be very
+frustrating; don't be surprised if a Mutant decides to evolve right when you've
+found a set of abilities you really like.  As well, while the towns, worlds,
+and battle animations are impressive for a first-generation GB cart, the
+intermediate levels of the Tower get pretty tedious to wander through (when
+you finally have the chance to acquire the Door, it's a very welcome relief!).
+However, Square Soft corrected all of the flaws of FFL in its sequel, FFL2.
+	What follows is a fairly in-depth walk-through of FFL.  It contains a
+great deal of "spoiler" information, so first-time players should consider
+themselves warned!  I have not provided play-control instruction, as the manual
+does that rather well.  I have, though, gone into considerable detail in 
+explaining the quest in the Base World for the benefit of anyone playing
+without a manual.  It's easier to figure out the play-control (which is actually
+very intuitive) than to survive a premature trip to the Castle of Sword!
+	I certainly hope FF newbies will find this useful, and I welcome
+additions and/or corrections from all you FF veterans!
+	Enjoy!
+
+Setting up a Party
+	For me, one of the biggest advantages of the Final Fantasy Legend series
+is the flexibility the games offer for creating parties; FFL3 lost some of that
+initial flexibility but made up for it in the expansion of the possibilities for
+character transformation.  For a starting party in FFL, I recommend the second
+party-type provided in the manual: two Humans and two Mutants.  In fact, I'll
+get even more specific: start out with two Human Males (HM1 and HM2 in the walk-
+through) and two Mutant Females (MF1 and MF2).  When you've gotten used to the
+gameplay and the layout of the first world, you can start playing around with
+Monsters as party members; new FFL players might find Monsters, and maybe even
+Mutants, a bit frustrating.
+
+Money Can't Buy You Love
+	But for Human characters, it does buy level advancement!  In FFL,
+Humans do not collect experience points and automatically advance in level.  
+You must  buy Strength, Agility, and HP upgrades in order to develop your Human
+characters.  Also, I have not found any way to raise the Mana of a Human
+character (except for the Game Genie!!!), so don't bother buying spells such as 
+Ice, Elec, or Stone for Humans.  Save your cash for HPs! 
+
+Those Pesky Mutants
+	As explained in the instruction manual, Mutants acquire spell-like
+magic abilities which change as the characters advance in level.  What the
+manual doesn't say is that you have very little control over how these abilities
+evolve.  There are, though, some principles to bear in mind:  
+	1. The more you use the abilities, the more likely they are to change.
+	This is kind of a "catch-22" in that if you don't use the abilities,
+	they will not improve or strengthen; however, it seems that as soon as
+	your Mutant gets a set of abilities you like to use, they change.
+	2. The manual says that once Mutants reach a certain level, they
+	can no longer use store-bought items.  This is simply not true.
+	Mutants always have the option to use armor, weapons, and other items;
+	however, the more you use store-bought weapons, the less-likely your
+	Mutant abilities are to develop and change.  In fact, if you use
+	weapons too often, some of your mutant abilities will spontaneously
+	"fizzle out"--they will still be on your Abilities menu, but the
+	number of uses will drop to 0 until you visit an Inn.
+	3. Mutants are the only characters who can get the most use out of the
+	P-Knife, P-Sword, and Vampic ("vampiric") Sword.  The P-Knife and
+	P-Sword do damage as a function of the weilder's Mana; Humans don't 
+	have any, so they should not use these weapons.  The Vampic Sword does
+	damage by absorbing HP from the enemy struck by the sword; these HP
+	are added to the weilder's HP, but only if the weilder's HP are not at
+	the weilder's current maximum.  If the weilder's HP are at maximum, the
+	sword will absorb HP from the enemy but will not pass the HP to the
+	weilder.  The absorption power of the Vampic Sword may be linked to
+	Mana, since it seems to always absorb 0 HP when weilded by a Human. 
+
+Monsters: They are What They Eat
+	As the manual explains, Monsters advance in level/abilities by eating
+the Meat of other Monsters; most of the time, this will cause the Monster to
+transform into another type of monster, but sometimes all that will happen is
+a recharge of HP and abilities.  The _Nintendo GameBoy Players Guide_ includes
+a comprehensive "Transformation Table" which will indicate what any given
+monster-type will change to when it eats any given type of monster meat.  The
+only problem is that the table is not completely correct.  I have used the
+table to try to direct quite a few transformations, only to have something
+completely different result.  Your best bet is to compile your own table by
+keeping track of the changes your Monsters undergo.  Bear in mind that the
+transformations are not always upgrades!  It's very depressing to have a
+nice hefty Oni eat the wrong meat and end up a Fly.  Bummer.
+
+World One: Continent
+	Now that you've got your party sorted out, you're ready to start 
+adventuring.  Here's a quick outline of the places you need to go in the order
+in which you need to visit them.  The map below provides a general idea of where
+each place is located on the overall world map.  You will find that there are 
+many obstacles to negotiate between the various locations; terrain will limit
+"straight-line" travel.  Similar outlines and maps will be provided for each
+world.  In the walk-through, directions will be given as single or paired
+letters--N for north, W for west, SE for southeast, etc. 
+
+ 1. The Tower: Base Town
+ 2. Hero
+ 3. The Castle of Shield
+ 4. The Castle of Armor
+ 5. South Town
+ 6. Bandit's Lair
+ 7. The Castle of Armor
+ 8. The Castle of Sword
+ 9. The Castle of Shield
+10. Hero
+11. Base Town
+
+* * * * * * * * * * * * * * * * * * * * * *
+*                                         *
+*                                         *
+*         T:1,11                          *
+*                             4,7         *
+*                                         *
+*                                         *
+*                                         *
+*                                         *
+*                   2,10    3,9           *
+*                                         *
+*                                         *
+*                                         *
+*                 8                       *
+*                                   5     *
+*                                         *
+*                                         *
+*                           6             *
+*                                         *
+*                                         *
+*                                         *
+* * * * * * * * * * * * * * * * * * * * * *
+
+1. The Tower: Base Town
+	Once you have organized your party, head out into the great wide-open
+and do some exploring.  The Tower sits on an island surrounded by a moat-like
+river. I suggest staying on this island and fighting the monsters you encounter
+there until you accumulate at least 500 GP.  This will take about fifteen or
+twenty battles, since you will only encounter single monsters worth 40 GP each,
+and you will need to return to the Inn rather often to replenish your HP.
+	A note about using the Inns:  You are charged GP for your stays at the
+Inns based on the amount of HP your party members need to regain.  If your
+party members still have all their HP, staying at an Inn is free!  Bear in mind 
+that staying at an Inn replenishes your HP and recharges your Mutant abilities,
+so even though a stay costs no money, your Mutants can still benefit.  You will
+find this a very useful thing when one or more of your Mutants gains the Cure
+ability; you can use the Mutant's ability to replenish your party's HP, then
+stay at an Inn for free to recharge the Cure! 
+	Once you've collected the cash, go to the Weapons/Armor shop and buy a
+suit of Gold Armor and a set of Gold Gauntlets.  Equip your HM1 with the Gold
+Armor and Bronze Gauntlets; equip HM2 with the Gold Gauntlets.  At this point,
+your FMs will not need armor as long as they stay in the back of the marching
+order.  You're certainly free to wander the island long enough to equip your
+whole party with Gold Armor, but what I've suggested is a minimum requirement
+for a reasonable chance of survival.
+	At this point in the game, you want to do as much fighting as you can
+while following this principle:  Make money, don't spend it.  The enemies on
+the island are, for the most part, easy to beat.  You will face Goblins,
+Albatrosses, Lizards and Zombies, which I've just listed in order from easiest
+to hardest to beat.  Because of the relative weakness of the enemies in the
+first world, don't waste your money on magic and magic items; you don't
+really need them yet.  
+	It's possible to rush through the first world fairly quickly, but I
+believe that the best style for RPGs like FFL is to move slowly and think
+carefully about how you equip and prepare your characters.    More than likely,
+if you rush through the first world, you will get killed before you reach the
+third floor of the Tower.  It gets really nasty really quickly in there.  
+	Remember to check the abilities of your Mutants after each battle.  For
+their first few fights, use their Rapiers, but as soon as their mutant abilities
+begin to appear, use those abilities as much as possible!  The more you use the
+abilities, the more rapid they will change and increase in power; as well, using
+the mutant abilities will cause increases in Mana, which will be useful when you
+start buying spells for the Mutants.  With careful play, you can increase your
+MFs' Mana to 99 before you reach World Two!  
+
+2. Hero
+	If you followed the instructions above, you've armored your Humans,
+powered-up your mutants, and developed a feel for the battle techniques.  You
+are now ready to leave the "sanctuary" of the Tower and have some serious 
+adventures.  Your first destination is the Town of Hero, which you will find
+to the SE of the tower island.  Cross the bridge and immediately head S until
+you hit mountains; go W until the town appears.  You now know the location of
+two Inns, so you can run around and kill things to gain GP and experience,
+safe in the knowledge that there are nearby places to which you can flee.
+	A word of warning:  For now, stay away from the little forest path to
+the SW of the tower island; it is a quick route to/from the Castle of Sword,
+and if you go there now your entire party will be killed.  
+	In Hero, you will learn the story of the naked statue and the items it 
+formerly wore.  You must retrieve the three items from the kings who have
+"borrowed" them in order to unlock the door at the base of the Tower.  Start
+you quest with the Castle of Shield, in the forest directly E of Hero.
+
+3. The Castle of Shield
+	The Castle of Shield is not a very hospitable place.  If you try to talk
+to the guards, they'll throw you out, and if you avoid them and try to speak to 
+the King and his Steward, they'll just be rude.  You cannot get the shield at
+this point, so don't wear yourself out trying.  Actually, you can skip both the 
+Castle of Shield and the Castle of Armor and go directly to 5 and 6, but you
+won't be able to really appreciate the evolution of the story.
+
+4. The Castle of Armor
+	The guards are more friendly here, but you still won't come out of your
+first visit with anything but information.  See the King and he'll tell you of
+his sad romance with a young girl of South Town--which gives you a good reason
+to head south.
+ 
+5. South Town
+	Here you will learn of Bandit, who lives in a cave to the SW of South
+Town.  He has been using threats to prevent the girl from marrying the King of
+Armor.  Hmmm . . . maybe you should go and smack him around.  But before you do,
+here's some advice:
+	Bandit may look like a Lizard, but he is actually one level up.  He's
+a P-Frog (as in "poisonous frog") and can be a challenging opponent.  His
+biggest threat is his poisonous skin; if he is struck with a handheld weapon,
+the poison will carry through the weapon and harm the wielder!  The least
+expensive solution is to have all of your characters, or at least the HMs,
+purchase Bows; for much more cash, you can equip your MFs with spells like Ice
+or Elec (Electricity).  The basic idea here is to use weapons that let you
+attack from a distance.
+
+6. Bandit Cave
+	Here are directions for a quick trip through the cave:  At the bottom
+of the stairs, go W, then follow the passages N, E all the way, then S; turn E,
+then take the stairs S.  At the bottom of those stairs is a rather large cave; 
+go W to the wall, then follow the wall S to a W turn; at the end of a very
+short passageway, you'll  find a door.  Go through the door and go W, then
+follow the passageway N to your confrontation with Bandit.  Show no mercy.
+	After defeating him, go back to through the door into the large cave.
+In the NE corner of the cave is a door which will remain locked until you
+defeat Bandit.  Once he's dead, it will unlock, and you can raid the riches
+within.  You will find these items in the chests: Potion, Strong, and a Bronze
+Shield.  Return to South Town to freshen up at the Inn, then head back to the
+Castle of Armor.
+
+7. The Castle of Armor
+	Having defeated Bandit, you've earned the eternal gratitude of the lusty
+King of Armor.  Of course, he knows that gratitude can't be cashed in for GP, so
+he gives you the King Armor, as well his thanks.
+	Now . . . here's your first big decision:  What do you do with the
+Armor?  Do you take it back to Hero and put it the statue?  Or do you put it
+on yourself?  C'mon . . . who's gonna know?
+	Equip HM1 with the King Armor and equip HM2 with the Gold Armor from
+HM1.  Hey, if the Kings could "borrow" this stuff, so can you.
+
+8. The Castle of Sword
+	Although you're welcome to go and ask (and pick up some GP on the way),
+the King of Shield is still not ready to part with his Shield, so your next
+destination is the Castle of Sword.  However, this is a very dangerous place;
+the monsters therein are the most powerful in the first world, and they attack
+in groups.  To prepare yourself, go to Hero and buy enough HP200 to boost the
+HP of your HMs over 100; if you have the cash, you can give buy some Strong for
+them, as well, but that stuff is expensive--and you can beat the King of Sword 
+without it!  If you are using your MFs well, their HP and abilities should be
+increasing rather nicely; don't forget that Mutant HP and stats increase on
+their own--store-bought HP, Strong, and Agility DO NOT work on Mutants!
+	When you enter the Castle of Sword, AVOID the guards!  Unlike the guards
+in the Castle of Shield, they will attack you, and you will not be able to run
+away.  Enter the castle and head straight for stairs.  On the second level, make
+your way to the southern stairway; the northern stairway leads to a dead-end,
+and the monsters you will likely face on the way will try to make it a one-way 
+trip!  The key is to lose as few HP as possible on your way to King Sword.  Find
+him, beat him, and get the King Sword.  Once you get the Sword, give it to HM1
+and pass whatever weapon he's been using to HM2.  Unlike the weapons you buy,
+the King Sword has unlimited uses.  As well, it is the most powerful weapon
+available in the first world.  Nifty!
+	To complete your ensemble, you will be heading to the Castle of Shield.
+But first, stop at an Inn and recover from your experience in Castle Sword.  
+Even with the King Armor, it's not a pleasant place . . . but you will be back!
+
+9. The Castle of Shield
+	After powdering your nose in the Inn of your choice, head to the Castle
+of Shield.  The King is ready to give up his Shield now, mainly 'cause he's
+dead.  Pursue the treacherous Steward through the secret door in the N wall of
+the  King's chambers and wreak some serious vengeance upon his cowering form.
+Then you'll get the King Shield.
+	Now, here's a tip:  Don't equip HM1 with the King Shield.  Using a
+shield in battle means he cannot attack, and you don't want to lose the power
+of the King Sword.  Equip one of the MFs with the King Shield, either the
+weakest MF or the one with the fewest defensive mutant abilities.  When used,
+the King Shield throws a force field over your ENTIRE party, which makes it
+a handy defense, especially since, like the King Sword, it has unlimited uses!
+
+10. Hero
+	Okay.  If you want to be a good little adventurer, the thing to do now
+is to head to Hero and give back those wonderful toys.  Put them on your Item
+list, then go up to the statue; press A twice with the hand on each item and
+they will be returned to the statue.
+	If you want to make sure that you'll survive the next few floors of the
+Tower with relative ease, don't be so hasty!  Instead of heading to Hero, go
+back to the Castle of Sword and repeatedly attack one of the Guards.  As a
+precaution,  you might first want to buy a Rod and equip one of your MFs with
+it to make sure that you can heal any damage your weaker characters might take 
+while you are upping your bank balance.
+	So how do you know when you've had enough?  Well, here are some goals
+to attain before returning the items to the statue:
+	1. Raise the HP of your HMs to 200+.  As you'll learn, HP upgrades
+	are labelled according to their effectiveness.  HP200 will work until
+	your character's HP pass 200; at that point, an effective upgrade can
+	only be provided by HP400.  Likewise, HP400 only works until your
+	character's HP reach 400, and so on.  You cannot buy HP400 in the first
+	world, so you might as well get what you can get while you can get it.
+	2. Raise the Strength and Agility of your HMs at least into the teens.
+	3. Equip your strongest characters with Axes (probably your HMs) before
+	returning the items to the statue.  The Axe is the most powerful
+	strength-based handheld weapon which can be purchased in the first
+	world.  You'll need them.
+	4. Before you return the items to the statue, equip all four of the
+	party members with Gold Armor; if you can, equip the HMs with Gold
+	Gauntlets, as well (remember that Mutants can only carry four items; if
+	you load them with armor, they won't be able to carry weapons and/or
+	spells).
+	Now . . . return the items to the statue.  As soon as you turn to
+leave the pedestal, you will be attacked by Gen-Bu, a long-necked Gamera
+lookalike who has a serious problem with adventurers.  But you're ready.
+
+11. The Tower
+	After defeating Gen-Bu, you will receive the Black Sphere, which will
+unlock the door at the base of the Tower.  Stand in front of the door, choose
+Sphere on your Item menu, and press A twice with the hand on the Black Sphere.
+The door to the Tower now stands open.
+
+Travelling Up the Tower
+	The tower contains over twenty floors separated by a series of stairs.
+When you press SELECT, you will see the number of your present floor, as well as
+the highest floor you have reached.  The four worlds contained within the tower
+are located at 1F, 5F, 10F, and 16F.  The intermediary floors contain mazes of
+varying complexity, as well as sub-worlds in which you will find information or
+have to perform some small task.  To the left of each stair is a small room, 
+some of which will contain chests of items; nearly all will contain some sort of
+enemy, either in the room or on the stair itself.  Upon entering the tower, you
+will notice that the enemies get really nasty really quickly.  Luckily, you
+can move back down the Tower to floors and worlds visited previously if you need
+to get an Inn, Shop, or House of Life.  As well, you will occasionally come 
+across small pools of healing water which will recover HP, but will not
+replenish Mutant abilities; only a stay at an Inn will do that.
+
+Intermediary Floors: 2-4
+	Stair 1:	No item.
+	2F:		Head S, W, N, then through the door.
+	Stair 2:	No item.
+	3F:		Head W and you'll find a door to a false Paradise.  Your
+		        other option is to head W, N, W, then through the door.
+	Stair 3:	No item.
+	4F: 		Head N, then W to the second pair of N/S stairways, then
+			S and through the door; you'll end up in a sort of
+			Purgatory-like place.  Talk to all the characters EXCEPT
+			the gargoyles, unless you're in the mood for a fight.
+			Don't spent too much time here because, as you walk
+			through the place, you take damage from the "spiked" 
+			floor!  Luckily, N of this nasty place you will find a
+			helpful Healing Pool.
+			Your other option when you enter this floor is to head
+			N, W to the second pair of N/S stairways, then N and
+			through the door.
+	Stair 4:	The chest contains a Colt.
+	5F:		In the SW corner of this floor, you will find another
+			Healing Pool; in the NW corner, you will find the door
+			to World Two.  In the center of this floor is a door
+			which you will not be able to unlock until you find the
+			Blue Sphere.  Take note of the "Guy With the Hat" who
+			stands just S of the door to Ocean.  Heed his words now,
+			and expect to meet him again.
+  
+World Two: Ocean
+
+ 1  Tower Island Town
+ 2  Island Tunnels: Floating Island
+ 3  Northeast Island Town
+ 4. The Old Man's Island
+ 5. Palm Tree Island: Airseed
+ 6. The Whirlpool
+ 7. Undersea Town
+ 8. Undersea Castle
+ 9. The Old Man's Island
+10. The Tower
+
+* * * * * * * * * * * * * * * * * * * * * *
+*                                         *
+*                                         *
+*                                         *
+*                                   3     *
+*     6:7,8                               *
+*                                         *
+*                                         *
+*                                         *
+*                   FI               4,9  *
+*                                         *
+*                     2c                  *
+*                                         *
+*                2b2                      *
+*                                         *
+*            2b1                          *
+*                                         *
+*       2a                                *
+*   T                               5:A   *
+*      1                                  *
+*                                         *
+* * * * * * * * * * * * * * * * * * * * * *
+
+1. Tower Island Town
+	When you enter Ocean from the Tower, you will find yourself on the
+largest of this world's islands; your first destination is a town located in
+the SE corner of the island.  If you talk to everyone, you will learn of the
+next two destinations in your tour of the world of Ocean, and you will also
+learn of the means of travel that will get you there.
+	Pirates have made travel by ship quite dangerous, so instead of a ship,
+you must seek out a mysterious floating island--which gets attacked, anyway,
+even though it isn't a ship.  Go figure.  Before you try looking for it, though,
+hit the local shops and get yourself ready for adventure!
+
+A Few Words About Weapons
+	In case you haven't noticed by now, certain weapons are best-weilded by
+certain types of characters.  For example, the P-Knife, P-Sword, and Vampic
+Sword should be reserved for use by Mutants.  But it actually gets more
+complicated than that.
+	As previously suggested, most weapons do damage as a function of the
+weilder's Strength, Agility, or Mana.  All Sword damage (with the exception of
+the P-Sword) is based on Strength, for example, as is the damage done by the
+Hammer, Axe and Rock.  Agility determines the damage inflicted by the Rapier,
+Saber, L-Saber, and Catcraw.  With some weapons, however, damage does not seem to
+be based on abilities, but the weilder's chance of successfully hitting an enemy
+is.  This seems true of firearms such as the Colt and Musket, as well as all
+Bows.
+	Also, it seems that Mutant Strength and Agility can be affected by the
+successful use of weapons which depend on those abilities.  For example, if a
+Mutant frequently uses a Rapier, the Mutant's Agility will increase; if a Mutant
+frequently uses a Sword, the Mutant's Strength will increase.  Don't forget,
+though, that use of store-bought weapons will hinder the development of Mutant
+special abilities.
+	While on the surface of Ocean, your weapons of choice should be the
+Katana for strong characters and the Saber for agile characters.  You will find
+that the Coral Sword, apparently the strongest sword in world one, is available 
+in the Weapons/Armor shop in the Undersea Town, but you don't really need it. 
+This weapon is particularly effective against sea creatures, but, surprisingly,
+it is not really necessary in Ocean.  If your sword-weilding characters have 20+
+Strength or so, you'll get by just fine with a Katana or even a Battle Sword.
+The Coral Sword is far too expensive for me to really recommend it.  Buy one
+and play around with it if you have the cash, but I wouldn't waste money that
+could otherwise be spent on ability upgrades!
+
+2. Island Tunnels
+	North of Port Town you will see a cave entrance.  This takes you into
+a network of tunnels which link a group of islands near the center of the Ocean
+world.  The Floating Island is located offshore of one of the islands.  To get
+to it quickly, follow these directions:
+	1. Enter the cave N of Port Town
+	2. Go E and turn N, then head E at the 4-way intersection.
+	3. Keep going E; pass-by the stairway an take the N turn.
+	4. Exit up the stairs at the point where the N path turns E.
+	5. You are now at point 2b1.  Enter the cave at the NE corner of
+	the island (2b2).
+	6. Head W to the N turn; go N to the E turn; head E as far as you can
+	go (there will be a tiny jog S at the halfway point).
+	7. Turn N and continue to the E turn and exit up the stairs.
+	8. You are now at point 2c.  The Floating Island is the northernmost
+	island on the W coast.  Now you can travel freely almost anywhere in the
+	Ocean world.  Feel free to explore, although your next destination is
+	in the far NE corner of the world.
+	While in the tunnels, you will often encounter Pirates, sometimes with
+other types of enemies.  When you find yourself facing Pirates, try to direct
+your attacks such that you kill the Pirates as soon as possible.  Pirates will
+steal your GP during the battle; you will not recover the stolen gold, even if
+you win the battle.  Also, when you face Magicians, try to wipe them out with
+magic spells launched by high-Mana characters; Magicians can cure themselves,
+so damage that is not instantly fatal can sometimes be removed in the next round
+of battle!
+
+3. Northeast Island Town
+	Here you will learn more of the dragon brothers and the mysterious Old
+Man.  To find the geezer, sail the Floating Island directly S of East Island
+Village.
+
+4. The Old Man's Island
+	You will have to travel through a bit of a maze to get to the Old Man.
+Go around the table in the center of the maze, but avoid the small patch of
+stony ground just before you reach the Old Man; if you step onto it, it will 
+"teleport" you back to the Floating Island.  The Old Man will tell you of the
+Airseed, which is not really as well-hidden as he'd like you to think.  Just
+sail the Floating Island directly S of South Island.
+
+5. Palm Tree Island
+	You'll arrive here.  Position your lead character so that he is 
+standing just to the S of the palm tree in the center of the island; approach
+the tree from the S so that he ends up facing N.  Press A and you should
+receive the Airseed--as long as your Item list isn't full!  Remember to have a 
+slot for it when you get to the tree!  If you prefer, you can float on back to 
+the Old Man and let him tell you more about the Airseed.  Or you can just keep 
+reading.  You do not need to do anything with the Airseed; just leave it on your
+Item list.  You do not have to Equip any character with it, nor do you have to 
+press any buttons or anything.  When the time comes to use it, it'll simply
+work by itself.  If you should happen to accidentally drop it in your Trash or 
+get cocky and sell it, you can just head right back to Palm Tree Island and
+pick another one.  What's it do?  Well . . . head to the NW corner of the world
+and you'll find out.
+
+Keep Up With the Joneses, or They'll Kill You
+	No doubt it's occurred to you that, as your party advances through the
+game, the enemies you encounter get tougher.  More or less, the monsters
+increase in level everytime you move to a new major area of the game.  For
+example, when you leave Continent and enter the Tower, the enemies get tougher;
+as you advance through the next four floors, the enemies get tougher, and when
+you enter Ocean, the enemies get tougher again.  When you move from Tower
+Island into the tunnels, the enemies get tougher, and when you start cruising
+the sea, the enemies get tougher.  And when you enter the whirlpool and start
+wandering the sea floor . . . guess what . . . tougher enemies.  It's a good
+idea to upgrade your HMs Strength, Agility, and HP as you move through the
+different areas in order to keep up with the monsters!
+	Now's a good time to start thinking about the "Do the Math" rule of
+level upgrading.  There are four major worlds before you hit the bigtime at the
+top of the Tower.  So, divide the maximum you can attain in each of your
+character abilities by four and you'll get a goal to try and attain (when
+possible) by the end of each world.  If you round up a tad, the figures come
+out to +25 for Strength, Agility and Mana, and +250 for HP.  With HP,
+your HMs are a bit restricted by what you can purchase: you can't buy HP400
+until Ocean, so you should try to leave Continent with 203 HP; you can't buy
+HP600 until you reach The Ruins, but you should be okay with the 403 HP you can
+get by the end of Ocean.  It's fairly easy to accumulate enough cash to match
+the +25 rule in Strength and Agility, though.  As for Mutants, just keep using
+them, and you'll be surprised at how fast their HP will build, as well as how
+quickly Mana and Agility can increase (it's actually possible to get them both
+to 99 before leaving Ocean).
+	As for Defense, I suggest equipping your HMs with Silver Helms, Armor
+and Gauntlets and your MFs with Silver Gauntlets and Armor as soon as you can,
+preferably before entering the Undersea Castle.  You can't buy Silver Gauntlets
+until you reach the Undersea Town, but you can buy the Armor and Helms in the
+Northeast Island Town.  If you want to be economical, you only need to buy
+three suits of Silver Armor before entering the Undersea Castle; as noted below,
+you will find a suit of Silver Armor in the Castle.
+
+6. The Whirlpool
+	Near the NW corner of the world, you will find a small whirlpool.  If
+you try to enter it without the Airseed, you will be transported to the bottom
+of the ocean, but you'll immediately come back up again, screaming, "I can't
+breathe!"  The Airseed produces air from water and will allow you to explore the
+area of the world beneath the sea.  So go get it.
+	Got it?
+	Good.
+
+7. Undersea Town
+	After you are flushed down the Whirlpool, you will find that the Airseed
+has given you the ability to wander around on the floor of the ocean without
+drowning (or being crushed by the incredible pressure of all that water . . .
+but let's not get technical).  Follow the E edge of the land S, then turn E
+when it does; keep travelling E and you will find the Undersea Town.
+	Here you will learn four important pieces of information which almost-
+but-not-quite give you a clear sense of the next few things to do.  The whole
+"dragon brother" thing has, so far, been a bit confusing.  First you were told
+that the brothers live on the NE island, then we find out that Sei-Ryu, the Blue
+Dragon, lives in an Undersea Castle and that Ryu-O, whom he has banished, is
+actually the King of Dragons.  Once we get underwater, we find out that Ryu-O
+is actually still somewhere on the surface and that Sei-Ryu has this thing
+about a Red Orb.  Why does the Blue Dragon want the Red Orb?  What's any of that
+have to do with Ryu-O?  I wonder if something wasn't lost in the translation.
+Anyway, you might as well go see Sei-Ryu.
+
+8. Undersea Castle
+	If you travel due S of the Undersea town, you will soon see the entrance
+to a stairway come into view in the lower-left of the screen.  This takes you
+into a fairly simple tunnel system that leads to another undersea land mass.  To
+keep the trip short and sweet, follow these directions:
+	1. Head E at the bottom of the stairs until you reach a branch that 
+	goes S.
+	2. Follow the S branch and take its E turn, then head S again, then W to
+	another stairway.
+	3. Head W at the bottom of the stairs and count to the 4th N branch; it
+	will take you to the other land mass.  The 7th N branch takes you to
+	an area that seems covered in some sort of sandstorm.  It's a good place
+	to wander around and kill things, but I have found no items there.
+Head directly S when you exit the stair and you will see the Undersea Castle
+come into view to your right.
+	Like the Castle of Armor, the Undersea Castle is full of guards (octupi,
+actually) which don't go away when killed.  Unless you're in the mood for a
+fight, avoid them as you move through the floors of the castle; this will, at
+times, require that you wait for them to move out of your way.
+	Floor 1:Head E immediately, then continue N past the stairway (don't
+		enter it yet).  Work your way to the NE area of the floor and
+		enter the door.  At the end of the hallway is a chest that
+		contains the Bluekey, which is essential to getting through the
+		Castle.  Now head back to the stairway and go up.
+	Floor 2:Work your way counterclockwise to the stairs in the SE corner.
+		Ignore the door in the NW corner; it's an empty room.
+	Floor 3:Work your way to the door in the NE corner, and you'll be
+		rewarded with Silver Armor, a Cure spell, and a handy Grenade.
+		Now follow the paths to the stairs in the SW corner.
+	Floor 4:Travel clockwise around the floor to the door.
+	Floor 5:As you travel N, take a good look at the two rows of orbs you
+		will pass, but don't try to pick up any of them.  Continue N
+		and you will arrive in a room full of orbs.  Now is the time to
+		apply some info given to you earlier by a townsperson:
+		"Remember where the two lines cross."  If you want to figure to
+		figure out the meaning on your own, stop reading.  If not . . .
+		study the chart below.  The 0s are orbs; the x is the one you
+		want, and the ^ indicates where you need to stand and which
+		direction to face in order to pick it up.  Press the A button
+		and deal with it!
+
+		0 0 0 0 0 0 0 0 0
+		0 0 0 0 0 0 0 0 0
+		0 0 0 0 0 0 x 0 0
+		0 0 0 0 0 0 ^ 0 0
+		0 0 0 0 0 0 0 0 0
+		0 0 0 0 0 0 0 0 0
+		0 0 0 0 0 0 0 0 0
+		0 0 0 0 0 0 0 0 0
+		0 0 0 0 0 0 0 0 0
+
+	Yes, you've found the Red Orb, and now you must face the wrath of
+Sei-Ryu.  But if you prepared well, it will be a brief and rewarding battle.
+With Orb in hand, you can now return to the surface and figure out what to do
+with it.  Although the text as translated for the English-language version of
+FFL doesn't make it perfectly clear, the place to go now is back to the Old Man.
+
+9. The Old Man's Island
+	This time, when you visit the Old Man, he will present you with this 
+riddle: "What can you get for 2 Longswords, 3 Gold Helms, and 4 Potions?"  The
+answer can be found by pricing the items and buying the single item available
+for a price equalling their total, as below:
+	Longsword       2 x 132 GP = 264 GP
+	Gold Helm       3 x 164 GP = 525 GP
+	Potion          4 x  50 GP = 200 GP
+        Total:                       989 GP = Battlesword
+Buy one in Northeast Island Town and take it to the Old Man; note that if,
+after receiving the riddle, you go and see him without a Battlesword, he'll
+smite you mightily and will actually cause damage!  The misers among you will
+appreciate the fact that he does not take the weapon; you get to keep it, and
+he'll even accept one that has been used.  In return for simply showing him the
+Battlesword, thus proving you can add, he gives you the Blue Orb.  Being able
+to add is actually quite important, in a way, since you must "add" the two Orbs
+in order to produce the Blue Sphere:  Put both Orbs in your Item menu, then
+double-click the A button with the hand on one Orb and repeat with the other
+Orb.  If you do this correctly, you will receive the Blue Sphere, which will 
+unlock the door into the next floor of the Tower.
+
+10. The Tower
+	At this point, you have accomplished the tasks necessary to leave Ocean.
+It wasn't the most clearly explained of quests (I suppose you knew all along
+that the Old Man was really Ryu-O, right?  Sure.), but it did get you the next
+Sphere.  If you feel you're ready, you can re-enter the Tower and advance to 
+the next floor.
+	However, if you want to ensure that, once you get to the next world,
+you can rapidly equip your party with the most effective weapons, armor, and
+items available, you might want to take a quick trip down the Whirlpool again.
+If you followed the "Do the Math" rule, your characters are now as advanced as
+you can get them with respect to items and abilities--that is, if you could
+afford it.  To get the cash to max-out your stats and/or to be able to afford
+"the good stuff" when you hit the next world, try this money-making technique.
+	Equip your HMs with fresh weapons--Katanas are nice; either equip your
+MFs with fresh Sabers or try to make sure they have fully-charged ESP as a
+mutant ability.  Ride the Whirlpool again and head to the Undersea Castle.  As
+in the Castle of Armor, you can repeatedly attack the guards at will; however,
+you can make more money even faster if you head back to one of the orb rooms
+and repeatedly attack the same orb over and over.  If your HMs are strong
+enough, you can kill an Atom Crab with a single blow, picking up an easy 400 GP
+each time!  When you've gotten about 70,000 GP hoarded away, which is not as
+difficult as it may seem, return to the surface and max-out your stats; if you
+are ready to move on, just take your cash (AT LEAST 60,000 GP) and head for the
+Tower.
+
+Intermediary Floors: 6-9
+	Stair 5:	No item.
+	6F:		Head E, S, then W to the door.
+	Stair 6:	No items.
+	7F:		Take either of the stairs N and you'll find a door
+			leading to a small water-filled floor.  "Swim" N to the
+			row of fish statues.  Stand ON the first statue and
+			press A for a little message; stand on the second statue
+			and press A three times to receive three X-Potions (if
+			press over and above three will result in a battle);
+			stand on the sixth statue and press A to receive another
+			little message.  Re-enter the Tower and head S as far as
+			you can go, then W and N to the door.
+	Stair 7:	The chest contains a Musket.
+	8F:		Head E into the room.  In the NE corner is a Healing
+			Pool, just in case you need it.  At the top of the
+			stairway in the NW corner is another pool, but it is a
+			fake.  Continue E, then S to the SECOND E corridor,
+			where you will find the next door.
+	Stair 8:	No item.
+	9F:		Head W, then N and up the short stairway.  The door 
+			leads to a sort of "clinic" in which you'll find a
+			House of Life (SW corner) and a place to refresh your
+			HP and Mutant abilities (SE corner).  Most of the
+			bed-ridden adventurers are comatose, but the gargolye
+			in the NW corner will tell you something of interest.
+			When you leave the clinic, head S down the same 
+			stairway and continue S until you must turn W; head W to
+			the N turn, then continue E, N, and W to the door.
+	Stair 9:	The chest contains a P-Knife.
+	10F:		Head S past the fish statues, then follow the S border
+			to the E.  Talk to the lil' dude you'll see as you move
+			E; his advice is important!  Continue E through the
+			short narrow corridor, then turn N and head up the
+			stairway.  You now stand before the door to the World of
+			Sky!  Ooooh . . . feel the chills?
+
+World Three: Sky
+
+ 1. Sky Town
+ 2. The Floating Castle
+ 3. Hidden Town
+ 4. The Rebel Base
+ 5. The Floating Castle
+ 6. Jail
+ 7. The Rebel Base
+ 8. The Tower
+
+* * * * * * * * * * * * * * * * * * * * * *
+*                                         *
+*                                         *
+*                                         *
+*       FC2                               *
+*                                         *
+*                                  HT     *
+*                                         *
+*                                         *
+*                                         *
+*                                         *
+*                 RB                      *
+*                                         *
+*                                         *
+*                                         *
+*                                         *
+*                                         *
+*                                 T       *
+*                         1               *
+*               FC1                       *
+*                                         *
+* * * * * * * * * * * * * * * * * * * * * *
+
+1. Sky Town
+	Ah, espionage!  Such fun!  In Sky Town, you will learn of the evil
+fiend Byak-Ko, who rules Sky with an iron . . . uh, paw, I guess.  He has all
+but crushed the small resistance movement that rose up against him, and he
+now searches for the daughters of Charles, the former rebel leader, who hold
+the secret to the White Sphere.  Byak-Ko needs guards, as do most evil dictators
+against whom resistance movements have risen; perhaps you can infiltrate his
+Flying Castle by joining his forces.  Of course, you do this purely out of
+altruism; it's not like you're looking for a White Sphere or anything, right?
+	Wander Sky Town and talk to everyone, but DON'T enter the Pub yet!
+First, you need to spend spend some of that cash.  Enter the Weapons/Armor
+Shop and buy Dragon Armor for everyone in your party.  By the way, you can
+chuck the Airseed and Bluekey, if you haven't done so by now--and make sure
+you sell your old armor!  The armor will cost about 34,000 GP in total; buy 
+other weapons if you'd like (there are lots of fun things available here), but
+bear in mind that you will need another 13,000 GP for your next major purchases,
+which you'll be making after a certain job interview.
+	Head to the Pub with your snazzy new armor and strike up a conversation.
+Then strike the guards that attack you!  After this brief "test," you'll be sent
+to see Byak-Ko . . . if you live.
+
+2. The Floating Castle (FC1)
+	After Byak-Ko hires you, he gives you your first assignment:  Find
+Charles's daughter, Jeanne, and bring her to him.  He'll get rude when pressed 
+for more information, but, hey, he's an arch-fiend; what did you expect?  You
+will then be sent to a waiting Glider, which will enable you to fly from cloud
+to cloud in Sky.
+
+3. Hidden Town 
+	Now, you can do this the hard way or the easy way.  The hard way is to 
+start wandering aimlessly around Sky and hope to find the Rebel Base.  Here's
+the easy way:
+	After leaving the Floating Castle, fly E until you reach the square of 
+trees surrounding the Tower.  Position the Glider at the NE corner of the square
+and fly N until you come to a small square of cloud.  Land on it and move about
+a bit until you discover the Hidden Town.
+	Talk your way across Hidden Town and you will learn about the connection
+between Charles's daughters and the White Sphere.  Then go to the Weapons/Armor
+Shop and buy a set of Giant Gauntlets for HM1; you can buy one for HM2 as well, 
+but bear in mind that you'll be able to pick up a set for free quite soon.  When
+you're ready to leave Hidden Town, fly S back to the Tower.
+
+4. The Rebel Base
+	Head W back to the Floating Castle.  Position your Glider on the NE
+corner of the cloud on which the Castle sits.  Fly N and you will end up tucked
+neatly between some trees just S of the Rebel Base.  Leave the Glider and enter 
+the Base.  At this point, the game's programming will supply ethics and honor to
+players who might not have any.  You WILL fight against Byak-Ko's soldiers to 
+rescue, rather than abduct, Jeanne.  After the fight, she will beg you to find
+her sister, Mileille, who is being held in the Flying Castle; you will, of
+course, agree.
+
+A Cash Flow Statement
+	I suggested leaving Ocean with at least 60,000 GP.  By the time you
+reach Sky and start exploring it, you should have been able to increase your
+stash to about 70,000 GP.  Here's a budget based on your recent and future
+purchases:
+		34,000 GP	Dragon Armor
+		 5,000 GP	Giant Gauntlets
+		 7,500 GP	HM Abilities
+		28,500 GP	Weapons, Spells, and Miscellaneous Items
+
+		70,000 GP	Total
+	If you haven't already done so, now is a good opportunity to spend
+that 7,500 to boost your HMs' Strength and Agility in accordance with the "Do
+the Math" guidelines.  As well, you'll have some cash for other toys.  Rune
+Swords are handy, particularly since they can deflect magical attacks when used
+in battle.  Note that, as explained below, you'll soon be acquiring some weapons
+and items as you explore, so you can plan your purchases accordingly.
+
+5. The Floating Castle (FC1)
+	The Floating Castle is not doing much floating, yet; you will find it
+right where you left it, to the W of Sky Town.  When you leave the Glider port,
+you will find yourself on the Castle's lowest floor.
+	Although the Floating Castle looks complex and intimidating, it is
+actually very easy to travel through.  There is one way in and one way out of
+each level, and, while you may seem at times to change direction, you will
+always be travelling in a neat linear path (either toward the top or bottom,
+depending on where you started).
+	You will notice that the Floating Castle is full of Guards.  On this
+trip, they will be friendly and helpful--after all, you are working for Byak-Ko,
+and he is expecting you.  Follow their instructions to reach Byak-Ko on the 7th
+floor.  On the 6th floor, you will actually get a choice of path: a stairway or
+a door.  Pick the door, since behind it is a key which you would have to come
+back for had you gone up the stairway first.  When you reach the 7th floor, head
+E to find the stairway to the chamber where Mileille is being held.
+
+6. Jail
+	Well . . . that wasn't very nice.  Betrayal, treachery, and
+imprisonment.  That's what you get for trying to help.  But all is not lost!
+	So Byak-Ko tosses you in jail with some other losers.  No problem.
+Talk to them.  There's a Glider nearby; you just have to get to it.  So that
+other wimp can't bend the bars; now's your chance to show him what a REAL 
+adventurer is made of.  A few presses on the A button and you're outta there!
+Pass by the next cell to the E; you can't talk to or free the prisoners;
+however, check out the sword in the next cell.  Head up the N corridor and fight
+the Imp for access to the stairs.  If you head E at the top of the stairs,
+you'll see a doorway; it's locked, but don't forget about it!  For now, head
+W, N, E, N, then W and up the stairway.  Enter the door in the NW corner of the
+room at the top of the stairs; head N, then E past the door.  Fight a guard for
+access to the chest, in which you'll find the Jailkey.
+	DON'T go through the door in this room yet!  Instead, head back down to
+the locked door which you noted but left behind.  With the Jailkey, you can
+enter the room to find a L-Saber, Giant Gauntlets, and a Death spell.  Now
+head back up to the room in which you found the key and use it on the door;
+enter the Glider hangar and take the Glider on the lower right.
+
+7. The Rebel Base
+	The Jail is located on a cloud W of the original site of the Floating
+Castle.  But the Castle has floated!  It is now hovering outside the Rebel
+Base, so follow the previous instructions and fly there.
+	What the story wants you to do is this:
+	1. Enter the Base and find it empty.
+	2. Enter the Floating Castle and make your way to Byak-Ko's penthouse;
+	this time, though, you're a criminal, so the Guards will attack you
+	every chance they get.
+	3. Find the penthouse empty and head back down to the Rebel Base.
+	4. Discover that the Base has been destroyed.
+	5. Search the empty clearing and encounter Byak-Ko.
+You can do it that way if you wish, but if you don't feel like battling Guards,
+here's an alternative which makes it a lot easier:
+	1. Enter the Floating Castle instead of the empty Base.
+	2. Exit the Castle immediately and you will find the Base gone.
+	3. Search the clearing and confront Byak-Ko.
+Now you will learn the depth of Byak-Ko's treachery.  Having manipulated
+Mileille into betraying her sister and the rebellion, he chooses to destroy
+her.  Instead, Jeanne blocks the fatal blow . . . and you respond with 
+avenging rage!
+	After you defeat Byak-Ko, this sad melodrama will play itself out.  The
+bottom line?  You get the White Sphere.
+
+8. The Tower
+	Well, the fat lady has sung in Sky; your work is done here.  Unlike
+Continent and Ocean, Sky is a boring place to hang out once you've acquired the
+Sphere.  After defeating Byak-Ko, you will no longer have access to either the
+Floating Castle or Hidden Town, which means that if you missed any items or
+purchases from these locations, you are SOL.  Might as well pop into Sky Town
+for some R&R and last-minute shopping, then head into the Tower and use the
+White Sphere to unlock the next door.
+
+Intermediary Floors: 11-15
+	Stair 10:	No item.
+	11F:		If you need it, there is a Healing Pool in the NW
+			corner of this area; if not, head S, W, then doen the
+			stairs.  Go W, then N, up the stairs, and through the
+			door.
+	Stair 11:	No item.
+	12F:		To quickly exit this floor, head E, N, E, and up the
+			stairs.  If you're in the mood for some fighting and
+			would like to pick up a Vampic Sword, follow these
+			directions when you enter the floor: head S, E, and
+			down the stairs; go through the door which will come
+			into view to the W and you will find yourself on a
+			large cloud.  To the SE of the Tower is a chest which
+			contains a Vampic Sword; however, a number of invisible
+			"force fields" will prevent you from getting to it by
+			the most direct route.  Try heading E to the edge of
+			the cloud, then S a screen or so, then W to about the
+			center of the cloud, then N to the chest.  Many nasty
+			beasties will attack you as you search for the chest, so
+			if you don't desperately need the sword, don't bother!
+			Note that the Healing Pool S of the exit is fake.
+	Stair 12:	The chest contains a Saw.  This is actually a CHAINsaw,
+			and it is about as effective as one.  It is very
+			difficult to weild and will miss about 50% of the time;
+			however, when it connects, it is fatal.  
+	13F:		Head E to the 3rd fish statue, then N up the stairs.
+			On the other side of the door you will find a dried-out
+			world full of depressed, thirsty octupi.  Re-enter the
+			Tower and exit the floor through the door to the N of
+			the first fish statue.
+	Stair 13:	The chest contains an Army Helm.  Equip one of your HMs
+			with this.
+	14F:		Head E and S to find yet another Healing Pool which does
+			not seem to work.  Go back to the door and head W, then
+			S to the stairs and through the door that appears in the
+			SE; you are now in a flooded world full of frightened
+			people.  Of course, it's all Bob's fault; pull the
+			garbage out of the drain (which looks like a whirlpool)
+			to teach these people a useful ecological message.  As
+			the water rushed through the drain, you will be washed
+			down with it and wind up back with the octupi, who are
+			now joyously wet.  Head back up the Tower to 14F and
+			you'll find that it is now a lush forest world full of
+			playful, joyous people.  Their little  "game" will give
+			you more info on the hierarchy of Ashura and his four
+			fiends.  Enter the Castle to the S of the Tower to
+			receive your reward for being environmentally friendly:
+			a P-Sword, Elixir, X-Potion, and Revive.  You can leave
+			the other stuff if you don't want it, but DON'T leave
+			the Revive!  Re-enter the Tower and head W, N, W, S, and
+			W to the door.
+	Stair 14:	No item.
+	15F:		There is a working Healing Pool on this floor, but it is
+			surrounded by damaging spikes which make it not quite
+			worth the effort; to get to it, go E, N up the stairs,
+			E, S all the way, then W.  To simply get through the
+			head E, then N up the stairs to the door.
+	Stair 15:	No item.
+	16F:		The first thing to do when you enter this floor is to 
+			talk to the guy who stands S of the door.  Hmmm . . . he
+			looks familiar, doesn't he?  He's given you some good
+			advice before, and now is no exception.  If you wander
+			around a bit and return to this spot, he will be gone;
+			if you wander without talking to him first, you'll miss
+			some important info about Su-Zaku the Red Bird, the last
+			of the four fiends.  Now enter the door directly E of
+			the door to the Tower and you will arrive in the fourth 
+			world, The Ruins. 
+
+World Four: The Ruins
+
+ 1. Subway Tunnels: T1-T2
+ 2. Southwest Town
+ 3. Subway Tunnels: T3-T4, T5-T6
+ 4. The Library
+ 5. Akiba
+ 6. Ameyoko
+ 7. Subway Tunnels: T10- . . . -T1
+ 8. Southwest Town
+ 9. Secret Tunnel
+10. Sewer
+11. Atomic Power Plant
+12. Southwest Town
+13. Skyscraper
+14. The Tower
+ 
+* * * * * * * * * * * * * * * * * * * * * *
+*                                         *
+*                                    6    *
+*                                         *
+*   S                                     *
+*                                T10      *
+*                                    5    *
+*                                         *
+*                                         *
+*                            T7           *
+*                                         *
+*                          4       T8     *
+*                      T6                 *
+*                                    T9   *
+*           T4                            *
+*               T5                        *
+*                    T1                   *
+*     T3                T                 *
+*                                         *
+*  2,8 T2                                 *
+*                                         *
+* * * * * * * * * * * * * * * * * * * * * *
+
+1. Subway Tunnels: T1-T2
+	It's very likely that almost as soon as you stepped from the Tower,
+you were attacked by Su-Zaku; if you tried to fight, you probably learned that
+nothing available to you right now can damage him--at least not permanently.
+Su-Zaku can actually be defeated in battle outside of his lair; for example, if
+your MFs have Vampic Swords and are wearing Dragon Armor, they can make short
+work of the Red Bird.  However, look closely at the graphic of Su-Zaku; it seems
+to be made of flame.  Hmmm . . . a Red Bird made of flame; sounds a bit like the
+mythical phoenix, doesn't it?  In fact, if you can do about 2500 HP of damage to
+Su-Zaku, it will, as the text states, "go to pieces."  But like the phoenix,
+Su-Zaku will be reborn and attack you again, probably as soon as you start to
+move.  At this point, it's best to heed the advice of the mysterious stranger
+and try to run each time the Red Bird appears.  If you travel the surface on
+foot, Su-Zaku will attack you every two or three steps you take; the safest way
+to travel at this stage of the game is to use the Subway Tunnels, which connect
+most of your destinations in The Ruins.  They're a bit labyrinthine, but being
+lost is better than being dead.
+	Tunnel 1 (T1) will take you to T2, which is directly east of your first
+destination, the Southwest Town.  When you enter T1, a young woman will call to
+you and tell you to follow her.  You will almost immediately lose sight of her,
+but keep moving W and you'll eventually catch up.  When you find her, she will
+need some help and will thank you by telling you of the town nearby.  Head W,
+then up the stairs to exit at T2, within sight of the town.
+
+2. Southwest Town
+	If you move a bit N when you enter Southwest Town, you will see two 
+doors; the western door takes you into an Inn, while the eastern door leads to
+a two-story building; there's a Guild on the ground floor, plus a Weapons/Armor
+Shop and a Magic/Item Shop on the upper floor.  Since you probably have a pile
+of GP saved up by now, take a moment and equip all of your party members with
+Army Helms and Suit Armor; these defensive items will be very useful during
+those surprise attacks from Su-Zaku (remember that the previous worlds are
+still accessible, so if you need GP badly, you can always head back to the orb 
+rooms in Ocean, for example, to make some easy cash).  Now go mingle with the
+townfolk--don't forget to talk to the gargoyles in the NW part of town!
+	Since you were told not to go to the pub, it is, of course, your next
+destination; it's the building with the "bike" in front of it.  In the Pub, you
+will come very close to getting into a fight, but the woman from the tunnels
+will intervene.  You will all become good buddies and develop a plan for the
+destruction of Su-Zaku.  Don't leave the Pub after So-Cho lets you use his bike;
+instead, talk to him and Sayaka again and you'll receive addional information
+about the Library and Ameyoko; talk to one of the gang members, as well, and
+you'll find out why you need the bike.
+
+3. Subway Tunnels: T3-T4, T5-T6
+	Hop on the bike, leave Southwest Town, and enter T3, located to the NE
+of the town; you will exit at T4.  Enter T5, just SE of T4, and you will exit at
+T6, W of the Library.  If you wish, you can travel above ground with the bike;
+however, Su-Zaku will still be a pest.  Even though monsters attack you in the
+tunnels, they are a better way to travel (and earn GP) than the surface, unless
+you are in a big hurry.
+
+4. The Library
+	In the Southwest Town, you can actually ride the bike into some of the
+buildings and up the stairs.  To enter the library, though, you must park the
+bike and travel on foot.  Although you can search the entire Library manually,
+it's easiest to go directly to the second floor and initate an automatic search
+by standing to the NE of the first bookshelf.  If you do this correctly, your
+party will travel directly to the location of info on Akiba, the hidden town;
+as a bonus, if you move S one row and travel to the 7th shelf from the W (which
+is directly below the shelf on which you found info on Akiba), you will receive
+a Stone spell.  There is nothing to find on the first floor, so you can leave
+after finding the info and spell.
+
+5. Akiba
+	The "14N+15E" directions found in the Library are only useful if you
+start counting from the correct location.  To get to Akiba with a little less
+frustration, try this:
+	1. Take T7 to T8, or simply ride the bike there.
+	2. Position yourself just to the E of T8 and travel N until you come to
+	a 3-column x4-row group of those structures that resemble water tanks.
+	3. Position the bike in the center column and travel N; this will get
+	you to Akiba with relative ease.
+Once in Akiba, you don't have to leave the bike except to pick up items.  You
+will find four doors, each leading to a room containing a chest.  Here's what
+you'll find in each room:
+	SE Room:	The Rom
+	SW Room:	Revive
+	NW Room:	X-Potion
+	 E Room:	Catcraw
+You MUST take the Rom, but the other items are optional.
+	Now it's time to head to Ameyoko.  You can get there quickly by heading
+N after leaving Akiba.
+
+6. Ameyoko
+	Ameyoko is basically a shopping mall, and like most malls, you have to
+leave your vehicle in the parking lot.  When you first enter Ameyoko, you will 
+find the shops laid out as shown below:
+
+                                              G
+                                              ^
+                                              ^
+                        > > > > > > > > > > > ^
+          * * * * * * * ^ * * * * * * * * * * *
+          *     *     *     *     *     *     *
+          *  A  *     *  C  *     *  E  *     *
+          *     *     *     *     *     *     *
+   Enter >
+          *     *     *     *     *     *     *
+          *     *  B  *     *  D  *     *  F  *
+          *     *     *     *     *     *     *
+          * * * * * * * * * * * * * * * * * * *
+
+		A: Ability upgrades
+		B: Weapons, armor, spells
+		C: House of Life
+		D: Inn
+		E: Guild
+		F: Miscellaneous stuff
+		G: Boards R Us
+	If you come here before getting the Rom from Akiba, you will not be
+able to get a Board.  Get the Rom first!  Once you've received the appropriate
+Board, you can leave.  However, this is an excellent opportunity to power-up
+your HMs, since you can purchase HP600 at Shop A.  The next task in this world
+is fraught with danger, so boosting you HMs' abilities is a good idea; it's an
+expensive idea, too, but, luckily, there is a cash source nearby.  Leave Ameyoko
+and enter T10; if you wander around this platform enough, you will eventually be
+attacked.  Depending on the type of attacker, you will be able to make between
+1600 and 3200 GP per battle; if you run low on weaponry or HP, you can simply 
+leave the tunnel and enter Ameyoko again.  When you've acquired enough GP to
+make you happy, leave the tunnel, enter Ameyoko, and shop 'til you drop.
+	Here's a weird thing to note about Ameyoko: if you enter Ameyoko and 
+walk all the way to the E end without buying anything and then turn around and
+walk back to the W entrance, the cashier in Shop A will be "out to lunch."  Not
+to worry, though.  If you leave the town and then re-enter, he will be back.
+
+7. Subway Tunnels: T10- . . . -T3
+	Just follow the tunnels back to Southwest Town, unless you actually
+enjoy fleeing from Su-Zaku.
+
+8. Southwest Town
+	Head directly to the Pub and talk to So-Cho.  The next morning, you will
+try to sneak out to search for the plutonium on your own, but So-Cho and Sayaka
+will not let you risk your life alone.  How quaint.
+
+9. Secret Tunnel
+	You will then find yourself standing to the W of the entrance to the
+Secret Tunnel leading into the Atomic Power Plant.  Hop on your bike and enter
+the tunnel, then follow the other bike.  Whenever the lead bike stops, exit your
+bike and talk to So-Cho.  When you reach the Sewer, So-Cho and the others will
+wait at the entrance while you continue on your own.
+
+10. Sewer
+	After talking to So-Cho, head E, S, E, S, then W until you reach the
+stairway into the Atomic Power Plant.
+
+11. Atomic Power Plant
+	When you exit the stairs, you will be outside the Power Plant.  Travel
+counterclockwise along the perimeter of the building; stay on the gray areas and
+hug the side of the building; if you step onto the black area, you will end up
+in the Sewer again!  Enter the stairway at the S of the building.
+	Once again, travel counterclockwise when you exit the stairs.  You must
+leave the bike for a brief battle with an Evil Eye; after defeating it, you can
+get back on the bike and continue onward to the SW stairway.
+	At this point, travel clockwise after exiting the stairs.  So-Cho will
+arrive and sacrifice his life so that you can travel further into the Plant.  Be
+sure to have an open slot on your Item menu because he will give you a Band Helm
+just before he dies; if you don't have an open slot and don't have an item you
+wish to trash, make sure to unequip a Helm before you talk to him.
+	Through the door So-Cho has made accessible you will find the reactor
+core.  Head N and pick up the Plutonium ion the center of the room.  You will
+then assemble Erase 99.  Take note of this little trick: ordinarily, you would
+need a slot in you Item menu for the Plutonium; however, you can actually pick
+up the Plutonium with a full Item menu if you make sure to keep the Rom and
+Board in your Item menu rather than equipping a character with them (which is
+pointless, anyway); when you try to pick up the Plutonium, the screen will tell
+you that you are overloaded and ask you to drop an item; you can now drop either
+the Rom or the Board and still complete Erase 99!
+
+12. Southwest Town
+	After completing Erase 99, you will find yourself back at the Southwest
+Town in the wke of an attack by Su-Zaku.  The town is now littered with corpses,
+and all shops except for the Inn will be shut down.  Enter the Pub and talk to
+Zoku; he will tell you that Sayaka is in the Skyscraper, your next destination.
+If you need to power-up or buy more weaponry, you will have to travel NE to
+Ameyoko.  You can now travel the surface without being attacked by Su-Zaku, but
+many other monsters will be roaming about outside the tunnels.  Although you can
+walk, take the bike outside of the Pub for rapid travel.
+
+13. Skyscraper
+	Exit the Southwest Town and travel N until you reach a patch of crater-
+covered land.  Travel W along the S edge of the patch and position your bike
+below the 3rd crater from the W corner.  Exit the bike and walk N and you will
+reach the Skyscraper.  Make sure you're prepared, because this is a dangerous
+and complex section of the game--dangerous because of the monsters and complex
+because of the maze-like interior of the Skyscraper.
+	Enter the Skyscraper and travel clockwise to the door in the NW corner.
+When you pass through it, you will be standing in a sort of "transporter room."
+Step to the E off of the platform and you will be transported to another one.
+Head N into the next area of the building.  Head S a bit and position yourself
+in the small niche in the E wall.  The niche is equal to what I will refer to in
+as the followinf directions as one "block" of space.  Note that the next few
+areas can be very frustrating to travel through because the paths are hidden;
+you must "feel" your way through the walls and be prepared to backtrack a lot if
+you don't map carefully.
+	Head E beyond the niche for 4 blocks;head N until
+you enter the W-E hall.  Move E along the S wall for 5 blocks and head S through
+the wall for 5 blocks.  Move E until you enter the N-S hall; head S as far as
+you can go.  Head W until you are blocked, S into the W-E hall, then E until a
+door appears.  Go through the door into another transporter; step E to travel to
+the next platform, then N to exit the transporter.
+	Head E to the seconN corridor; travel N to the 4-way intersection and 
+turn E.  Go E until you reach the wall, then head N toenter a long W-E corridor.
+Travel E to the end of the corridor, then S through the door.  The spiked floors
+of this room will damage you, so your best bet is to travel directly to the pair
+of doors you will see when you enter the room.  Enter the W door to the next 
+transporter room and step W to transport.
+	Here's how to get through this "lights out" room:  Head S to the wall,
+then turn E and move 5 blocks.  Head N until you are blocked, then W until you
+are blocked.  Move 3 blocks N, then turn and travel W until you are below the
+NW door.  Now head N and through the door to the next transporter; step W to
+transport.
+	Head E to the wall and follow the wall S for 4 more blocks; turn E and
+step through the wall  to gain access to the door in the N wall.  In this room,
+you will find an Elixir, just in case you need it.  Exit the room and head W 
+back through the wall.  Travel S through the short corridor, then turn E and
+enter the first door to go directly to the next transporter; step W.
+	Head E to the perimeter of the building and travel clockwise to the
+W-E corridor in the center of the W side of the building.  Head E down the
+corridor and you will find a stairway which takes you to the subway platform
+where Su-Zaku awaits you.  Head S, W, then N to the subway train.  Head E until
+you reach the open door which allows you to enter the train.  You will encounter
+two passengers as you work your way E through the subway cars.  The man is safe
+to talk to, but the seated woman is actually an Evil Eye.
+	At the end of the train, you will find the kinapped Sayaka.  A Guard
+will take her away, but you will follow . . . directly into a battle with
+Su-Zaku!  The first thing you must do is use the Erase 99; after that, it's up
+to you.  I'd suggest avoiding spells; a Rune Sword for each of the HMs with a
+Light Saber and a Vampic Sword for the MFs will do the job.
+	After defeating Su-Zaku, you will spend a sad moment with Sayaka at
+So-Cho's grave.  However, she gives you the next Sphere.  Head down the stairs
+in the SE corner and you'll appear in front of the Tower.  You can leave Ruins
+now, but you might want to head back to Southwest Town first.  With Su-Zaku
+defeated, the shops are open again--one last chance to increase your stats and
+upgrade your equipment before heading off to face even greater enemies than
+the four Fiends.  If you need cash, you can wander the surface of Ruins in
+search of monsters to defeat; you can still use a bike, but note that the subway
+tunnels are now sealed.  Also, trash the Erase 99; it is useless and cannot be
+sold.  When you're all refreshed and equipped, head back to the Tower.
+
+14. The Tower
+	With the destruction of Su-Zaku, you have now defeated the four fiends
+and can continue further up the Tower in search of Ashura, the mysterious arch-
+fiend you have been told about have not yet seen.  If you think you're ready to
+confront him, travel clockwise after entering the Tower until you reach the
+S area of 16F.  Here you will find the next sealed door, but you must travel
+some damaging spikes to get to it; use the Red Sphere to open it.
+
+Intermediary Floors: 17-22
+	Stair 16:	No item.
+	17F:		Head E to the second stairway; climb the stairs along
+			the E edge of the Tower to reach the next door.
+	Stair 17:	The chest contains a Door.  This is a very important
+			item!  Make sure to pick it up and use it SPARINGLY,
+			since you only get three uses.  The Door allows you to
+			teleport to any of the floors you have visited.
+	18F:		Head counterclockwise to the door in the SW area of this
+			floor.  Talk to the "busy worker," then head down the E
+			escalator and talk to the folks you meet at the bottom.
+			To get back up, take the W escalator.  The Healing Pool
+			in the spiked area is fake, so to avoid damage, head
+			clockwise around the floor to the SE door.
+	Stair 18:	The chest contains a Magnum.
+	19F:		Head N, then follow the hallway W to a "two-way" 
+			escalator.  Go down the E side, then take a quick detour
+			E and N to find a working Healing Pool.  Now head back
+			to the bottom of the escalator and continue W, then N to
+			a door.  Beyond the door you will find a grim, tragic
+			scene; head down the stairs in the SE corner to find the
+			explanation.  Note that the Creator seems to have not
+			done a very good job of "looking after the children."
+			Use the W side of the escalator, then head back E; this
+			time, use the door to the N at the top of the short
+			stair.
+	Stair 19:	The chest contains the Aezis Shield.  
+			Note:  When I tried to pick up this item, I was informed
+			that I was "overloaded" when I knew that I still had
+			an open item slot--or, rather, I knew I had more than
+			one open slot before I picked up the Magnum.  When I
+			checked my Item menu, I found I had also reveived a
+			Nuclear Bomb; however, I don't know when I received it! 
+			It may have been added to my Item menu when I searched
+			19F, but I was not informed of it by the game.  If
+			anyone can verify where it came from, please contact me 
+			(I'll find out next time I play the game, but I don't
+			want to wait that long ;) ).
+	20F:		Head W, then S past the Healing Pool (another fake).
+			Enter the door to the W and you will find a small
+			library.  Carefully search each shelf for a "teaser"
+			about Ashura.  The 7th shelf to the E is a secret door
+			through which you will find the powerful spell, Flare.
+			Travel back to the E door to continue up the Tower.
+	Stair 20:	No item.
+	21F:		Travel counterclockwise to find a working Healing Pool.
+			Now head back to the door and follow the corridor to the
+			N.  Before entering the door, make sure you have a
+			slot open in your item menu!  Dump something marginally
+			useful if you must, since you are about to receive a
+			very powerful item.  Once through the door, head W to
+			vertical "path" without flowers; head S to the 11th row
+			of flowers, then turn W and enter the hut.  After re-
+			entering the Tower, head S, W, and N to the door.
+	Stair 21:	The chest contains the Glass Sword.  Each time you use
+ 			this sword, you will be told that it has been destroyed.
+			Not really.
+	22F:		Head E to the central column and follow it S to the
+			"Guy With the Hat."  He will let you know that your next
+			confrontation will be with Ashura!
+			
+Ashura
+	At this point, you will notice that there is no door; however,
+the column does bear one of the winged insignias that have denoted important
+doors on previous floors.  Stand in the center of the S end of the column and
+step N.  You will be carried up the column and onto a series of stairways
+leading to Ashura.  You will NOT be able to turn around and go back.  At this
+point, the door becomes very important, since it is your only means of visiting
+the previous floors in order to pick up any important weapons, spells, or other
+items which you need but might have missed or used up (like two specific swords,
+for example . . . hint-hint-nudge-nudge).  Before you enter this phase of the
+Tower, it's a good idea to use Cure or Rod on as many of your party members
+who need it and to make sure that one of your FMs is equipped with one of
+those curative items.  You'll probably need it.
+	As you head up the stairs, you will be assaulted by some of the most
+powerful creatures in the game.  Run away whenever possible, but bear in mind
+that if you cannot run, your enemies will strike first!  This can be very fatal
+when facing Wights (use Book) and Troopers (make sure someone can use the Aezis
+Shield).
+	You will find Ashura blocking your path to a stairway at the end of a
+hall.  He is, however, a bit tricky to confront.  Ashura stands near the E side 
+of the hallway and can only be approached from the E or W sides of the hall; if
+you head straight up the middle of the hall, you will be teleported back to the
+door at the base of the column.  The easiest way to set yourself up for this
+confrontation is to hug the E side of the stairways and hallways as soon as you
+encounter pathways which are wider than a single block.
+	Although he's a bit challenging to reach, Ashura is not terribly
+difficult to beat, provided you have the right weaponry and other items.  Your
+HMs should be equipped with swords; Excalibur and the Glass Sword will work,
+but you might want to save them for later.  My sword of choice is the Rune
+Sword; although it doesn't deal as much damage as some others, it has the
+valuable added ability of being able to counter and reflect spells cast by your
+opponent.  One of your FMs should have the Aezis shield and the other should be
+equipped with a P-Sword or Laser Saber and a curative item like the Rod.  Use 
+the Aezis during every round of the battle to prevent as much damage as possible
+and have the other FM alternate between using a weapon a curative item as 
+needed; keep battering away with the HMs, and Ashura will be toast in no time.
+
+Don't Ya' Hate When That Happens?
+	So . . . you defeat Ashura and run up the stairs.  And what happens?
+You fall down a hole and end up . . . (insert drumroll here) . . .  back in
+Base Town!  Things are a bit different, though.  All of the friends you have 
+made who have actually survived the adventure will be there to greet you and
+tell you what's new in their lives.  As well, you will once again meet the "Guy
+With the Hat," who will tell you that a path to Paradise awaits you in the
+Tower.  So now you get to start all over, right?
+	Well, not quite.  When you re-enter the Tower through the door in Base
+Town, you will find that you no longer travel within the Tower but, rather,
+climb a series of stairways on the outside of it.  The trip to the top is, thus,
+much shorter, but you have the added bonus of getting to fight the four fiends
+again as you climb--and they're all a bit nastier, now.  Luckily, you have a few
+oportunities to prepare for the trip.
+	First of all, you will discover that the shops in Base Town now sell
+much more powerful weapons, armor, and other items.  However, chances are you
+won't have enough GP for many of them.  Luckily, you can use the Door to 
+teleport to the inside of the Tower and travel the various floors and worlds at
+your leisure until you have gather as much GP and miscellaneous items as you
+feel you need.
+	At this point, I recommend dumping or selling as many extraneous items
+as you can.  Keep Excalibur and the Glass Sword, but open up as many slots as
+you can. Use the door to return to Ocean (5F), where you can equip your HMs with
+Axes and your FMs with Elec Spells.  Once prepared, head back to the Undersea
+Castle and pummel Atom Crabs until you've amassed a hefty fortune (if you take
+this suggestion, make sure you recover the Red Orb from the Orb Room again,
+otherwise you will not be able to leave the caves beneath the sea).  At this
+point, the floors of the Tower are all open to you; if you want to have some fun
+and make some cash, try climbing all the way to the top again and checking the
+various floors and worlds for items you may have missed; when you get to the
+top, you can either use the Door or hop into the pit again to return to Base
+Town.  No matter what you choose to do, your overall goals are the same:  Make
+money, return to Base Town, power-up as much as you can, then re-enter the Tower
+to solve the mystery of Paradise once and for all.
+
+Paradise by the GameBoy Light
+	And what exactly is the secret to Paradise?
+	Hmph . . . now, do you really expect me to ruin the ending for you?
+	C'mon, people!  You're almost there!  You're less than a half-hour
+away from completing the game.  You'll just have to make it to Paradise on your
+own.
+	However . . . if you are at the end and having difficulty with the final
+"event," just drop me a post with your question(s); I'll try to answer them
+personally, but I will definitely include the most frequently-asked questions
+in a brief article in issue #3 of TGSSZ.  As well, if you have questions on the
+specific use and/or capabilities of the many weapons, armor, and/or items in
+the game, I can answer them, as well as any questions about the nature of the
+special abilities of the Mutants.
+	Good luck!
+
+
+**********
+
+
+[End Part 2]
+
+

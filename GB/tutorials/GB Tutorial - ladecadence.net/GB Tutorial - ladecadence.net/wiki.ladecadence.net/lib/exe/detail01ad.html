@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr" class="no-js">
+
+<!-- Mirrored from wiki.ladecadence.net/lib/exe/detail.php?id=tutorial_de_ensamblador&media=bgb00001.png by HTTraQt Website Copier/1.x [Karbofos 2012-2017] Sun, 14 Apr 2019 02:34:08 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <title>
+        bgb00001.png        [La decadence]
+    </title>
+    <script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+    <meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="index,follow"/>
+<link rel="search" type="application/opensearchdescription+xml" href="../../../external.html?link=http://wiki.ladecadence.net/lib/exe/opensearch.php" title="La decadence"/>
+<link rel="start" href="../../../external.html?link=http://wiki.ladecadence.net/"/>
+<link rel="contents" href="../../../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;do=index" title="Índice"/>
+<link rel="alternate" type="application/rss+xml" title="Cambios recientes" href="../../../external.html?link=http://wiki.ladecadence.net/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Espacio de nombres actual" href="../../../external.html?link=http://wiki.ladecadence.net/feed.php?mode=list&amp;ns="/>
+<link rel="alternate" type="text/html" title="HTML sencillo" href="../../../external.html?link=http://wiki.ladecadence.net/doku.php?do=export_xhtml&amp;id=tutorial_de_ensamblador"/>
+<link rel="alternate" type="text/plain" title="Etiquetado Wiki" href="../../../external.html?link=http://wiki.ladecadence.net/doku.php?do=export_raw&amp;id=tutorial_de_ensamblador"/>
+<link rel="stylesheet" type="text/css" href="../../../external.html?link=http://wiki.ladecadence.net/lib/exe/css.php?t=dokuwiki&amp;tseed=bbc7f8c80fe59aa928a09e9ac583a0a9"/>
+<!--[if gte IE 9]><!-->
+<script type="text/javascript">/*<![CDATA[*/var NS='';var JSINFO = null;
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="../../../external.html?link=http://wiki.ladecadence.net/lib/exe/jquery.php?tseed=38e996c870c1e0ebbe9b13928b7ba9b8"></script>
+<script type="text/javascript" charset="utf-8" src="../../../external.html?link=http://wiki.ladecadence.net/lib/exe/js.php?t=dokuwiki&amp;tseed=bbc7f8c80fe59aa928a09e9ac583a0a9"></script>
+<!--<![endif]-->
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="shortcut icon" href="../../../external.html?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/favicon.ico" />
+<link rel="apple-touch-icon" href="../../../external.html?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/apple-touch-icon.png" />
+    </head>
+
+<body>
+    <div id="dokuwiki__site"><div id="dokuwiki__top" class="site dokuwiki mode_ tpl_dokuwiki   ">
+
+        
+<!-- ********** HEADER ********** -->
+<div id="dokuwiki__header"><div class="pad group">
+
+    
+    <div class="headings group">
+        <ul class="a11y skip">
+            <li><a href="#dokuwiki__content">Saltar a contenido</a></li>
+        </ul>
+
+        <h1><a href="../../../external.html?link=http://wiki.ladecadence.net/doku.php?id=LaDecadence"  accesskey="h" title="[H]"><img src="../../../external.html?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/logo.png" width="64" height="64" alt="" /> <span>La decadence</span></a></h1>
+            </div>
+
+    <div class="tools group">
+        <!-- USER TOOLS -->
+                    <div id="dokuwiki__usertools">
+                <h3 class="a11y">Herramientas de usuario</h3>
+                <ul>
+                    <li><a href="../../../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;do=login&amp;sectok=c477e5214f82cd344510c4edf74ef4e8"  class="action login" rel="nofollow" title="Conectarse">Conectarse</a></li>                </ul>
+            </div>
+        
+        <!-- SITE TOOLS -->
+        <div id="dokuwiki__sitetools">
+            <h3 class="a11y">Herramientas del sitio</h3>
+            <form action="../../../external.html?link=http://wiki.ladecadence.net/doku.php?id=LaDecadence" accept-charset="utf-8" class="search" id="dw__search" method="get" role="search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" placeholder="Buscar" id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]" /><button type="submit" title="Buscar">Buscar</button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>            <div class="mobileTools">
+                <form action="../../../external.html?link=http://wiki.ladecadence.net/doku.php" method="get" accept-charset="utf-8"><div class="no"><input type="hidden" name="id" value="tutorial_de_ensamblador" /><select name="do" class="edit quickselect" title="Herramientas"><option value="">Herramientas</option><optgroup label="Herramientas de la página"><option value="">Ver página</option><option value="revisions">Revisiones antiguas</option><option value="backlink">Enlaces a esta página</option></optgroup><optgroup label="Herramientas del sitio"><option value="recent">Cambios recientes</option><option value="media">Administrador de Ficheros</option><option value="index">Índice</option></optgroup><optgroup label="Herramientas de usuario"><option value="login">Conectarse</option></optgroup></select><button type="submit">&gt;</button></div></form>            </div>
+            <ul>
+                <li><a href="../../../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;do=recent"  class="action recent" accesskey="r" rel="nofollow" title="Cambios recientes [R]">Cambios recientes</a></li><li><a href="../../../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;do=media&amp;ns="  class="action media" rel="nofollow" title="Administrador de Ficheros">Administrador de Ficheros</a></li><li><a href="../../../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;do=index"  class="action index" accesskey="x" rel="nofollow" title="Índice [X]">Índice</a></li>            </ul>
+        </div>
+
+    </div>
+
+    <!-- BREADCRUMBS -->
+            <div class="breadcrumbs">
+                                        <div class="trace"><span class="bchead">Traza:</span> <span class="bcsep">•</span> <span class="curid"><bdi><a href="../../../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador"  class="breadcrumbs" title="tutorial_de_ensamblador">tutorial_de_ensamblador</a></bdi></span></div>
+                    </div>
+    
+
+
+    <hr class="a11y" />
+</div></div><!-- /header -->
+
+        <div class="wrapper group" id="dokuwiki__detail">
+
+            <!-- ********** CONTENT ********** -->
+            <div id="dokuwiki__content"><div class="pad group">
+                
+                                    <div class="pageId"><span>bgb00001.png</span></div>
+                
+                <div class="page group">
+                                                            <!-- detail start -->
+                                                                    <h1>bgb00001.png</h1>
+
+                        <a href="../../../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?cache=&amp;media=bgb00001.png" title="Ver el fichero original"><img width="160" height="144" class="img_detail" alt="bgb00001.png" title="bgb00001.png" src="../../../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?cache=&amp;w=160&amp;h=144&amp;tok=7d95be&amp;media=bgb00001.png"/></a>
+                        <div class="img_detail">
+                            <dl><dt>Fecha:</dt><dd>08/02/2017 21:21</dd><dt>Nombre del archivo:</dt><dd>bgb00001.png</dd><dt>Formato:</dt><dd>PNG</dd><dt>Tamaño:</dt><dd>843B</dd><dt>Ancho:</dt><dd>160</dd><dt>Alto:</dt><dd>144</dd></dl>                            <dl>
+                            <dt>Referencias para:</dt><dd><a href="../../../external.html?link=http://wiki.ladecadence.net/doku.php?id=assembly_tutorial" class="wikilink1" title="assembly_tutorial">assembly_tutorial</a></dd><dd><span class="curid"><a href="../../../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador" class="wikilink1" title="tutorial_de_ensamblador">tutorial_de_ensamblador</a></span></dd>                            </dl>
+                            <p>Puede que esta lista no esté completa debido a restricciones de la ACL y a las páginas ocultas.</p>
+                        </div>
+                                                            </div>
+                <!-- detail stop -->
+                                
+                
+            </div></div><!-- /content -->
+
+            <hr class="a11y" />
+
+            <!-- PAGE ACTIONS -->
+                            <div id="dokuwiki__pagetools">
+                    <h3 class="a11y">Herramientas de la página</h3>
+                    <div class="tools">
+                        <ul>
+                            <li><a href="../../../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador"  class="action img_backto" accesskey="b" rel="nofollow" title="Volver a tutorial_de_ensamblador [B]"><span>Volver a tutorial_de_ensamblador</span></a></li>                        </ul>
+                    </div>
+                </div>
+                    </div><!-- /wrapper -->
+
+        
+<!-- ********** FOOTER ********** -->
+<div id="dokuwiki__footer"><div class="pad">
+    <div class="license">Excepto donde se indique lo contrario, el contenido de este wiki esta bajo la siguiente licencia: <bdi><a href="../../../external.html?link=http://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license" class="urlextern">CC Attribution-Noncommercial-Share Alike 4.0 International</a></bdi></div>
+    <div class="buttons">
+        <a href="../../../external.html?link=http://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license"><img src="../../../external.html?link=http://wiki.ladecadence.net/lib/images/license/button/cc-by-nc-sa.png" alt="CC Attribution-Noncommercial-Share Alike 4.0 International" /></a>        <a href="../../../external.html?link=http://www.dokuwiki.org/donate" title="Donate" ><img
+            src="../../../external.gif?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/button-donate.gif" width="80" height="15" alt="Donate" /></a>
+        <a href="../../../external.html?link=http://php.net/" title="Powered by PHP" ><img
+            src="../../../external.gif?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/button-php.gif" width="80" height="15" alt="Powered by PHP" /></a>
+        <a href="../../../external.html?link=http://validator.w3.org/check/referer" title="Valid HTML5" ><img
+            src="../../../external.html?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/button-html5.png" width="80" height="15" alt="Valid HTML5" /></a>
+        <a href="../../../external.html?link=http://jigsaw.w3.org/css-validator/check/referer?profile=css3" title="Valid CSS" ><img
+            src="../../../external.html?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/button-css.png" width="80" height="15" alt="Valid CSS" /></a>
+        <a href="../../../external.html?link=http://dokuwiki.org/" title="Driven by DokuWiki" ><img
+            src="../../../external.html?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/button-dw.png" width="80" height="15" alt="Driven by DokuWiki" /></a>
+    </div>
+</div></div><!-- /footer -->
+
+    </div></div><!-- /site -->
+</body>
+
+<!-- Mirrored from wiki.ladecadence.net/lib/exe/detail.php?id=tutorial_de_ensamblador&media=bgb00001.png by HTTraQt Website Copier/1.x [Karbofos 2012-2017] Sun, 14 Apr 2019 02:34:08 GMT -->
+</html>
