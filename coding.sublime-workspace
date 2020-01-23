@@ -1,0 +1,585 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "#include <stdio.h>\n\n\n\n\nint main(int argc, char const *argv[])\n{\n\t/* code */\n\treturn 0;\n}",
+			"file": "C/Projects/Shell/main.c ",
+			"file_size": 0,
+			"file_write_time": 132218856526990622,
+			"settings":
+			{
+				"buffer_size": 88,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Package Control Messages\n========================\n\nRGBDS\n-----\n\n  Sublime-RGBDS 1.0.0 changelog:\n  \n   - Fixed lack of indentation with \"REPT\" keyword\n  \n   - Fixed nesting of macros and REPT blocks\n",
+			"settings":
+			{
+				"buffer_size": 199,
+				"line_ending": "Unix",
+				"name": "Package Control Messages",
+				"read_only": true,
+				"scratch": true
+			}
+		},
+		{
+			"file": "C/Projects/Shell/examples/17_exec.c",
+			"settings":
+			{
+				"buffer_size": 649,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "C/Projects/Shell/examples/17_waitpid.c",
+			"settings":
+			{
+				"buffer_size": 1130,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"upgra",
+				"Package Control: Upgrade Package"
+			],
+			[
+				"updat",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"theme",
+				"UI: Select Theme"
+			],
+			[
+				"color sceme",
+				"UI: Select Color Scheme"
+			],
+			[
+				"color scheem",
+				"UI: Select Color Scheme"
+			],
+			[
+				"main",
+				"Snippet: main()"
+			],
+			[
+				"s",
+				"Snippet: main()"
+			],
+			[
+				"mips",
+				"Snippet: It's a MIPS Template. Use it as you please."
+			],
+			[
+				"snippet",
+				"SnippetMaker: Make Snippet"
+			],
+			[
+				"class",
+				"Snippet: New Class"
+			],
+			[
+				"scheme",
+				"UI: Select Color Scheme"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"hex",
+				"HexViewer: Toggle Hex View"
+			],
+			[
+				"lint",
+				"SublimeLinter: Show All Errors"
+			],
+			[
+				"linter",
+				"SublimeLinter: Lint This View"
+			],
+			[
+				"snippets",
+				"SnippetMaker: Make Snippet"
+			],
+			[
+				"mips sni",
+				"SnippetMaker: Edit Snippet"
+			],
+			[
+				"c linter",
+				"Preferences: SublimeLinter Settings"
+			],
+			[
+				"codemap",
+				"CodeMap: Toggle Visibility"
+			],
+			[
+				"c snippet",
+				"Snippet: It's a C template."
+			],
+			[
+				"list",
+				"Package Control: List Packages"
+			],
+			[
+				"upda",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"i",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"c",
+				"Change List: Show"
+			],
+			[
+				"change",
+				"Change List: Show"
+			],
+			[
+				"local",
+				"Local History: Menu"
+			],
+			[
+				"zeal",
+				"Zeal: Search"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Discover Packages"
+			],
+			[
+				"key",
+				"Preferences: Terminal View: Keybindings"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"preferences",
+				"Preferences: Settings"
+			],
+			[
+				"default",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"font",
+				"Preferences: Package Control Settings – User"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/macrossneurology/Documents/coding",
+		"/home/macrossneurology/Documents/coding/C",
+		"/home/macrossneurology/Documents/coding/C/Projects",
+		"/home/macrossneurology/Documents/coding/C/Projects/Shell",
+		"/home/macrossneurology/Documents/coding/C/Projects/Shell/examples",
+		"/home/macrossneurology/Documents/coding/GB",
+		"/home/macrossneurology/Documents/coding/GB/projects",
+		"/home/macrossneurology/Documents/coding/GB/projects/hello_world",
+		"/home/macrossneurology/Documents/coding/Python"
+	],
+	"file_history":
+	[
+		"/home/macrossneurology/Documents/coding/C/Projects",
+		"/home/macrossneurology/Documents/coding/GB/projects/hello_world/main.asm",
+		"/home/macrossneurology/Documents/coding/Compiler Practice/hello_world.s",
+		"/home/macrossneurology/Documents/coding/Compiler Practice/hello_world.c",
+		"/home/macrossneurology/Documents/coding/Compiler Practice/hello_world.asm",
+		"/home/macrossneurology/Documents/coding/GB/programs",
+		"/home/macrossneurology/Documents/coding/Assembly/6502/programs/hello_world.asm",
+		"/home/macrossneurology/Documents/coding/Python/addition.py",
+		"/home/macrossneurology/Documents/coding/Assembly/MIPS/hello.asm",
+		"/home/macrossneurology/.config/sublime-text-3/Packages/User/Snippets/MIPS template.sublime-snippet",
+		"/home/macrossneurology/Documents/coding/Java/hello.java",
+		"/home/macrossneurology/Documents/coding/Python/hello.py",
+		"/run/media/macrossneurology/3DSD/luma/config.bin",
+		"/home/macrossneurology/Documents/coding/N64/BOOTCODE/LIB/N64.INC",
+		"/home/macrossneurology/Documents/coding/N64/n64crc.c",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbdk-n/obj/gprint.asm",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbdk-n/libc/drawing.s",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbdk-n/include/gb/drawing.h",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbdk-n/libc/gprint.c",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbdk-n/include/gb/gb.h",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbdk-n/include/asm/types.h",
+		"/home/macrossneurology/Documents/coding/GB/examples/rgbds-\"Hello World!\"/src/memory.asm",
+		"/home/macrossneurology/.config/sublime-text-3/Packages/User/SideBarEnhancements/Open With/Side Bar.sublime-menu",
+		"/home/macrossneurology/.config/sublime-text-3/Packages/User/Side Bar.sublime-settings",
+		"/home/macrossneurology/Documents/coding/GB/tutorials/ISSOtm GB programming/docs/index.html",
+		"/home/macrossneurology/Documents/coding/GB/documents/Gameboy Assembly Language Primer/index.htm",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbt-player/legacy_gbdk/mod2gbt/mod2gbt.c",
+		"/home/macrossneurology/Documents/coding/GB/examples/rgbds-\"Hello World!\"/src/hello-world.asm",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbt-player/rgbds_example/gbt_player.inc",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbt-player/rgbds_example/gbt_player_bank1.asm",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbt-player/rgbds_example/init.asm",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbt-player/mod2gbt/build_linux.sh",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbt-player/README.rst",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbt-player/rgbds_example/gbt_player.asm",
+		"/home/macrossneurology/Documents/coding/GB/examples/rgbds-\"Hello World!\"/inc/gbhw.inc",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbt-player/rgbds_example/template.mod",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbt-player/rgbds_example/make_rom.sh",
+		"/home/macrossneurology/Documents/coding/GB/libraries/gbt-player/rgbds_example/hardware.inc",
+		"/home/macrossneurology/Documents/coding/C/r/dailyprogrammer/havel-hakimi/havel-hakimi.md",
+		"/home/macrossneurology/Documents/coding/Danmakufu/Sample_Script.dnh",
+		"/home/macrossneurology/Documents/coding/C/r/dailyprogrammer/havel-hakimi.c",
+		"/home/macrossneurology/Documents/coding/GBA/tutorials/Tonc/code/basic/hello/hello.c",
+		"/home/macrossneurology/Documents/coding/GBA/tutorials/Tonc/code/tonclib/include/tonc_tte.h",
+		"/home/macrossneurology/.config/sublime-text-3/Installed Packages/MIPS Syntax.sublime-package",
+		"/tmp/Zip Browser/18f67679d0eb583f9066dd142bc1648c/mips snippets/and_.sublime-snippet",
+		"/home/macrossneurology/Documents/coding/C/r/dailyprogrammer/havel-hakimi.md",
+		"/home/macrossneurology/.config/sublime-text-3/Packages/User/CodeMap/Code - Map",
+		"/home/macrossneurology/Documents/coding/GBA/tutorials/Tonc/code/tonclib/base.c",
+		"/home/macrossneurology/Documents/coding/GB/tutorials/ISSOtm's - GB programming/ISSOtm's - GB ASM/external.html",
+		"/home/macrossneurology/Documents/coding/GB/tutorials/DMGreport/01_minimal_template.asm",
+		"/home/macrossneurology/Documents/coding/GB/tutorials/DMGreport/02_ugly_sprite_moves.asm",
+		"/home/macrossneurology/Documents/coding/GB/libraries/drivers/DevSound/Documentation/Creating instruments.txt",
+		"/home/macrossneurology/Documents/coding/GB/libraries/drivers/DevSound/Documentation/Command reference.txt",
+		"/home/macrossneurology/Documents/coding/GB/libraries/drivers/DevSound/README.md",
+		"/home/macrossneurology/DotsMine/zsh_files/.zshrc",
+		"/home/macrossneurology/Documents/coding/GB/tutorials/DMGreport/README.MD",
+		"/home/macrossneurology/Documents/coding/GB/tutorials/DMGreport/scripts/build.sh",
+		"/home/macrossneurology/Documents/College/Junior Year/Semester 1/System Software/private/cs449/scripts/build.sh",
+		"/home/macrossneurology/Documents/coding/GB/Templates/Gameboy Boilerplate Project/src/Core/Boot.asm",
+		"/home/macrossneurology/Documents/coding/coding.sublime-project",
+		"/home/macrossneurology/DotsMine/shell-independent/aliases",
+		"/home/macrossneurology/aliases.zsh",
+		"/home/macrossneurology/.bashrc.aliases",
+		"/home/macrossneurology/.bashrc",
+		"/home/macrossneurology/DotsMine/shell-independent files/aliases",
+		"/home/macrossneurology/.config/sublime-text-3/.sublime/Local History/home/macrossneurology/College/Junior Year/Semester 1/System Software/private/cs449/Projects/Project 2/mymalloc-20190210165031.c",
+		"/home/macrossneurology/Playlists/untitled.m3u",
+		"/home/macrossneurology/Playlists/BlackPlayer Favorites_20190215202608.m3u",
+		"/tmp/mozilla_macrossneurology0/Awaken.m3u",
+		"/home/macrossneurology/Playlists/Electric Light Orchestra - Time - 1981.m3u",
+		"/home/macrossneurology/College/Junior Year/Semester 1/System Software/private/cs449/Labs/Lab 3/lab3.c",
+		"/home/macrossneurology/College/Junior Year/Semester 1/System Software/private/cs449/Projects/Project 2/project2.c",
+		"/home/macrossneurology/College/Junior Year/Semester 1/System Software/private/cs449/Projects/Project 2/Project 2 Details.pdf",
+		"/tmp/mozilla_macrossneurology0/playlist.m3u",
+		"/home/macrossneurology/.config/sublime-text-3/Packages/TerminalView/README.md",
+		"/home/macrossneurology/.config/sublime-text-3/Packages/Package Control/Package Control.sublime-settings",
+		"/home/macrossneurology/College/Junior Year/Semester 1/System Software/private/sftp-config.json",
+		"/home/macrossneurology/.zshrc.pre-oh-my-zsh",
+		"/home/macrossneurology/.zshrc",
+		"/home/macrossneurology/DotsMine/scripts/set-bg",
+		"/home/macrossneurology/.config/sublime-text-3/Packages/User/Package Control.sublime-settings"
+	],
+	"find":
+	{
+		"height": 22.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"font"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "C/Projects/Shell/main.c ",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 88,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								88,
+								88
+							]
+						],
+						"settings":
+						{
+							"function_name_status_row": 9,
+							"incomplete_sync": null,
+							"open_with_edit": true,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 199,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								199,
+								199
+							]
+						],
+						"settings":
+						{
+							"auto_indent": false,
+							"default_dir": "/home/macrossneurology/Documents/coding/C/Projects/Shell",
+							"function_name_status_row": -1,
+							"incomplete_sync": null,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_width": 2,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "C/Projects/Shell/examples/17_exec.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 649,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"function_name_status_row": 0,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "C/Projects/Shell/examples/17_waitpid.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1130,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								553,
+								553
+							]
+						],
+						"settings":
+						{
+							"function_name_status_row": 22,
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/C Improved/C Improved.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 37.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 91.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.hex_viewer_inspector":
+	{
+		"height": 97.0
+	},
+	"output.sftp":
+	{
+		"height": 114.0
+	},
+	"pinned_build_system": "",
+	"project": "coding.sublime-project",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/College/Junior Year/Semester 2/Algorithm Implementation/Algorithm Implementation.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 216.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

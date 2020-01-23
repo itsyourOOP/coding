@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr" class="no-js">
+
+<!-- Mirrored from wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&do=media&ns= by HTTraQt Website Copier/1.x [Karbofos 2012-2017] Sun, 14 Apr 2019 02:34:08 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8" />
+    <title>tutorial_de_ensamblador [La decadence]</title>
+    <script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
+    <meta name="generator" content="DokuWiki"/>
+<meta name="robots" content="noindex,nofollow"/>
+<link rel="search" type="application/opensearchdescription+xml" href="../external.html?link=http://wiki.ladecadence.net/lib/exe/opensearch.php" title="La decadence"/>
+<link rel="start" href="../external.html?link=http://wiki.ladecadence.net/"/>
+<link rel="contents" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;do=index" title="Índice"/>
+<link rel="alternate" type="application/rss+xml" title="Cambios recientes" href="../external.html?link=http://wiki.ladecadence.net/feed.php"/>
+<link rel="alternate" type="application/rss+xml" title="Espacio de nombres actual" href="../external.html?link=http://wiki.ladecadence.net/feed.php?mode=list&amp;ns="/>
+<link rel="alternate" type="text/html" title="HTML sencillo" href="../external.html?link=http://wiki.ladecadence.net/doku.php?do=export_xhtml&amp;id=tutorial_de_ensamblador"/>
+<link rel="alternate" type="text/plain" title="Etiquetado Wiki" href="../external.html?link=http://wiki.ladecadence.net/doku.php?do=export_raw&amp;id=tutorial_de_ensamblador"/>
+<link rel="stylesheet" type="text/css" href="../external.html?link=http://wiki.ladecadence.net/lib/exe/css.php?t=dokuwiki&amp;tseed=248b811c2b302349cd4a24bf6679b0bf"/>
+<!--[if gte IE 9]><!-->
+<script type="text/javascript">/*<![CDATA[*/var NS='';var JSINFO = {"id":"tutorial_de_ensamblador","namespace":""};
+/*!]]>*/</script>
+<script type="text/javascript" charset="utf-8" src="../external.html?link=http://wiki.ladecadence.net/lib/exe/jquery.php?tseed=38e996c870c1e0ebbe9b13928b7ba9b8"></script>
+<script type="text/javascript" charset="utf-8" src="../external.html?link=http://wiki.ladecadence.net/lib/exe/js.php?t=dokuwiki&amp;tseed=248b811c2b302349cd4a24bf6679b0bf"></script>
+<!--<![endif]-->
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="shortcut icon" href="../external.html?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/favicon.ico" />
+<link rel="apple-touch-icon" href="../external.html?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/apple-touch-icon.png" />
+    </head>
+
+<body>
+    <div id="dokuwiki__site"><div id="dokuwiki__top" class="site dokuwiki mode_media tpl_dokuwiki     ">
+
+        
+<!-- ********** HEADER ********** -->
+<div id="dokuwiki__header"><div class="pad group">
+
+    
+    <div class="headings group">
+        <ul class="a11y skip">
+            <li><a href="#dokuwiki__content">Saltar a contenido</a></li>
+        </ul>
+
+        <h1><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=LaDecadence"  accesskey="h" title="[H]"><img src="../external.html?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/logo.png" width="64" height="64" alt="" /> <span>La decadence</span></a></h1>
+            </div>
+
+    <div class="tools group">
+        <!-- USER TOOLS -->
+                    <div id="dokuwiki__usertools">
+                <h3 class="a11y">Herramientas de usuario</h3>
+                <ul>
+                    <li><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;do=login&amp;sectok=c477e5214f82cd344510c4edf74ef4e8"  class="action login" rel="nofollow" title="Conectarse">Conectarse</a></li>                </ul>
+            </div>
+        
+        <!-- SITE TOOLS -->
+        <div id="dokuwiki__sitetools">
+            <h3 class="a11y">Herramientas del sitio</h3>
+            <form action="../external.html?link=http://wiki.ladecadence.net/doku.php?id=LaDecadence" accept-charset="utf-8" class="search" id="dw__search" method="get" role="search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" placeholder="Buscar" id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]" /><button type="submit" title="Buscar">Buscar</button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>            <div class="mobileTools">
+                <form action="../external.html?link=http://wiki.ladecadence.net/doku.php" method="get" accept-charset="utf-8"><div class="no"><input type="hidden" name="id" value="tutorial_de_ensamblador" /><select name="do" class="edit quickselect" title="Herramientas"><option value="">Herramientas</option><optgroup label="Herramientas de la página"><option value="">Ver página</option><option value="revisions">Revisiones antiguas</option><option value="backlink">Enlaces a esta página</option></optgroup><optgroup label="Herramientas del sitio"><option value="recent">Cambios recientes</option><option value="media">Administrador de Ficheros</option><option value="index">Índice</option></optgroup><optgroup label="Herramientas de usuario"><option value="login">Conectarse</option></optgroup></select><button type="submit">&gt;</button></div></form>            </div>
+            <ul>
+                <li><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;do=recent"  class="action recent" accesskey="r" rel="nofollow" title="Cambios recientes [R]">Cambios recientes</a></li><li><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;do=media&amp;ns="  class="action media" rel="nofollow" title="Administrador de Ficheros">Administrador de Ficheros</a></li><li><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;do=index"  class="action index" accesskey="x" rel="nofollow" title="Índice [X]">Índice</a></li>            </ul>
+        </div>
+
+    </div>
+
+    <!-- BREADCRUMBS -->
+            <div class="breadcrumbs">
+                                        <div class="trace"><span class="bchead">Traza:</span> <span class="bcsep">•</span> <bdi><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador"  class="breadcrumbs" title="tutorial_de_ensamblador">tutorial_de_ensamblador</a></bdi> <span class="bcsep">•</span> <span class="curid"><bdi><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=ladecadence"  class="breadcrumbs" title="ladecadence">ladecadence</a></bdi></span></div>
+                    </div>
+    
+
+
+    <hr class="a11y" />
+</div></div><!-- /header -->
+
+        <div class="wrapper group">
+
+            
+            <!-- ********** CONTENT ********** -->
+            <div id="dokuwiki__content"><div class="pad group">
+                
+                <div class="pageId"><span>tutorial_de_ensamblador</span></div>
+
+                <div class="page group">
+                                                            <!-- wikipage start -->
+                    <div id="mediamanager__page">
+<h1>Administrador de Ficheros</h1>
+<div class="panel namespaces">
+<h2>Espacios de nombres</h2>
+<div class="panelHeader">Escoge "espacio de nombre"</div>
+<div class="panelContent" id="media__tree">
+
+<ul class="idx">
+<li class="media level0 open"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/images/minus.gif" alt="−" /><div class="li"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;ns=&amp;tab_files=files&amp;do=media" class="idx_dir">[root]</a></div>
+<ul class="idx">
+<li class="media level1 closed"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/images/plus.gif" alt="+" /><div class="li"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;ns=en&amp;tab_files=files&amp;do=media" class="idx_dir">en</a></div></li>
+<li class="media level1 closed"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/images/plus.gif" alt="+" /><div class="li"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;ns=wiki&amp;tab_files=files&amp;do=media" class="idx_dir">wiki</a></div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="panel filelist">
+<h2 class="a11y">Archivos Multimedia</h2>
+<ul class="tabs">
+<li><strong>Archivos Multimedia</strong></li>
+<li><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;tab_files=upload&amp;do=media&amp;ns=">Cargar</a></li>
+<li><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;tab_files=search&amp;do=media&amp;ns=">Buscar</a></li>
+</ul>
+<div class="panelHeader">
+<h3>Ficheros en <strong>[root]</strong></h3>
+<form class="options" method="get" action="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador" accept-charset="utf-8"><div class="no">
+<input type="hidden" name="do" value="media" /><input type="hidden" name="ns" value="" /><ul>
+<li class="listType"><label class="thumbs" for="listType__thumbs"><input type="radio" id="listType__thumbs" name="list_dwmedia" value="thumbs" checked="checked" /> <span>Miniaturas</span></label>
+<label class="rows" for="listType__rows"><input type="radio" id="listType__rows" name="list_dwmedia" value="rows" /> <span>Celdas</span></label>
+</li>
+<li class="sortBy"><label class="name" for="sortBy__name"><input type="radio" id="sortBy__name" name="sort_dwmedia" value="name" checked="checked" /> <span>Nombre</span></label>
+<label class="date" for="sortBy__date"><input type="radio" id="sortBy__date" name="sort_dwmedia" value="date" /> <span>Fecha</span></label>
+</li>
+<li><button type="submit">Aplicar</button>
+</li>
+</ul>
+</div></form>
+</div>
+<div class="panelContent">
+<ul class="thumbs"><li><dl title="4mhz-oscope.jpg">
+<dt><a id="l_:4mhz-oscope.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=4mhz-oscope.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=67&amp;t=1486585260&amp;tok=15e4b3&amp;media=4mhz-oscope.jpg" alt="4mhz-oscope.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=4mhz-oscope.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:4mhz-oscope.jpg">4mhz-oscope.jpg</a></dd>
+<dd class="size">2592&#215;1944</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">1.3 MB</dd>
+</dl></li>
+<li><dl title="500px-adsr_envelope_graph.svg.png">
+<dt><a id="l_:500px-adsr_envelope_graph.svg.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=500px-adsr_envelope_graph.svg.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=36&amp;t=1486585260&amp;tok=b1911b&amp;media=500px-adsr_envelope_graph.svg.png" alt="500px-adsr_envelope_graph.svg.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=500px-adsr_envelope_graph.svg.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:500px-adsr_envelope_graph.svg.png">500px-adsr_envelope_graph.svg.png</a></dd>
+<dd class="size">500&#215;204</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">18.5 KB</dd>
+</dl></li>
+<li><dl title="agb.lang">
+<dt><a id="d_:agb.lang" class="image" title="agb.lang" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=agb.lang&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/file.png" alt="agb.lang" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=agb.lang&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:agb.lang">agb.lang</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">20/02/2018 14:51</dd>
+<dd class="filesize">8.3 KB</dd>
+</dl></li>
+<li><dl title="agb.vim">
+<dt><a id="d_:agb.vim" class="image" title="agb.vim" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=agb.vim&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/file.png" alt="agb.vim" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=agb.vim&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:agb.vim">agb.vim</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">3.5 KB</dd>
+</dl></li>
+<li><dl title="aplicacion-win.png">
+<dt><a id="l_:aplicacion-win.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=aplicacion-win.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=73&amp;t=1486585260&amp;tok=8c6b7f&amp;media=aplicacion-win.png" alt="aplicacion-win.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=aplicacion-win.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:aplicacion-win.png">aplicacion-win.png</a></dd>
+<dd class="size">814&#215;661</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">47.4 KB</dd>
+</dl></li>
+<li><dl title="assemble.bat">
+<dt><a id="d_:assemble.bat" class="image" title="assemble.bat" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=assemble.bat&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/file.png" alt="assemble.bat" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=assemble.bat&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:assemble.bat">assemble.bat</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">571 B</dd>
+</dl></li>
+<li><dl title="assemble.sh">
+<dt><a id="d_:assemble.sh" class="image" title="assemble.sh" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=assemble.sh&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/sh.png" alt="assemble.sh" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=assemble.sh&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:assemble.sh">assemble.sh</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">325 B</dd>
+</dl></li>
+<li><dl title="bancos.png">
+<dt><a id="l_:bancos.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=bancos.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=81&amp;t=1486585260&amp;tok=27bb5a&amp;media=bancos.png" alt="bancos.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=bancos.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:bancos.png">bancos.png</a></dd>
+<dd class="size">160&#215;144</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">950 B</dd>
+</dl></li>
+<li><dl title="bgb00001.png">
+<dt><a id="l_:bgb00001.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=bgb00001.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=81&amp;t=1486585260&amp;tok=b2af22&amp;media=bgb00001.png" alt="bgb00001.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=bgb00001.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:bgb00001.png">bgb00001.png</a></dd>
+<dd class="size">160&#215;144</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">843 B</dd>
+</dl></li>
+<li><dl title="bgb00002.png">
+<dt><a id="l_:bgb00002.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=bgb00002.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=81&amp;t=1486585260&amp;tok=369c72&amp;media=bgb00002.png" alt="bgb00002.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=bgb00002.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:bgb00002.png">bgb00002.png</a></dd>
+<dd class="size">160&#215;144</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">419 B</dd>
+</dl></li>
+<li><dl title="bgb00003.png">
+<dt><a id="l_:bgb00003.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=bgb00003.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=81&amp;t=1486585260&amp;tok=c45eef&amp;media=bgb00003.png" alt="bgb00003.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=bgb00003.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:bgb00003.png">bgb00003.png</a></dd>
+<dd class="size">160&#215;144</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">582 B</dd>
+</dl></li>
+<li><dl title="bgb00004.png">
+<dt><a id="l_:bgb00004.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=bgb00004.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=81&amp;t=1486585260&amp;tok=26740a&amp;media=bgb00004.png" alt="bgb00004.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=bgb00004.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:bgb00004.png">bgb00004.png</a></dd>
+<dd class="size">160&#215;144</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">928 B</dd>
+</dl></li>
+<li><dl title="bgb00005.png">
+<dt><a id="l_:bgb00005.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=bgb00005.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=81&amp;t=1486585260&amp;tok=92cb8f&amp;media=bgb00005.png" alt="bgb00005.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=bgb00005.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:bgb00005.png">bgb00005.png</a></dd>
+<dd class="size">160&#215;144</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">617 B</dd>
+</dl></li>
+<li><dl title="captura_de_pantalla_de_2018-02-16_13-33-51.png">
+<dt><a id="l_:captura_de_pantalla_de_2018-02-16_13-33-51.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=captura_de_pantalla_de_2018-02-16_13-33-51.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=46&amp;t=1518784577&amp;tok=37cf27&amp;media=captura_de_pantalla_de_2018-02-16_13-33-51.png" alt="captura_de_pantalla_de_2018-02-16_13-33-51.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=captura_de_pantalla_de_2018-02-16_13-33-51.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:captura_de_pantalla_de_2018-02-16_13-33-51.png">captura_de_pantalla_de_2018-02-16_13-33-51.png</a></dd>
+<dd class="size">1336&#215;684</dd>
+<dd class="date">16/02/2018 13:36</dd>
+<dd class="filesize">602.7 KB</dd>
+</dl></li>
+<li><dl title="cartucho128_listo-p.jpg">
+<dt><a id="l_:cartucho128_listo-p.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=cartucho128_listo-p.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=81&amp;h=89&amp;t=1486585260&amp;tok=5d633b&amp;media=cartucho128_listo-p.jpg" alt="cartucho128_listo-p.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=cartucho128_listo-p.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:cartucho128_listo-p.jpg">cartucho128_listo-p.jpg</a></dd>
+<dd class="size">600&#215;659</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">162.5 KB</dd>
+</dl></li>
+<li><dl title="cartucho_final1.png">
+<dt><a id="l_:cartucho_final1.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=cartucho_final1.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=75&amp;h=90&amp;t=1486585260&amp;tok=f32c79&amp;media=cartucho_final1.png" alt="cartucho_final1.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=cartucho_final1.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:cartucho_final1.png">cartucho_final1.png</a></dd>
+<dd class="size">487&#215;577</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">70.1 KB</dd>
+</dl></li>
+<li><dl title="cartucho_flash_15-06-2008.zip">
+<dt><a id="d_:cartucho_flash_15-06-2008.zip" class="image" title="cartucho_flash_15-06-2008.zip" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=cartucho_flash_15-06-2008.zip&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/zip.png" alt="cartucho_flash_15-06-2008.zip" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=cartucho_flash_15-06-2008.zip&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:cartucho_flash_15-06-2008.zip">cartucho_flash_15-06-2008.zip</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">41.3 KB</dd>
+</dl></li>
+<li><dl title="cf-spectrum.zip">
+<dt><a id="d_:cf-spectrum.zip" class="image" title="cf-spectrum.zip" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=cf-spectrum.zip&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/zip.png" alt="cf-spectrum.zip" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=cf-spectrum.zip&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:cf-spectrum.zip">cf-spectrum.zip</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">24.7 KB</dd>
+</dl></li>
+<li><dl title="conector_pines.jpg">
+<dt><a id="l_:conector_pines.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=conector_pines.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=67&amp;t=1486585260&amp;tok=718a03&amp;media=conector_pines.jpg" alt="conector_pines.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=conector_pines.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:conector_pines.jpg">conector_pines.jpg</a></dd>
+<dd class="size">614&#215;461</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">102.2 KB</dd>
+</dl></li>
+<li><dl title="cronometro.png">
+<dt><a id="l_:cronometro.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=cronometro.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=81&amp;t=1486585260&amp;tok=e0fac1&amp;media=cronometro.png" alt="cronometro.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=cronometro.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:cronometro.png">cronometro.png</a></dd>
+<dd class="size">160&#215;144</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">684 B</dd>
+</dl></li>
+<li><dl title="die-struck-pins.jpg">
+<dt><a id="l_:die-struck-pins.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=die-struck-pins.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=73&amp;t=1486585260&amp;tok=d9cc96&amp;media=die-struck-pins.jpg" alt="die-struck-pins.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=die-struck-pins.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:die-struck-pins.jpg">die-struck-pins.jpg</a></dd>
+<dd class="size">650&#215;532</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">95.3 KB</dd>
+</dl></li>
+<li><dl title="dscn0751.jpg">
+<dt><a id="l_:dscn0751.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=dscn0751.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=67&amp;t=1486585260&amp;tok=f97403&amp;media=dscn0751.jpg" alt="dscn0751.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=dscn0751.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:dscn0751.jpg">dscn0751.jpg</a></dd>
+<dd class="size">614&#215;461</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">252.8 KB</dd>
+</dl></li>
+<li><dl title="esquema-cartucho.png">
+<dt><a id="l_:esquema-cartucho.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=esquema-cartucho.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=55&amp;h=90&amp;t=1486585260&amp;tok=903379&amp;media=esquema-cartucho.png" alt="esquema-cartucho.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=esquema-cartucho.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:esquema-cartucho.png">esquema-cartucho.png</a></dd>
+<dd class="size">1113&#215;1794</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">43.3 KB</dd>
+</dl></li>
+<li><dl title="fit_girl.jpg">
+<dt><a id="l_:fit_girl.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=fit_girl.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=59&amp;h=90&amp;t=1486585260&amp;tok=8a2813&amp;media=fit_girl.jpg" alt="fit_girl.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=fit_girl.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:fit_girl.jpg">fit_girl.jpg</a></dd>
+<dd class="size">532&#215;800</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">34.5 KB</dd>
+</dl></li>
+<li><dl title="fitness-60001.jpg">
+<dt><a id="l_:fitness-60001.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=fitness-60001.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=46&amp;t=1486585260&amp;tok=09e079&amp;media=fitness-60001.jpg" alt="fitness-60001.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=fitness-60001.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:fitness-60001.jpg">fitness-60001.jpg</a></dd>
+<dd class="size">578&#215;300</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">36.1 KB</dd>
+</dl></li>
+<li><dl title="flat-tummy.jpg">
+<dt><a id="l_:flat-tummy.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=flat-tummy.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=62&amp;h=90&amp;t=1486585260&amp;tok=8438b2&amp;media=flat-tummy.jpg" alt="flat-tummy.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=flat-tummy.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:flat-tummy.jpg">flat-tummy.jpg</a></dd>
+<dd class="size">277&#215;398</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">16.7 KB</dd>
+</dl></li>
+<li><dl title="fuente1.agb">
+<dt><a id="d_:fuente1.agb" class="image" title="fuente1.agb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=fuente1.agb&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/file.png" alt="fuente1.agb" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=fuente1.agb&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:fuente1.agb">fuente1.agb</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">9.9 KB</dd>
+</dl></li>
+<li><dl title="gb_flasher_v3-15-04-2008.zip">
+<dt><a id="d_:gb_flasher_v3-15-04-2008.zip" class="image" title="gb_flasher_v3-15-04-2008.zip" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gb_flasher_v3-15-04-2008.zip&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/zip.png" alt="gb_flasher_v3-15-04-2008.zip" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gb_flasher_v3-15-04-2008.zip&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gb_flasher_v3-15-04-2008.zip">gb_flasher_v3-15-04-2008.zip</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">210.2 KB</dd>
+</dl></li>
+<li><dl title="gb_flasher_v3.zip">
+<dt><a id="d_:gb_flasher_v3.zip" class="image" title="gb_flasher_v3.zip" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gb_flasher_v3.zip&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/zip.png" alt="gb_flasher_v3.zip" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gb_flasher_v3.zip&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gb_flasher_v3.zip">gb_flasher_v3.zip</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">107.5 KB</dd>
+</dl></li>
+<li><dl title="gb_flasher_v6-10-05-2008.zip">
+<dt><a id="d_:gb_flasher_v6-10-05-2008.zip" class="image" title="gb_flasher_v6-10-05-2008.zip" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gb_flasher_v6-10-05-2008.zip&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/zip.png" alt="gb_flasher_v6-10-05-2008.zip" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gb_flasher_v6-10-05-2008.zip&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gb_flasher_v6-10-05-2008.zip">gb_flasher_v6-10-05-2008.zip</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">87.4 KB</dd>
+</dl></li>
+<li><dl title="gb_prog_v3_-_dip.zip">
+<dt><a id="d_:gb_prog_v3_-_dip.zip" class="image" title="gb_prog_v3_-_dip.zip" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gb_prog_v3_-_dip.zip&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/zip.png" alt="gb_prog_v3_-_dip.zip" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gb_prog_v3_-_dip.zip&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gb_prog_v3_-_dip.zip">gb_prog_v3_-_dip.zip</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">66 KB</dd>
+</dl></li>
+<li><dl title="gb_prog_v6_-_smd.zip">
+<dt><a id="d_:gb_prog_v6_-_smd.zip" class="image" title="gb_prog_v6_-_smd.zip" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gb_prog_v6_-_smd.zip&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/zip.png" alt="gb_prog_v6_-_smd.zip" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gb_prog_v6_-_smd.zip&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gb_prog_v6_-_smd.zip">gb_prog_v6_-_smd.zip</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">74.9 KB</dd>
+</dl></li>
+<li><dl title="gbcart-cpld.jpg">
+<dt><a id="l_:gbcart-cpld.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbcart-cpld.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=76&amp;h=90&amp;t=1486585260&amp;tok=e84043&amp;media=gbcart-cpld.jpg" alt="gbcart-cpld.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbcart-cpld.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gbcart-cpld.jpg">gbcart-cpld.jpg</a></dd>
+<dd class="size">500&#215;585</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">149.5 KB</dd>
+</dl></li>
+<li><dl title="gbcart_128.zip">
+<dt><a id="d_:gbcart_128.zip" class="image" title="gbcart_128.zip" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbcart_128.zip&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/zip.png" alt="gbcart_128.zip" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbcart_128.zip&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gbcart_128.zip">gbcart_128.zip</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">71.7 KB</dd>
+</dl></li>
+<li><dl title="gbcart_128_cpld.zip">
+<dt><a id="d_:gbcart_128_cpld.zip" class="image" title="gbcart_128_cpld.zip" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbcart_128_cpld.zip&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/zip.png" alt="gbcart_128_cpld.zip" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbcart_128_cpld.zip&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gbcart_128_cpld.zip">gbcart_128_cpld.zip</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">73.7 KB</dd>
+</dl></li>
+<li><dl title="gbcartflasher4_cartucho2.jpg">
+<dt><a id="l_:gbcartflasher4_cartucho2.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbcartflasher4_cartucho2.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=86&amp;h=90&amp;t=1486585260&amp;tok=2a8031&amp;media=gbcartflasher4_cartucho2.jpg" alt="gbcartflasher4_cartucho2.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbcartflasher4_cartucho2.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gbcartflasher4_cartucho2.jpg">gbcartflasher4_cartucho2.jpg</a></dd>
+<dd class="size">452&#215;468</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">269 KB</dd>
+</dl></li>
+<li><dl title="gbflasher-smd_6_pocket.brd-peque.png">
+<dt><a id="l_:gbflasher-smd_6_pocket.brd-peque.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbflasher-smd_6_pocket.brd-peque.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=63&amp;t=1486585260&amp;tok=0b1232&amp;media=gbflasher-smd_6_pocket.brd-peque.png" alt="gbflasher-smd_6_pocket.brd-peque.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbflasher-smd_6_pocket.brd-peque.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gbflasher-smd_6_pocket.brd-peque.png">gbflasher-smd_6_pocket.brd-peque.png</a></dd>
+<dd class="size">414&#215;291</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">64.4 KB</dd>
+</dl></li>
+<li><dl title="gbflasher-v3-dip.png">
+<dt><a id="l_:gbflasher-v3-dip.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbflasher-v3-dip.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=84&amp;h=90&amp;t=1486585260&amp;tok=360309&amp;media=gbflasher-v3-dip.png" alt="gbflasher-v3-dip.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbflasher-v3-dip.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gbflasher-v3-dip.png">gbflasher-v3-dip.png</a></dd>
+<dd class="size">534&#215;567</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">28.1 KB</dd>
+</dl></li>
+<li><dl title="gbflasher-v6-smd.png">
+<dt><a id="l_:gbflasher-v6-smd.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbflasher-v6-smd.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=63&amp;t=1486585260&amp;tok=4e9b95&amp;media=gbflasher-v6-smd.png" alt="gbflasher-v6-smd.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbflasher-v6-smd.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gbflasher-v6-smd.png">gbflasher-v6-smd.png</a></dd>
+<dd class="size">807&#215;566</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">52.6 KB</dd>
+</dl></li>
+<li><dl title="gbflasher-win.png">
+<dt><a id="l_:gbflasher-win.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbflasher-win.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=73&amp;t=1486585260&amp;tok=a1ac61&amp;media=gbflasher-win.png" alt="gbflasher-win.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbflasher-win.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gbflasher-win.png">gbflasher-win.png</a></dd>
+<dd class="size">814&#215;661</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">45.8 KB</dd>
+</dl></li>
+<li><dl title="gbflasherv3-esquema.png">
+<dt><a id="l_:gbflasherv3-esquema.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbflasherv3-esquema.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=51&amp;t=1486585260&amp;tok=c70416&amp;media=gbflasherv3-esquema.png" alt="gbflasherv3-esquema.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbflasherv3-esquema.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gbflasherv3-esquema.png">gbflasherv3-esquema.png</a></dd>
+<dd class="size">783&#215;445</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">18.4 KB</dd>
+</dl></li>
+<li><dl title="gbflasherv3-placa.png">
+<dt><a id="l_:gbflasherv3-placa.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbflasherv3-placa.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=82&amp;h=90&amp;t=1486585260&amp;tok=04bf15&amp;media=gbflasherv3-placa.png" alt="gbflasherv3-placa.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbflasherv3-placa.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gbflasherv3-placa.png">gbflasherv3-placa.png</a></dd>
+<dd class="size">434&#215;476</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">21.7 KB</dd>
+</dl></li>
+<li><dl title="gbhw.inc">
+<dt><a id="d_:gbhw.inc" class="image" title="gbhw.inc" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbhw.inc&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/file.png" alt="gbhw.inc" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbhw.inc&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gbhw.inc">gbhw.inc</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">20/02/2018 17:12</dd>
+<dd class="filesize">18.5 KB</dd>
+</dl></li>
+<li><dl title="gbprog-3-dip-files.zip">
+<dt><a id="d_:gbprog-3-dip-files.zip" class="image" title="gbprog-3-dip-files.zip" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbprog-3-dip-files.zip&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/zip.png" alt="gbprog-3-dip-files.zip" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbprog-3-dip-files.zip&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gbprog-3-dip-files.zip">gbprog-3-dip-files.zip</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">71.6 KB</dd>
+</dl></li>
+<li><dl title="gbprog2.png">
+<dt><a id="l_:gbprog2.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbprog2.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=80&amp;t=1518172442&amp;tok=ff7a27&amp;media=gbprog2.png" alt="gbprog2.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=gbprog2.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:gbprog2.png">gbprog2.png</a></dd>
+<dd class="size">609&#215;546</dd>
+<dd class="date">09/02/2018 11:34</dd>
+<dd class="filesize">72.8 KB</dd>
+</dl></li>
+<li><dl title="hola-sonido1.gb">
+<dt><a id="d_:hola-sonido1.gb" class="image" title="hola-sonido1.gb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=hola-sonido1.gb&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/file.png" alt="hola-sonido1.gb" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=hola-sonido1.gb&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:hola-sonido1.gb">hola-sonido1.gb</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">32 KB</dd>
+</dl></li>
+<li><dl title="hola-timer.gb">
+<dt><a id="d_:hola-timer.gb" class="image" title="hola-timer.gb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=hola-timer.gb&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/file.png" alt="hola-timer.gb" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=hola-timer.gb&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:hola-timer.gb">hola-timer.gb</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">32 KB</dd>
+</dl></li>
+<li><dl title="hola-ventana.gb">
+<dt><a id="d_:hola-ventana.gb" class="image" title="hola-ventana.gb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=hola-ventana.gb&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/file.png" alt="hola-ventana.gb" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=hola-ventana.gb&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:hola-ventana.gb">hola-ventana.gb</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">32 KB</dd>
+</dl></li>
+<li><dl title="holacolor-0.png">
+<dt><a id="l_:holacolor-0.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=holacolor-0.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=81&amp;t=1519211415&amp;tok=fd9b2a&amp;media=holacolor-0.png" alt="holacolor-0.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=holacolor-0.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:holacolor-0.png">holacolor-0.png</a></dd>
+<dd class="size">160&#215;144</dd>
+<dd class="date">21/02/2018 12:10</dd>
+<dd class="filesize">649 B</dd>
+</dl></li>
+<li><dl title="holacolor-1.png">
+<dt><a id="l_:holacolor-1.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=holacolor-1.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=81&amp;t=1519211367&amp;tok=2ec6ec&amp;media=holacolor-1.png" alt="holacolor-1.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=holacolor-1.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:holacolor-1.png">holacolor-1.png</a></dd>
+<dd class="size">160&#215;144</dd>
+<dd class="date">21/02/2018 12:09</dd>
+<dd class="filesize">620 B</dd>
+</dl></li>
+<li><dl title="holacolor.gb">
+<dt><a id="d_:holacolor.gb" class="image" title="holacolor.gb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=holacolor.gb&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/file.png" alt="holacolor.gb" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=holacolor.gb&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:holacolor.gb">holacolor.gb</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">20/02/2018 23:01</dd>
+<dd class="filesize">32 KB</dd>
+</dl></li>
+<li><dl title="img_20190410_122435.jpg">
+<dt><a id="l_:img_20190410_122435.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=img_20190410_122435.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=67&amp;h=90&amp;t=1554895299&amp;tok=fae6e8&amp;media=img_20190410_122435.jpg" alt="img_20190410_122435.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=img_20190410_122435.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:img_20190410_122435.jpg">img_20190410_122435.jpg</a></dd>
+<dd class="size">3480&#215;4640</dd>
+<dd class="date">10/04/2019 13:21</dd>
+<dd class="filesize">2 MB</dd>
+</dl></li>
+<li><dl title="interfazcf.jpg">
+<dt><a id="l_:interfazcf.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=interfazcf.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=67&amp;t=1486585260&amp;tok=26014d&amp;media=interfazcf.jpg" alt="interfazcf.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=interfazcf.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:interfazcf.jpg">interfazcf.jpg</a></dd>
+<dd class="size">614&#215;461</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">118.4 KB</dd>
+</dl></li>
+<li><dl title="listado_juegos_gameboy.ods">
+<dt><a id="d_:listado_juegos_gameboy.ods" class="image" title="listado_juegos_gameboy.ods" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=listado_juegos_gameboy.ods&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/ods.png" alt="listado_juegos_gameboy.ods" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=listado_juegos_gameboy.ods&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:listado_juegos_gameboy.ods">listado_juegos_gameboy.ods</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">147.8 KB</dd>
+</dl></li>
+<li><dl title="listadogb.zip">
+<dt><a id="d_:listadogb.zip" class="image" title="listadogb.zip" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=listadogb.zip&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/zip.png" alt="listadogb.zip" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=listadogb.zip&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:listadogb.zip">listadogb.zip</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">14.6 KB</dd>
+</dl></li>
+<li><dl title="makelink.sh">
+<dt><a id="d_:makelink.sh" class="image" title="makelink.sh" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=makelink.sh&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/sh.png" alt="makelink.sh" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=makelink.sh&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:makelink.sh">makelink.sh</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">115 B</dd>
+</dl></li>
+<li><dl title="makelnk.bat">
+<dt><a id="d_:makelnk.bat" class="image" title="makelnk.bat" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=makelnk.bat&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/file.png" alt="makelnk.bat" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=makelnk.bat&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:makelnk.bat">makelnk.bat</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">117 B</dd>
+</dl></li>
+<li><dl title="nuevo-hardware.png">
+<dt><a id="l_:nuevo-hardware.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=nuevo-hardware.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=73&amp;t=1486585260&amp;tok=333b1e&amp;media=nuevo-hardware.png" alt="nuevo-hardware.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=nuevo-hardware.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:nuevo-hardware.png">nuevo-hardware.png</a></dd>
+<dd class="size">814&#215;661</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">32.4 KB</dd>
+</dl></li>
+<li><dl title="pantalla_spectrum.jpg">
+<dt><a id="l_:pantalla_spectrum.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=pantalla_spectrum.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=67&amp;t=1486585260&amp;tok=1e7350&amp;media=pantalla_spectrum.jpg" alt="pantalla_spectrum.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=pantalla_spectrum.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:pantalla_spectrum.jpg">pantalla_spectrum.jpg</a></dd>
+<dd class="size">614&#215;461</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">139.1 KB</dd>
+</dl></li>
+<li><dl title="pantallazo-2_board_-_-home-zako-eagle-gbcart-gbcartv1.brd_-_eagle_5.0.0_light.png">
+<dt><a id="l_:pantallazo-2_board_-_-home-zako-eagle-gbcart-gbcartv1.brd_-_eagle_5.0.0_light.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=pantallazo-2_board_-_-home-zako-eagle-gbcart-gbcartv1.brd_-_eagle_5.0.0_light.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=77&amp;h=90&amp;t=1486585260&amp;tok=42a2f9&amp;media=pantallazo-2_board_-_-home-zako-eagle-gbcart-gbcartv1.brd_-_eagle_5.0.0_light.png" alt="pantallazo-2_board_-_-home-zako-eagle-gbcart-gbcartv1.brd_-_eagle_5.0.0_light.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=pantallazo-2_board_-_-home-zako-eagle-gbcart-gbcartv1.brd_-_eagle_5.0.0_light.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:pantallazo-2_board_-_-home-zako-eagle-gbcart-gbcartv1.brd_-_eagle_5.0.0_light.png">pantallazo-2_board_-_-home-zako-eagle-gbcart-gbcartv1.brd_-_eagle_5.0.0_light.png</a></dd>
+<dd class="size">492&#215;574</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">54.2 KB</dd>
+</dl></li>
+<li><dl title="pantallazo-gb_cart_flasher_version_1.1.png">
+<dt><a id="l_:pantallazo-gb_cart_flasher_version_1.1.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=pantallazo-gb_cart_flasher_version_1.1.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=48&amp;t=1486585260&amp;tok=98d32f&amp;media=pantallazo-gb_cart_flasher_version_1.1.png" alt="pantallazo-gb_cart_flasher_version_1.1.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=pantallazo-gb_cart_flasher_version_1.1.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:pantallazo-gb_cart_flasher_version_1.1.png">pantallazo-gb_cart_flasher_version_1.1.png</a></dd>
+<dd class="size">783&#215;422</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">109.1 KB</dd>
+</dl></li>
+<li><dl title="poker-cartuchos.jpg">
+<dt><a id="l_:poker-cartuchos.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=poker-cartuchos.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=64&amp;t=1486585260&amp;tok=4be3c6&amp;media=poker-cartuchos.jpg" alt="poker-cartuchos.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=poker-cartuchos.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:poker-cartuchos.jpg">poker-cartuchos.jpg</a></dd>
+<dd class="size">629&#215;454</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">303.1 KB</dd>
+</dl></li>
+<li><dl title="programador-funcionando.jpg">
+<dt><a id="l_:programador-funcionando.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=programador-funcionando.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=85&amp;t=1486585260&amp;tok=5fc8a7&amp;media=programador-funcionando.jpg" alt="programador-funcionando.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=programador-funcionando.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:programador-funcionando.jpg">programador-funcionando.jpg</a></dd>
+<dd class="size">626&#215;595</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">124.2 KB</dd>
+</dl></li>
+<li><dl title="pwm-duty_cycle.gif">
+<dt><a id="l_:pwm-duty_cycle.gif" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=pwm-duty_cycle.gif&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=87&amp;t=1486585260&amp;tok=d52869&amp;media=pwm-duty_cycle.gif" alt="pwm-duty_cycle.gif" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=pwm-duty_cycle.gif&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:pwm-duty_cycle.gif">pwm-duty_cycle.gif</a></dd>
+<dd class="size">330&#215;320</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">3.1 KB</dd>
+</dl></li>
+<li><dl title="pwm-duty_cycle2.gif">
+<dt><a id="l_:pwm-duty_cycle2.gif" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=pwm-duty_cycle2.gif&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=59&amp;t=1486585260&amp;tok=fbf4a9&amp;media=pwm-duty_cycle2.gif" alt="pwm-duty_cycle2.gif" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=pwm-duty_cycle2.gif&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:pwm-duty_cycle2.gif">pwm-duty_cycle2.gif</a></dd>
+<dd class="size">340&#215;225</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">5 KB</dd>
+</dl></li>
+<li><dl title="sombus.png">
+<dt><a id="l_:sombus.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=sombus.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=46&amp;t=1486585260&amp;tok=aabe2a&amp;media=sombus.png" alt="sombus.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=sombus.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:sombus.png">sombus.png</a></dd>
+<dd class="size">602&#215;314</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">11.9 KB</dd>
+</dl></li>
+<li><dl title="standard_shapes_collage_layers2010.jpg">
+<dt><a id="l_:standard_shapes_collage_layers2010.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=standard_shapes_collage_layers2010.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=90&amp;t=1486585260&amp;tok=82e487&amp;media=standard_shapes_collage_layers2010.jpg" alt="standard_shapes_collage_layers2010.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=standard_shapes_collage_layers2010.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:standard_shapes_collage_layers2010.jpg">standard_shapes_collage_layers2010.jpg</a></dd>
+<dd class="size">500&#215;500</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">170 KB</dd>
+</dl></li>
+<li><dl title="terminao.jpg">
+<dt><a id="l_:terminao.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=terminao.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=67&amp;t=1486585260&amp;tok=97d45d&amp;media=terminao.jpg" alt="terminao.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=terminao.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:terminao.jpg">terminao.jpg</a></dd>
+<dd class="size">614&#215;461</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">305.2 KB</dd>
+</dl></li>
+<li><dl title="ti83p-include.tar.gz">
+<dt><a id="d_:ti83p-include.tar.gz" class="image" title="ti83p-include.tar.gz" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=ti83p-include.tar.gz&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/gz.png" alt="ti83p-include.tar.gz" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=ti83p-include.tar.gz&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:ti83p-include.tar.gz">ti83p-include.tar.gz</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">35.7 KB</dd>
+</dl></li>
+<li><dl title="ti86includes.tar.gz">
+<dt><a id="d_:ti86includes.tar.gz" class="image" title="ti86includes.tar.gz" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=ti86includes.tar.gz&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/gz.png" alt="ti86includes.tar.gz" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=ti86includes.tar.gz&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:ti86includes.tar.gz">ti86includes.tar.gz</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">11.5 KB</dd>
+</dl></li>
+<li><dl title="vieju_lcd.png">
+<dt><a id="l_:vieju_lcd.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=vieju_lcd.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=60&amp;t=1486585260&amp;tok=77b5a9&amp;media=vieju_lcd.png" alt="vieju_lcd.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=vieju_lcd.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:vieju_lcd.png">vieju_lcd.png</a></dd>
+<dd class="size">994&#215;667</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">53.5 KB</dd>
+</dl></li>
+<li><dl title="viejulcd-protousb-1.jpg">
+<dt><a id="l_:viejulcd-protousb-1.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd-protousb-1.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=67&amp;t=1486585260&amp;tok=acf293&amp;media=viejulcd-protousb-1.jpg" alt="viejulcd-protousb-1.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd-protousb-1.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:viejulcd-protousb-1.jpg">viejulcd-protousb-1.jpg</a></dd>
+<dd class="size">768&#215;576</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">457 KB</dd>
+</dl></li>
+<li><dl title="viejulcd-protousb-2.jpg">
+<dt><a id="l_:viejulcd-protousb-2.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd-protousb-2.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=67&amp;t=1486585260&amp;tok=9da9f3&amp;media=viejulcd-protousb-2.jpg" alt="viejulcd-protousb-2.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd-protousb-2.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:viejulcd-protousb-2.jpg">viejulcd-protousb-2.jpg</a></dd>
+<dd class="size">768&#215;576</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">402.5 KB</dd>
+</dl></li>
+<li><dl title="viejulcd-protousb-3.jpg">
+<dt><a id="l_:viejulcd-protousb-3.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd-protousb-3.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=67&amp;t=1486585260&amp;tok=d023bf&amp;media=viejulcd-protousb-3.jpg" alt="viejulcd-protousb-3.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd-protousb-3.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:viejulcd-protousb-3.jpg">viejulcd-protousb-3.jpg</a></dd>
+<dd class="size">768&#215;576</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">376.7 KB</dd>
+</dl></li>
+<li><dl title="viejulcd-protousb-4.jpg">
+<dt><a id="l_:viejulcd-protousb-4.jpg" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd-protousb-4.jpg&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.gif?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=67&amp;t=1486585260&amp;tok=cb7d00&amp;media=viejulcd-protousb-4.jpg" alt="viejulcd-protousb-4.jpg" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd-protousb-4.jpg&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:viejulcd-protousb-4.jpg">viejulcd-protousb-4.jpg</a></dd>
+<dd class="size">768&#215;576</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">276.6 KB</dd>
+</dl></li>
+<li><dl title="viejulcd-serial-sch.png">
+<dt><a id="l_:viejulcd-serial-sch.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd-serial-sch.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=61&amp;t=1486585260&amp;tok=9481f3&amp;media=viejulcd-serial-sch.png" alt="viejulcd-serial-sch.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd-serial-sch.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:viejulcd-serial-sch.png">viejulcd-serial-sch.png</a></dd>
+<dd class="size">755&#215;517</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">17.3 KB</dd>
+</dl></li>
+<li><dl title="viejulcd-serial.png">
+<dt><a id="l_:viejulcd-serial.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd-serial.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=50&amp;h=90&amp;t=1486585260&amp;tok=67a170&amp;media=viejulcd-serial.png" alt="viejulcd-serial.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd-serial.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:viejulcd-serial.png">viejulcd-serial.png</a></dd>
+<dd class="size">524&#215;928</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">40.5 KB</dd>
+</dl></li>
+<li><dl title="viejulcd.png">
+<dt><a id="l_:viejulcd.png" class="image thumb" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd.png&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/fetch.php?w=90&amp;h=80&amp;t=1486585260&amp;tok=711ad3&amp;media=viejulcd.png" alt="viejulcd.png" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=viejulcd.png&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:viejulcd.png">viejulcd.png</a></dd>
+<dd class="size">651&#215;584</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">41.3 KB</dd>
+</dl></li>
+<li><dl title="wabbit.tar.gz">
+<dt><a id="d_:wabbit.tar.gz" class="image" title="wabbit.tar.gz" href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=wabbit.tar.gz&amp;ns=&amp;tab_details=view&amp;do=media"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/fileicons/32x32/gz.png" alt="wabbit.tar.gz" class="icon" /></a></dt>
+<dd class="name"><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;image=wabbit.tar.gz&amp;ns=&amp;tab_details=view&amp;do=media" id="h_:wabbit.tar.gz">wabbit.tar.gz</a></dd>
+<dd class="size">&#160;</dd>
+<dd class="date">08/02/2017 21:21</dd>
+<dd class="filesize">10.5 KB</dd>
+</dl></li>
+</ul>
+</div>
+</div>
+<div class="panel file">
+<h2 class="a11y">Fichero</h2>
+</div>
+</div>
+
+                    <!-- wikipage stop -->
+                                    </div>
+
+                <div class="docInfo"><bdi>tutorial_de_ensamblador.txt</bdi> · Última modificación: 13/03/2018 11:09 por <bdi>zako</bdi></div>
+
+                            </div></div><!-- /content -->
+
+            <hr class="a11y" />
+
+            <!-- PAGE ACTIONS -->
+            <div id="dokuwiki__pagetools">
+                <h3 class="a11y">Herramientas de la página</h3>
+                <div class="tools">
+                    <ul>
+                        <li><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;do="  class="action show" accesskey="v" rel="nofollow" title="Ver página [V]"><span>Ver página</span></a></li><li><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;do=revisions"  class="action revs" accesskey="o" rel="nofollow" title="Revisiones antiguas [O]"><span>Revisiones antiguas</span></a></li><li><a href="../external.html?link=http://wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&amp;do=backlink"  class="action backlink" rel="nofollow" title="Enlaces a esta página"><span>Enlaces a esta página</span></a></li><li><a href="#dokuwiki__top"  class="action top" accesskey="t" rel="nofollow" title="Volver arriba [T]"><span>Volver arriba</span></a></li>                    </ul>
+                </div>
+            </div>
+        </div><!-- /wrapper -->
+
+        
+<!-- ********** FOOTER ********** -->
+<div id="dokuwiki__footer"><div class="pad">
+    <div class="license">Excepto donde se indique lo contrario, el contenido de este wiki esta bajo la siguiente licencia: <bdi><a href="../external.html?link=http://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license" class="urlextern">CC Attribution-Noncommercial-Share Alike 4.0 International</a></bdi></div>
+    <div class="buttons">
+        <a href="../external.html?link=http://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license"><img src="../external.html?link=http://wiki.ladecadence.net/lib/images/license/button/cc-by-nc-sa.png" alt="CC Attribution-Noncommercial-Share Alike 4.0 International" /></a>        <a href="../external.html?link=http://www.dokuwiki.org/donate" title="Donate" ><img
+            src="../external.gif?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/button-donate.gif" width="80" height="15" alt="Donate" /></a>
+        <a href="../external.html?link=http://php.net/" title="Powered by PHP" ><img
+            src="../external.gif?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/button-php.gif" width="80" height="15" alt="Powered by PHP" /></a>
+        <a href="../external.html?link=http://validator.w3.org/check/referer" title="Valid HTML5" ><img
+            src="../external.html?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/button-html5.png" width="80" height="15" alt="Valid HTML5" /></a>
+        <a href="../external.html?link=http://jigsaw.w3.org/css-validator/check/referer?profile=css3" title="Valid CSS" ><img
+            src="../external.html?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/button-css.png" width="80" height="15" alt="Valid CSS" /></a>
+        <a href="../external.html?link=http://dokuwiki.org/" title="Driven by DokuWiki" ><img
+            src="../external.html?link=http://wiki.ladecadence.net/lib/tpl/dokuwiki/images/button-dw.png" width="80" height="15" alt="Driven by DokuWiki" /></a>
+    </div>
+</div></div><!-- /footer -->
+
+    </div></div><!-- /site -->
+
+    <div class="no"><img src="../external.html?link=http://wiki.ladecadence.net/lib/exe/indexer.php?id=tutorial_de_ensamblador&amp;1555209453" width="2" height="1" alt="" /></div>
+    <div id="screen__mode" class="no"></div></body>
+
+<!-- Mirrored from wiki.ladecadence.net/doku.php?id=tutorial_de_ensamblador&do=media&ns= by HTTraQt Website Copier/1.x [Karbofos 2012-2017] Sun, 14 Apr 2019 02:34:08 GMT -->
+</html>

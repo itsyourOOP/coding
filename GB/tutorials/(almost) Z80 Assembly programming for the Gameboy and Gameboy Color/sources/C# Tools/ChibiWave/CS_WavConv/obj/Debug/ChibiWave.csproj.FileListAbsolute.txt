@@ -1,0 +1,8 @@
+F:\Progs\CS_WavConv\CS_WavConv\bin\Debug\ChibiWave.exe
+F:\Progs\CS_WavConv\CS_WavConv\bin\Debug\ChibiWave.pdb
+F:\Progs\CS_WavConv\CS_WavConv\obj\Debug\ResolveAssemblyReference.cache
+F:\Progs\CS_WavConv\CS_WavConv\obj\Debug\WindowsFormsApplication1.Form1.resources
+F:\Progs\CS_WavConv\CS_WavConv\obj\Debug\ChibiWave.Properties.Resources.resources
+F:\Progs\CS_WavConv\CS_WavConv\obj\Debug\ChibiWave.csproj.GenerateResource.Cache
+F:\Progs\CS_WavConv\CS_WavConv\obj\Debug\ChibiWave.exe
+F:\Progs\CS_WavConv\CS_WavConv\obj\Debug\ChibiWave.pdb

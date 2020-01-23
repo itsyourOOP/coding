@@ -1,0 +1,2 @@
+F:\Progs\CS_WavConv\CS_WavConv\obj\Release\ChibiWave.exe
+F:\Progs\CS_WavConv\CS_WavConv\obj\Release\ChibiWave.pdb

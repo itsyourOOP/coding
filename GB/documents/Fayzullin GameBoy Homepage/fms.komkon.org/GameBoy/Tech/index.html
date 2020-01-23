@@ -1,0 +1,192 @@
+<HTML>
+
+
+<!-- Mirrored from fms.komkon.org/GameBoy/Tech/ by HTTraQt Website Copier/1.x [Karbofos 2012-2017] Sat, 21 Dec 2019 17:31:32 GMT -->
+<HEAD>
+<TITLE>GameBoy Technical Information</TITLE>
+<META NAME="VIEWPORT" CONTENT="width=device-width, initial-scale=1">
+
+<SCRIPT TYPE="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-69384-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga   = document.createElement('script');
+    ga.type  = 'text/javascript';
+    ga.async = true;
+    ga.src   = ('https:'==document.location.protocol? 'https://ssl':'http://www')+'.google-analytics.com/ga.js';
+    var s    = document.getElementsByTagName('script')[0]; 
+    s.parentNode.insertBefore(ga, s);
+  })();
+</SCRIPT>
+</HEAD>
+
+<BODY BACKGROUND="../../../external.html?link=https://fms.komkon.org/GameBoy/Tech/background.gif">
+
+<CENTER>
+<A HREF="../../../external.html?link=https://fms.komkon.org/VGB/">
+<IMG BORDER=0 ALIGN=MIDDLE ALT="Click And See"
+SRC="../../graphics/Ad3.gif">
+</A>
+<HR>
+</CENTER>
+
+<CENTER><H1>
+<IMG ALIGN=MIDDLE SRC="title.gif"> Technical Information
+</H1></CENTER>
+<HR>
+
+<H3>Contents</H3>
+<UL>
+<LI><A HREF="#whatis">What is Inside GameBoy?</A>
+<LI><A HREF="#howto">How to Develop Software for GameBoy?</A>
+<LI><A HREF="../../../external.html?link=https://fms.komkon.org/GameBoy/Tech/Hardware.html">Hardware Schematics</A>
+<LI><A HREF="../../../external.html?link=https://fms.komkon.org/GameBoy/Tech/Software.html">Programming Information</A>
+<LI><A HREF="#patents">US Patents Related to GameBoy</A>
+</UL>
+<HR>
+
+
+
+<H3>Resources</H3>
+<UL>
+<LI><A HREF="../../../external.html?link=ftp://ftp.komkon.org/pub/EMUL8/GameBoy/">Development FTP site</A>
+<LI><A HREF="../../../external.html?link=http://hiwaay.net/~jfrohwei/gameboy/">Technical Page</A>
+    by Jeff Frohwein
+<LI><A HREF="../../../external.html?link=http://fms.komkon.org/GameBoy/Tech/GBInfo.lha">Technical Info</A> by Pan of Anthrox
+<BR>
+
+<LI><A HREF="../../../external.html?link=http://fms.komkon.org/GameBoy/Tech/GBCopier1.lha">Cartridge Reader</A> by P. Felber
+<LI><A HREF="../../../external.html?link=http://fms.komkon.org/GameBoy/Tech/GBCopier2.lha">Cartridge Reader</A> by Yvan Rivard
+<LI><A HREF="../../../external.html?link=https://fms.komkon.org/GameBoy/Tech/Carts.html">Information on GB Cartridges</A> by P. Felber
+<LI><A HREF="../../../external.html?link=https://fms.komkon.org/GameBoy/Tech/CharEd.zip">Charset Editor</A> by David Dahl
+</UL>
+<HR>
+
+
+
+<A NAME="whatis">
+<H3>What is GameBoy?</H3>
+<UL>
+  <LI><B>CPU:</B><BR>
+      8-bit Z80 work-alike at 4.194304MHz
+  <LI><B>RAM:</B><BR> 
+      8kB internal
+  <LI><B>VRAM:</B><BR>
+      8kB internal    
+  <LI><B>ROM:</B><BR>
+      256kBit, 512kBit, 1MBit, 2MBit and 4MBit cartridges are known
+      (32kB, 64kB, 128kB, 256kB and 512kB). Probably, there are 16kB
+      cartridges as well.
+  <LI><B>Sound:</B><BR>
+      4 channels each of which can be mapped either to the left or
+      to the right or to both speakers
+  <LI><B>Video:</B><BR>
+      <UL>
+        <LI><B>Display:</B><BR> Reflective LCD 160x144 dots
+        <LI><B>Colors: </B><BR> 4 shades of gray
+        <LI><B>Sprites:</B><BR> 40 sprites 8x8/8x16
+      </UL>
+  <LI><B>Communications:</B><BR>
+      Serial port. Up to 4 Gameboys can be connected together using
+      these ports. Baud rate and protocol are unknown.
+  <LI><B>Power:</B><BR>
+      6 Volts, 0.7 Watts               <BR>
+      4 AA Batteries - <B>35</B> hours <BR>
+      Rechargable battery (NAKI) - <B>12</B> hours
+</UL>
+<HR>
+
+
+
+<A NAME="howto">
+<H3>GameBoy Software Development: How To?</H3>
+  Quite a few publically accessible tools are now available for GameBoy 
+software development. They include assemblers, disassemblers, a C 
+compiler, emulators, etc. These tools can mostly be obtained from
+<P>
+<IMG ALT="[#]" ALIGN=MIDDLE SRC="../../icons/folder.html">
+<A HREF="../../../external.html?link=ftp://ftp.komkon.org/pub/GameBoy/Tech/">
+  ftp://ftp.komkon.org/pub/GameBoy/Tech/
+</A>
+<BR>
+<IMG ALT="[#]" ALIGN=MIDDLE SRC="../../icons/text.html">
+<A HREF="../../../external.html?link=http://hiwaay.net/~jfrohwei/gameboy/">
+  http://hiwaay.net/~jfrohwei/gameboy/
+</A>
+<P>
+Following is a little description of some of the tools.
+<DL>
+<DT><B>Hardware tools</B>
+<DD>
+<B>SmartCard</B> copier by the
+<A HREF="../../../external.html?link=http://www.ncsx.com/">National Console Support</A> allows to
+upload the code into a special 512kB flash-ROM card able to store up
+to 4 different cartridges. It is also able to download the code from 
+cartridges into a PC.
+<P>
+Other two <B>copiers</B> are designed by P. Felber and Yvan Rivard.
+<A HREF="../../../external.html?link=https://fms.komkon.org/GameBoy/Tech/GBCopier1.lha">Pascal's version</A> is more advanced than
+<A HREF="../../../external.html?link=https://fms.komkon.org/GameBoy/Tech/GBCopier2.lha">Yvan's</A>, but the functions are basicallly the
+same. Both copiers plug into a Centronix parallel port and allow
+downloading the cartridge code into files.
+<P>
+<B>Logical analyzers</B> allowing to trace various signals in GameBoy
+circuitry are also very useful for hacking. Jeff Frohwein came up with a
+circuit of a GameBoy-oriented logical analyzer, as well as with a 4MBit
+<B>EPROM emulator</B> allowing to download and run the code on a real
+GameBoy. You can get Jeff's designs off his WWW page, or off the
+<I>Hardware Info</I> page on this site. 
+<P>
+<DT><B>Disassemblers</B>
+<DD>
+<I>To be written</I>
+<P>
+<DT><B>Assemblers</B>
+<DD>
+The best assembly development environment for GameBoy so far is the
+<B>Advanced GameBoy IDE</B> being developed by Yvan Rivard. His
+MSDOS-based application includes an editor and an assembler integrated
+into a single program with Borland-style interface. The project is in the
+alpha stage of development though. 
+<P>
+Another assembler is written by Jeff Frohwein. It is based on <B>TASM</B>,
+a retargetable assembler package, distributed on the shareware basis.
+<P>
+<DT><B>Emulators</B>
+<DD>
+There are several GameBoy emulators which can be used to debug a program
+without downloading it into a real machine. The
+<A HREF="../../../external.html?link=https://fms.komkon.org/VGB/"><B>Virtual GameBoy</B></A> is a multiplatform emulator,
+written in C. It works on Unix, Macs, PCs, and any other machines for
+which ports are made. It is probably the most accurate emulator at this
+moment, but because of its C nature, it is quite slow. The Unix version
+has a builtin debugger.
+<P>
+<B>GBSim</B> by Jens Restemeier is another emulator which can be very
+useful for debugging. It is an MSDOS-only application, written in 80x86
+assembly. As result, it is quite fast, and has an excellent builtin
+debugger. Emulation is less precise than in VGB though. 
+</DL>
+<HR>
+
+
+
+<A NAME="patents">
+<H3>US Patents related to GameBoy</H3>
+<UL>
+  <LI><B><CODE>#5,184,830</CODE></B><BR>
+      <I>Compact Hand-held Video Game System</I><BR>
+      This details a lot of information about memory maps, video hardware.
+  <LI><B><CODE>#5,095,798</CODE></B><BR>
+      <I>Electronic Gaming Device with Pseudo-Stereophonic Sound Generating Capabilities</I><BR>
+      This gives a lot of information about the sound system in the GameBoy.
+</UL>
+
+<HR>
+<I>&copy Copyright by <A HREF="../../../external.html?link=https://fms.komkon.org/">Marat Fayzullin</A></I>
+</BODY>
+
+<!-- Mirrored from fms.komkon.org/GameBoy/Tech/ by HTTraQt Website Copier/1.x [Karbofos 2012-2017] Sat, 21 Dec 2019 17:31:34 GMT -->
+</HTML>
