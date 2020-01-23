@@ -1,3 +1,0 @@
-date	size'/'remotesize	flags(request:Update,Range state:File response:Modified,Chunked,gZipped)	statuscode	status ('servermsg')	MIME	Etag|Date	URL	localfile	(from URL)
-22:38:45	36369/36369	---M-Z	200	added ('OK')	text/html	etag:W/%225c97f78d-8e11%22	https://gb-archive.github.io/salvage/decoding_gbz80_opcodes/Decoding%20Gamboy%20Z80%20Opcodes.html	/home/macrossneurology/Documents/coding/GB/documents/Decoding%20Gameboy%20Z80%20Opcodes/gb-archive.github.io/salvage/decoding_gbz80_opcodes/Decoding%20Gamboy%20Z80%20Opcodes.html	(from )
-22:38:46	5232/5232	---M-Z	404	error ('Not%20Found')	text/html	etag:W/%225c1d106f-247b%22	https://gb-archive.github.io/robots.txt		(from )

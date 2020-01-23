@@ -1,4 +1,0 @@
-#!/bin/bash
-gcc -o famitile famitile.c
-gcc -c -o gfamitile.o -DUSE_GUI famitile.c
-gcc -o vfamitile `sdl-config --cflags` vfamitile.c `sdl-config --libs` gfamitile.o

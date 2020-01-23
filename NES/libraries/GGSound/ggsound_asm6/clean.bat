@@ -1,1 +1,0 @@
-erase demo.nes

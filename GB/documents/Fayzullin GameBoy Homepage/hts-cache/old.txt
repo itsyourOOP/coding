@@ -1,5 +1,0 @@
-date	size'/'remotesize	flags(request:Update,Range state:File response:Modified,Chunked,gZipped)	statuscode	status ('servermsg')	MIME	Etag|Date	URL	localfile	(from URL)
-12:29:42	1013/1013	---MC-	404	error ('Not%20Found')	text/html	date:Sat,%2021%20Dec%202019%2017:29:41%20GMT	https://fms.komkon.org/robots.txt		(from )
-12:29:43	1726/1726	---M--	200	added ('OK')	text/html	etag:%226be-581bc01c1358c%22	https://fms.komkon.org/GameBoy/	/home/macrossneurology/Documents/coding/GB/documents/Fayzullin%20GameBoy%20Homepage/fms.komkon.org/GameBoy/index.html	(from )
-12:29:43	11457/11457	---M--	200	added ('OK')	image/gif	etag:%222cc1-32f0bd4795880%22	https://fms.komkon.org/graphics/Ad3.gif	/home/macrossneurology/Documents/coding/GB/documents/Fayzullin%20GameBoy%20Homepage/fms.komkon.org/graphics/Ad3.gif	(from https://fms.komkon.org/GameBoy/)
-12:29:44	1994/1994	---M--	200	added ('OK')	image/gif	etag:%227ca-2c22b73c390c0%22	https://fms.komkon.org/GameBoy/title.gif	/home/macrossneurology/Documents/coding/GB/documents/Fayzullin%20GameBoy%20Homepage/fms.komkon.org/GameBoy/title.gif	(from https://fms.komkon.org/GameBoy/)

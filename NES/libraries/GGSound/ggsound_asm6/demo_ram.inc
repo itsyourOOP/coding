@@ -1,1 +1,0 @@
-sprite: .dsb 256

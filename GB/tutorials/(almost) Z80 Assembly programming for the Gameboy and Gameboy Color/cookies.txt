@@ -1,4 +1,0 @@
-# HTTrack Website Copier Cookie File
-# This file format is compatible with Netscape cookies
-.chibiakumas.com	TRUE	/	FALSE	1999999999	__cfduid	d68acfd39d3f4e971645c51bff920fd4f1565242833
-
